@@ -69,10 +69,9 @@ class _SplashViewState extends State<SplashView>
                     AppImage(
                       image: 'logo.png',
                       height: 200.h,
+                      bottomSpacing: 5.h,
                     ),
-                    SizedBox(
-                      height: 5.h,
-                    ),
+
                     Text(
                       'اطمئن',
                       style: AppStyle.regular37,
