@@ -1,3 +1,6 @@
+import 'package:etmaen/core/ui/app_style.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+
 import 'core/logic/app_routes.dart';
 import 'core/ui/app_color.dart';
 import 'core/ui/app_image.dart';
@@ -59,12 +62,20 @@ class _SplashViewState extends State<SplashView>
             child: AnimatedOpacity(
               duration: const Duration(seconds: 1),
               opacity: showSecondScreen ? 1 : 0,
-              child: const Center(
+              child: Center(
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     AppImage(
-                      image: 'app_logo.png',
+                      image: 'logo.png',
+                      height: 200.h,
+                    ),
+                    SizedBox(
+                      height: 5.h,
+                    ),
+                    Text(
+                      'اطمئن',
+                      style: AppStyle.regular37,
                     ),
                   ],
                 ),
