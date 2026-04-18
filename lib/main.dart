@@ -18,6 +18,14 @@ class EtmaenApp extends StatelessWidget {
       splitScreenMode: true,
 
       child: MaterialApp(
+        builder: (context, child) {
+          return Directionality(
+            textDirection: TextDirection.rtl,
+            child: child!,
+          );
+        },
+        
+
         initialRoute: AppRoutes.splash,
         onGenerateRoute: AppRoutes.routeSetting,
         darkTheme: ThemeData(

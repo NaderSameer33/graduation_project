@@ -1,7 +1,6 @@
 import 'package:etmaen/core/logic/app_routes.dart';
 import 'package:etmaen/core/ui/app_color.dart';
 import 'package:etmaen/core/ui/app_image.dart';
-import 'package:etmaen/core/ui/app_style.dart';
 import 'package:flutter/material.dart';
 
 class SplashView extends StatefulWidget {
@@ -41,7 +40,7 @@ class _SplashViewState extends State<SplashView>
 
     await Future.delayed(const Duration(seconds: 2), () {
       if (!mounted) return;
-      Navigator.pushNamed(context, AppRoutes.onBorading);
+      Navigator.pushNamed(context, AppRoutes.welcome);
     });
   }
 
