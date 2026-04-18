@@ -93,8 +93,8 @@ class _SplashViewState extends State<SplashView>
                       begin: Alignment.bottomCenter,
                       end: Alignment.topCenter,
                       colors: [
-                        AppColor.primiryColor,
-                        AppColor.whiteColor,
+                        AppColors.primiryColor,
+                        AppColors.whiteColor,
                       ],
                     ),
                   ),

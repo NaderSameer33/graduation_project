@@ -21,8 +21,8 @@ class AppButton extends StatelessWidget {
             begin: Alignment.topCenter,
             end: Alignment.bottomCenter,
             colors: [
-              AppColor.primiryColor,
-              AppColor.secondryColor,
+              AppColors.primiryColor,
+              AppColors.secondryColor,
             ],
           ),
         ),

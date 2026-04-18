@@ -1,3 +1,4 @@
+import 'package:etmaen/core/logic/app_routes.dart';
 import 'package:etmaen/core/ui/app_button.dart';
 import 'package:etmaen/core/ui/app_image.dart';
 import 'package:etmaen/core/ui/app_secondry_button.dart';
@@ -51,7 +52,12 @@ class WelcomeLoginView extends StatelessWidget {
               SizedBox(
                 height: 16.h,
               ),
-              AppButton(onTap: () {}, title: 'تسجيل الدخول'),
+              AppButton(
+                onTap: () {
+                  Navigator.pushNamed(context, AppRoutes.login);
+                },
+                title: 'تسجيل الدخول',
+              ),
               const Spacer(),
             ],
           ),

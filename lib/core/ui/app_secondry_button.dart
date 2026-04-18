@@ -18,7 +18,7 @@ class AppSecondryButton extends StatelessWidget {
       style: OutlinedButton.styleFrom(
         fixedSize: Size.fromHeight(56.h),
         side: const BorderSide(
-          color: AppColor.primiryColor,
+          color: AppColors.primiryColor,
         ),
       ),
       onPressed: onTap,

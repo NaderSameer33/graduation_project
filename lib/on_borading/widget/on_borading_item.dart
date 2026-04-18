@@ -87,7 +87,7 @@ class OnBoradingItem extends StatelessWidget {
               alignment: Alignment.centerLeft,
               child: CircleAvatar(
                 radius: 32.r,
-                backgroundColor: AppColor.primiryColor,
+                backgroundColor: AppColors.primiryColor,
                 child: IconButton(
                   onPressed: () => index == 4
                       ? Navigator.pushNamed(context, AppRoutes.welcomeLogin)

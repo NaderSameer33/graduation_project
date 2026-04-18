@@ -6,26 +6,26 @@ abstract class AppStyle {
   static TextStyle bold16 = TextStyle(
     fontSize: 16.sp,
     fontWeight: FontWeight.bold,
-    color: AppColor.whiteColor,
+    color: AppColors.whiteColor,
   );
   static TextStyle regular37 = TextStyle(
     fontSize: 37.sp,
     fontWeight: FontWeight.w400,
-    color: AppColor.primiryColor,
+    color: AppColors.primiryColor,
   );
   static TextStyle regular28 = TextStyle(
     fontSize: 28.sp,
     fontWeight: FontWeight.w400,
-    color: AppColor.primiryColor,
+    color: AppColors.primiryColor,
   );
   static TextStyle regular16 = TextStyle(
     fontSize: 16.sp,
     fontWeight: FontWeight.w400,
-    color: AppColor.greyColor,
+    color: AppColors.greyColor,
   );
   static TextStyle bold19 = TextStyle(
     fontSize: 19.sp,
     fontWeight: FontWeight.bold,
-    color: AppColor.primiryColor,
+    color: AppColors.primiryColor,
   );
 }
