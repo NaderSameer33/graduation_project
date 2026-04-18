@@ -1,4 +1,5 @@
 import 'package:etmaen/auth/login/login_view.dart';
+import 'package:etmaen/auth/register/register_view.dart';
 
 import '../../on_borading/on_borading_view.dart';
 import '../../splash_view.dart';
@@ -39,7 +40,7 @@ abstract class AppRoutes {
         );
       case register:
         return CupertinoPageRoute(
-          builder: (context) => const LoginView(),
+          builder: (context) => const RegisterView(),
         );
 
       default:

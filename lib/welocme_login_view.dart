@@ -48,14 +48,15 @@ class WelcomeLoginView extends StatelessWidget {
                 'نحن نطبق مبادئ العلاج السلوكي المعرفي CBT \nنساعدك في اعادة تنظيم افكارك وفهم المشاعر\n اللي وراها، وده بيخليك تستعيد توازنك تدريجيًا \nبخطوات بسيطة وواضحة. ومع كل جلسة، هتحس \nإنك أقرب لنفسك الحقيقية وأقدر على إدارة  يومك براحه وثقه',
               ),
               const Spacer(),
-              AppSecondryButton(title: 'عضو جديد', onTap: () {}),
+              AppSecondryButton(
+                title: 'عضو جديد',
+                onTap: () => Navigator.pushNamed(context, AppRoutes.register),
+              ),
               SizedBox(
                 height: 16.h,
               ),
               AppButton(
-                onTap: () {
-                  Navigator.pushNamed(context, AppRoutes.login);
-                },
+                onTap: () => Navigator.pushNamed(context, AppRoutes.login),
                 title: 'تسجيل الدخول',
               ),
               const Spacer(),
