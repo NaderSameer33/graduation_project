@@ -1,7 +1,7 @@
-import 'package:etmaen/on_borading/on_borading_view.dart';
-import 'package:etmaen/splash_view.dart';
-import 'package:etmaen/welcome_view.dart';
-import 'package:etmaen/welocme_login_view.dart';
+import '../../on_borading/on_borading_view.dart';
+import '../../splash_view.dart';
+import '../../welcome_view.dart';
+import '../../welocme_login_view.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 

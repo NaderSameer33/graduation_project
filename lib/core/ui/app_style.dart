@@ -1,4 +1,4 @@
-import 'package:etmaen/core/ui/app_color.dart';
+import 'app_color.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 

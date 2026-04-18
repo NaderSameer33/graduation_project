@@ -1,5 +1,5 @@
-import 'package:etmaen/on_borading/model/on_borading_model.dart';
-import 'package:etmaen/on_borading/widget/on_borading_item.dart';
+import 'model/on_borading_model.dart';
+import 'widget/on_borading_item.dart';
 import 'package:flutter/material.dart';
 
 class OnBoradingView extends StatefulWidget {
