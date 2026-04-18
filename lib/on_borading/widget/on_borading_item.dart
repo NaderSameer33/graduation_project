@@ -1,7 +1,9 @@
+import 'package:etmaen/core/logic/app_routes.dart';
 import 'package:etmaen/core/ui/app_color.dart';
 import 'package:etmaen/core/ui/app_image.dart';
 import 'package:etmaen/core/ui/app_style.dart';
 import 'package:etmaen/on_borading/model/on_borading_model.dart';
+import 'package:etmaen/welocme_login_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -27,7 +29,8 @@ class OnBoradingItem extends StatelessWidget {
             Align(
               alignment: Alignment.centerLeft,
               child: TextButton(
-                onPressed: () {},
+                onPressed: () =>
+                    Navigator.pushNamed(context, AppRoutes.welcomeLogin),
                 child: Text(
                   'تخطي',
                   style: AppStyle.bold16,
@@ -87,12 +90,13 @@ class OnBoradingItem extends StatelessWidget {
                 radius: 32.r,
                 backgroundColor: AppColor.primiryColor,
                 child: IconButton(
-                  onPressed: () {
-                    pageController.nextPage(
-                      duration: const Duration(seconds: 1),
-                      curve: Curves.fastOutSlowIn,
-                    );
-                  },
+                  onPressed: () => index == 4
+                      ? Navigator.pushNamed(context, AppRoutes.welcomeLogin)
+                      : pageController.nextPage(
+                          duration: const Duration(seconds: 1),
+                          curve: Curves.fastOutSlowIn,
+                        ),
+
                   icon: const AppImage(image: 'arrow.svg'),
                 ),
               ),
