@@ -1,3 +1,7 @@
+import 'package:etmaen/core/ui/app_button.dart';
+import 'package:etmaen/core/ui/app_resent_code.dart';
+import 'package:etmaen/core/ui/app_verfiy_code.dart';
+
 import '../../core/ui/app_back.dart';
 import '../../core/ui/app_style.dart';
 import 'package:flutter/material.dart';
@@ -43,6 +47,15 @@ class OtpView extends StatelessWidget {
               SizedBox(
                 height: 30.h,
               ),
+              const AppVerfiyCode(),
+              SizedBox(
+                height: 50.h,
+              ),
+              AppButton(onTap: () {}, title: 'تأكيد الرمز'),
+              SizedBox(
+                height: 10.h,
+              ),
+              const AppResentCode(),
             ],
           ),
         ),

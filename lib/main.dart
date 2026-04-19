@@ -17,25 +17,27 @@ class EtmaenApp extends StatelessWidget {
       minTextAdapt: true,
       splitScreenMode: true,
 
-      child: MaterialApp(
-        builder: (context, child) {
-          return Directionality(
-            textDirection: TextDirection.rtl,
-            child: child!,
-          );
-        },
-        
+      child: GestureDetector(
+        onTap: () => FocusManager.instance.primaryFocus!.unfocus(),
+        child: MaterialApp(
+          builder: (context, child) {
+            return Directionality(
+              textDirection: TextDirection.rtl,
+              child: child!,
+            );
+          },
 
-        initialRoute: AppRoutes.splash,
-        onGenerateRoute: AppRoutes.routeSetting,
-        darkTheme: ThemeData(
-          fontFamily: 'Cairo',
-          brightness: Brightness.dark,
-          scaffoldBackgroundColor: Colors.black,
+          initialRoute: AppRoutes.splash,
+          onGenerateRoute: AppRoutes.routeSetting,
+          darkTheme: ThemeData(
+            fontFamily: 'Cairo',
+            brightness: Brightness.dark,
+            scaffoldBackgroundColor: Colors.black,
+          ),
+
+          themeMode: ThemeMode.dark,
+          debugShowCheckedModeBanner: false,
         ),
-
-        themeMode: ThemeMode.dark,
-        debugShowCheckedModeBanner: false,
       ),
     );
   }
