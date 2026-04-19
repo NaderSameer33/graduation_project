@@ -1,8 +1,8 @@
-import 'package:etmaen/core/logic/app_routes.dart';
-import 'package:etmaen/core/ui/app_button.dart';
-import 'package:etmaen/core/ui/app_color.dart';
-import 'package:etmaen/core/ui/app_input.dart';
-import 'package:etmaen/core/ui/app_style.dart';
+import '../../core/logic/app_routes.dart';
+import '../../core/ui/app_button.dart';
+import '../../core/ui/app_color.dart';
+import '../../core/ui/app_input.dart';
+import '../../core/ui/app_style.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -130,7 +130,10 @@ class _RegisterViewState extends State<RegisterView> {
               SizedBox(
                 height: 10.h,
               ),
-              AppButton(onTap: () {}, title: 'انشاء حساب'),
+              AppButton(
+                onTap: () => Navigator.pushNamed(context, AppRoutes.otp),
+                title: 'انشاء حساب',
+              ),
             ],
           ),
         ),

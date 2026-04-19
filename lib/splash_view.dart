@@ -1,4 +1,4 @@
-import 'package:etmaen/core/ui/app_style.dart';
+import 'core/ui/app_style.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'core/logic/app_routes.dart';

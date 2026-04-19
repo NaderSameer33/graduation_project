@@ -1,5 +1,6 @@
-import 'package:etmaen/auth/login/login_view.dart';
-import 'package:etmaen/auth/register/register_view.dart';
+import '../../auth/login/login_view.dart';
+import '../../auth/otp/otp_view.dart';
+import '../../auth/register/register_view.dart';
 
 import '../../on_borading/on_borading_view.dart';
 import '../../splash_view.dart';
@@ -15,6 +16,7 @@ abstract class AppRoutes {
   static const String welcomeLogin = '/welcomeLogin';
   static const String login = '/login';
   static const String register = '/register';
+  static const String otp = '/otp';
 
   static Route? routeSetting(RouteSettings settings) {
     switch (settings.name) {
@@ -41,6 +43,10 @@ abstract class AppRoutes {
       case register:
         return CupertinoPageRoute(
           builder: (context) => const RegisterView(),
+        );
+      case otp:
+        return CupertinoPageRoute(
+          builder: (context) => const OtpView(),
         );
 
       default:
