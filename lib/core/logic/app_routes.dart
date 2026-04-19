@@ -1,3 +1,4 @@
+import 'package:etmaen/ai/ai_quiz_view.dart';
 import 'package:etmaen/auth/forget_passwrd/forget_passwrord_view.dart';
 import 'package:etmaen/auth/new_passwrod/new_passwrd_view.dart';
 
@@ -22,6 +23,7 @@ abstract class AppRoutes {
   static const String otp = '/otp';
   static const String forgetPassword = '/forgetPasswrod';
   static const String newPassword = '/newPassword';
+  static const String aiQuiz = '/aiQuiz';
 
   static Route? routeSetting(RouteSettings settings) {
     switch (settings.name) {
@@ -61,6 +63,10 @@ abstract class AppRoutes {
       case newPassword:
         return CupertinoPageRoute(
           builder: (context) => const NewPasswordView(),
+        );
+      case aiQuiz:
+        return CupertinoPageRoute(
+          builder: (context) => const AiQuizView(),
         );
 
       default:

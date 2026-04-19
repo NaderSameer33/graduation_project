@@ -94,7 +94,10 @@ class LoginView extends StatelessWidget {
               SizedBox(
                 height: 100.h,
               ),
-              AppButton(onTap: () {}, title: 'تسجيل الدخول'),
+              AppButton(
+                onTap: () => Navigator.pushNamed(context, AppRoutes.aiQuiz),
+                title: 'تسجيل الدخول',
+              ),
             ],
           ),
         ),
