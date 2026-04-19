@@ -1,3 +1,6 @@
+import 'package:etmaen/auth/forget_passwrd/forget_passwrord_view.dart';
+import 'package:etmaen/auth/new_passwrod/new_passwrd_view.dart';
+
 import '../../auth/login/login_view.dart';
 import '../../auth/otp/otp_view.dart';
 import '../../auth/register/register_view.dart';
@@ -17,6 +20,8 @@ abstract class AppRoutes {
   static const String login = '/login';
   static const String register = '/register';
   static const String otp = '/otp';
+  static const String forgetPassword = '/forgetPasswrod';
+  static const String newPassword = '/newPassword';
 
   static Route? routeSetting(RouteSettings settings) {
     switch (settings.name) {
@@ -47,6 +52,15 @@ abstract class AppRoutes {
       case otp:
         return CupertinoPageRoute(
           builder: (context) => const OtpView(),
+          settings: settings,
+        );
+      case forgetPassword:
+        return CupertinoPageRoute(
+          builder: (context) => const ForgetPasswrordView(),
+        );
+      case newPassword:
+        return CupertinoPageRoute(
+          builder: (context) => const NewPasswordView(),
         );
 
       default:

@@ -131,7 +131,11 @@ class _RegisterViewState extends State<RegisterView> {
                 height: 10.h,
               ),
               AppButton(
-                onTap: () => Navigator.pushNamed(context, AppRoutes.otp),
+                onTap: () => Navigator.pushNamed(
+                  context,
+                  AppRoutes.otp,
+                  arguments: false,
+                ),
                 title: 'انشاء حساب',
               ),
             ],

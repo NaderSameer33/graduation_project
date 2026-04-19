@@ -1,24 +1,18 @@
-import 'dart:developer';
-
+import 'package:etmaen/auth/otp/otp_view.dart';
 import 'package:etmaen/core/logic/app_routes.dart';
+import 'package:etmaen/core/ui/app_back.dart';
 import 'package:etmaen/core/ui/app_button.dart';
-import 'package:etmaen/core/ui/app_resent_code.dart';
-import 'package:etmaen/core/ui/app_verfiy_code.dart';
-
-import '../../core/ui/app_back.dart';
-import '../../core/ui/app_style.dart';
+import 'package:etmaen/core/ui/app_color.dart';
+import 'package:etmaen/core/ui/app_input.dart';
+import 'package:etmaen/core/ui/app_style.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-class OtpView extends StatelessWidget {
-  const OtpView({
-    super.key,
-  });
+class ForgetPasswrordView extends StatelessWidget {
+  const ForgetPasswrordView({super.key});
 
   @override
   Widget build(BuildContext context) {
-    final args = ModalRoute.of(context)?.settings.arguments;
-    final bool isFromForgetPassword = args == true;
     return Scaffold(
       body: SafeArea(
         child: SingleChildScrollView(
@@ -34,7 +28,7 @@ class OtpView extends StatelessWidget {
                 height: 40.h,
               ),
               Text(
-                'ارسلنا لك كود ',
+                'نسيت كلمة المرور',
                 style: AppStyle.regular28.copyWith(
                   fontWeight: FontWeight.bold,
                   color: Colors.white,
@@ -42,35 +36,44 @@ class OtpView extends StatelessWidget {
               ),
               Row(
                 children: [
-                  const Text(
-                    'علي الايميل example@gmail.com',
+                  Text(
+                    'سنرسل لك ',
+                    style: AppStyle.regular16.copyWith(
+                      color: AppColors.whiteColor,
+                    ),
                   ),
-                  TextButton(
-                    onPressed: () => Navigator.pop(context),
-                    child: const Text('تغيير الايميل '),
+                  Text(
+                    'كود تسجيل الدخول',
+                    style: AppStyle.regular16.copyWith(
+                      color: AppColors.primiryColor,
+                    ),
                   ),
                 ],
               ),
               SizedBox(
                 height: 30.h,
               ),
-              const AppVerfiyCode(),
+              Text(
+                'ادخل البريد الالكتروني',
+                style: AppStyle.regular16,
+              ),
+              AppInput(
+                topSpacing: 4.h,
+                bottomSpacing: 16.h,
+                hintText: 'مثل : Etmaen@gmail.com',
+                prefixIcon: 'email.svg',
+              ),
               SizedBox(
-                height: 50.h,
+                height: 40.h,
               ),
               AppButton(
                 onTap: () => Navigator.pushNamed(
                   context,
-                  isFromForgetPassword
-                      ? AppRoutes.newPassword
-                      : AppRoutes.login,
+                  AppRoutes.otp,
+                  arguments: true,
                 ),
-                title: 'تأكيد الرمز',
+                title: 'ارسال الرمز',
               ),
-              SizedBox(
-                height: 10.h,
-              ),
-              const AppResentCode(),
             ],
           ),
         ),

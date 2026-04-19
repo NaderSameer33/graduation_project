@@ -82,7 +82,8 @@ class LoginView extends StatelessWidget {
                 style: TextButton.styleFrom(
                   alignment: Alignment.centerLeft,
                 ),
-                onPressed: () {},
+                onPressed: () =>
+                    Navigator.pushNamed(context, AppRoutes.forgetPassword),
                 child: Text(
                   'نسيت كلمة المرور ؟',
                   style: AppStyle.bold16.copyWith(
