@@ -1,3 +1,4 @@
+import 'package:etmaen/core/logic/app_routes.dart';
 import 'package:etmaen/core/ui/app_button.dart';
 import 'package:etmaen/core/ui/app_color.dart';
 import 'package:etmaen/core/ui/app_image.dart';
@@ -41,7 +42,8 @@ class AiQuizView extends StatelessWidget {
               ),
               const Spacer(),
               AppButton(
-                onTap: () {},
+                onTap: () =>
+                    Navigator.pushNamed(context, AppRoutes.aiQuizOnBorading),
                 title: 'ابدأ الان',
               ),
               SizedBox(
