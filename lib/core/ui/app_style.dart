@@ -33,4 +33,9 @@ abstract class AppStyle {
     fontWeight: FontWeight.bold,
     color: AppColors.whiteColor,
   );
+  static TextStyle bold12 = TextStyle(
+    fontSize: 12.sp,
+    fontWeight: FontWeight.bold,
+    color: AppColors.primiryColor,
+  );
 }
