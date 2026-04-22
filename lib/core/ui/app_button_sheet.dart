@@ -21,7 +21,7 @@ class _AppButtomSheetState extends State<AppButtomSheet> {
     HomeBottomSheetModel(image: '😒', title: 'فاقد الامل'),
     HomeBottomSheetModel(image: '😁', title: 'حزين'),
   ];
-  int currentIndex = 0;
+  int currentIndex = -1;
   @override
   Widget build(BuildContext context) {
     return Container(
