@@ -28,4 +28,9 @@ abstract class AppStyle {
     fontWeight: FontWeight.bold,
     color: AppColors.primiryColor,
   );
+  static TextStyle bold24 = TextStyle(
+    fontSize: 24.sp,
+    fontWeight: FontWeight.bold,
+    color: AppColors.whiteColor,
+  );
 }
