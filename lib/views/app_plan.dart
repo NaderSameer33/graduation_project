@@ -63,6 +63,8 @@ class AppPlanView extends StatelessWidget {
                 height: 36.h,
               ),
               AppPlanItem(
+                isSelceted: true,
+                onTap: () {},
                 title: 'عدد المستويات',
                 subTitle: '8',
               ),
@@ -73,6 +75,8 @@ class AppPlanView extends StatelessWidget {
                 children: [
                   Expanded(
                     child: AppPlanItem(
+                      isSelceted: true,
+                      onTap: () {},
                       title: 'عدد المستويات',
                       subTitle: '8',
                     ),
@@ -82,6 +86,8 @@ class AppPlanView extends StatelessWidget {
                   ),
                   Expanded(
                     child: AppPlanItem(
+                      isSelceted: true,
+                      onTap: () {},
                       title: 'عدد المستويات',
                       subTitle: '8',
                     ),
