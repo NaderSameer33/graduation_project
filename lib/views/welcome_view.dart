@@ -1,7 +1,7 @@
-import 'core/logic/app_routes.dart';
-import 'core/ui/app_button.dart';
-import 'core/ui/app_image.dart';
-import 'core/ui/app_style.dart';
+import '../core/logic/app_routes.dart';
+import '../core/ui/app_button.dart';
+import '../core/ui/app_image.dart';
+import '../core/ui/app_style.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 

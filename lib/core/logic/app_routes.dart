@@ -1,7 +1,7 @@
 import 'package:etmaen/ai/ai_analysis_view.dart';
 import 'package:etmaen/ai/ai_quiz_view.dart';
 import 'package:etmaen/ai/quiz_onborading/quiz_onborading.dart';
-import 'package:etmaen/app_plan.dart';
+import 'package:etmaen/views/app_plan.dart';
 import 'package:etmaen/auth/forget_passwrd/forget_passwrord_view.dart';
 import 'package:etmaen/auth/new_passwrod/new_passwrd_view.dart';
 
@@ -10,9 +10,9 @@ import '../../auth/otp/otp_view.dart';
 import '../../auth/register/register_view.dart';
 
 import '../../on_borading/on_borading_view.dart';
-import '../../splash_view.dart';
-import '../../welcome_view.dart';
-import '../../welocme_login_view.dart';
+import '../../views/splash_view.dart';
+import '../../views/welcome_view.dart';
+import '../../views/welocme_login_view.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
