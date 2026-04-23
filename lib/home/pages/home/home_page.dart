@@ -1,5 +1,6 @@
 import 'package:etmaen/core/ui/app_color.dart';
 import 'package:etmaen/core/ui/app_style.dart';
+import 'package:etmaen/home/pages/home/widgets/cinema_etmean_list_view.dart';
 import 'package:etmaen/home/pages/home/widgets/home_feel_item.dart';
 import 'package:etmaen/home/pages/home/widgets/home_header.dart';
 import 'package:etmaen/home/pages/home/widgets/therapeutic_content_header.dart';
@@ -69,6 +70,12 @@ class HomePage extends StatelessWidget {
 
               SliverToBoxAdapter(
                 child: TherapeuticTraningGridView(),
+              ),
+              TherapeuticContentHeader(
+                title: 'ٍسينما اطمئن',
+              ),
+              SliverToBoxAdapter(
+                child: CinemaEtmeanListView(),
               ),
               SliverToBoxAdapter(
                 child: SizedBox(
