@@ -1,5 +1,4 @@
 import 'core/logic/app_routes.dart';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -27,7 +26,7 @@ class EtmaenApp extends StatelessWidget {
             );
           },
 
-          initialRoute: AppRoutes.home,
+          initialRoute: AppRoutes.notifaction,
           onGenerateRoute: AppRoutes.routeSetting,
           darkTheme: ThemeData(
             fontFamily: 'Cairo',

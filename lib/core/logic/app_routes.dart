@@ -2,6 +2,7 @@ import 'package:etmaen/ai/ai_analysis_view.dart';
 import 'package:etmaen/ai/ai_quiz_view.dart';
 import 'package:etmaen/ai/quiz_onborading/quiz_onborading.dart';
 import 'package:etmaen/home/views/home_view.dart';
+import 'package:etmaen/notifaction/notificaion_view.dart';
 import 'package:etmaen/views/app_plan.dart';
 import 'package:etmaen/auth/forget_passwrd/forget_passwrord_view.dart';
 import 'package:etmaen/auth/new_passwrod/new_passwrd_view.dart';
@@ -32,6 +33,7 @@ abstract class AppRoutes {
   static const String aiAnalysis = '/aiAnalysis';
   static const String appPlan = '/appPlan';
   static const String home = '/home';
+  static const String notifaction = '/notificaion';
 
   static Route? routeSetting(RouteSettings settings) {
     switch (settings.name) {
@@ -91,6 +93,10 @@ abstract class AppRoutes {
       case home:
         return CupertinoPageRoute(
           builder: (context) => const HomeView(),
+        );
+      case notifaction:
+        return CupertinoPageRoute(
+          builder: (context) => const NotificaionView(),
         );
 
       default:

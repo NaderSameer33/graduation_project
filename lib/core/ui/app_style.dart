@@ -8,6 +8,11 @@ abstract class AppStyle {
     fontWeight: FontWeight.bold,
     color: AppColors.whiteColor,
   );
+  static TextStyle regular20 = TextStyle(
+    fontSize: 20.sp,
+    fontWeight: FontWeight.w400,
+    color: AppColors.whiteColor,
+  );
   static TextStyle regular37 = TextStyle(
     fontSize: 37.sp,
     fontWeight: FontWeight.w400,
