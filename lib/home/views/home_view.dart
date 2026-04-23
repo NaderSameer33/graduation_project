@@ -46,7 +46,10 @@ class _HomeViewState extends State<HomeView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: list[currentIndex].page,
+      body: AnimatedSwitcher(
+        duration: Duration(seconds: 1),
+        child: list[currentIndex].page,
+      ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       extendBody: true,
       floatingActionButton: Padding(

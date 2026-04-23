@@ -1,3 +1,4 @@
+import 'package:etmaen/core/logic/app_routes.dart';
 import 'package:etmaen/core/ui/app_color.dart';
 import 'package:etmaen/core/ui/app_image.dart';
 import 'package:etmaen/core/ui/app_style.dart';
@@ -33,11 +34,11 @@ class HomeHeader extends StatelessWidget {
           backgroundColor: AppColors.avatarColor,
           radius: 20.r,
           child: IconButton(
-            onPressed: () {},
+            onPressed: () =>
+                Navigator.pushNamed(context, AppRoutes.notifaction),
             icon: AppImage(image: 'pin.svg'),
           ),
         ),
-        
       ],
     );
   }
