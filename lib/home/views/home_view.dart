@@ -2,7 +2,7 @@ import 'package:etmaen/core/ui/app_color.dart';
 import 'package:etmaen/core/ui/app_image.dart';
 import 'package:etmaen/core/ui/app_style.dart';
 import 'package:etmaen/home/models/home_model.dart';
-import 'package:etmaen/home/pages/chat_with_ai_page.dart';
+import 'package:etmaen/home/pages/chat_bot/chat_bot_page.dart';
 import 'package:etmaen/home/pages/doctors_page.dart';
 import 'package:etmaen/home/pages/home/home_page.dart';
 import 'package:etmaen/home/pages/profile_page.dart';
@@ -30,7 +30,7 @@ class _HomeViewState extends State<HomeView> {
     ),
     HomeModel(
       image: 'ai.svg',
-      page: ChatWithAiPage(),
+      page: ChatBotPage(),
       title: 'مساعدك',
     ),
 
