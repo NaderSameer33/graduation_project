@@ -6,20 +6,22 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 class TherapeuticContentHeader extends StatelessWidget {
   const TherapeuticContentHeader({
     super.key,
+    required this.title,
   });
+  final String title;
 
   @override
   Widget build(BuildContext context) {
     return SliverToBoxAdapter(
       child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Text(
-            'محتوى علاجي مخصص لك',
+            title,
             style: AppStyle.regular16.copyWith(
               color: AppColors.whiteColor,
             ),
           ),
+          Spacer(),
           TextButton(
             onPressed: () {},
             child: Text(

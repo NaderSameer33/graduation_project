@@ -4,6 +4,7 @@ import 'package:etmaen/home/pages/home/widgets/home_feel_item.dart';
 import 'package:etmaen/home/pages/home/widgets/home_header.dart';
 import 'package:etmaen/home/pages/home/widgets/therapeutic_content_header.dart';
 import 'package:etmaen/home/pages/home/widgets/therapeutic_content_list_view.dart';
+import 'package:etmaen/home/pages/home/widgets/therapeutic_traning_grid_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -53,8 +54,27 @@ class HomePage extends StatelessWidget {
                   height: 20.h,
                 ),
               ),
-              TherapeuticContentHeader(),
+              TherapeuticContentHeader(
+                title: 'محتوي علاجي مخصص لك',
+              ),
               TherapeuticContentListView(),
+              SliverToBoxAdapter(
+                child: SizedBox(
+                  height: 20,
+                ),
+              ),
+              TherapeuticContentHeader(
+                title: 'تمارين بناء المهارات النفسية',
+              ),
+
+              SliverToBoxAdapter(
+                child: TherapeuticTraningGridView(),
+              ),
+              SliverToBoxAdapter(
+                child: SizedBox(
+                  height: 100,
+                ),
+              ),
             ],
           ),
         ),

@@ -10,7 +10,7 @@ class TherapeuticContentListView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SliverList.builder(
-      itemCount: 10,
+      itemCount: 7,
       itemBuilder: (context, index) => TherapeuticContentItem(),
     );
   }
@@ -27,7 +27,17 @@ class TherapeuticContentItem extends StatelessWidget {
       width: double.infinity,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(12.r),
-        color: AppColors.avatarColor,
+        gradient: LinearGradient(
+          transform: GradientRotation(0.2),
+          stops: [0, 1],
+          begin: Alignment.topCenter,
+          end: Alignment.bottomCenter,
+
+          colors: [
+            AppColors.avatarColor,
+            AppColors.inputColor,
+          ],
+        ),
       ),
       child: Padding(
         padding: EdgeInsets.all(16.r),

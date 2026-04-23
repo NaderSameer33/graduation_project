@@ -22,7 +22,16 @@ class HomeFeelItem extends StatelessWidget {
         width: double.infinity,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(12.r),
-          color: AppColors.avatarColor,
+          gradient: LinearGradient(
+            transform: GradientRotation(0.2),
+            stops: [0, 1],
+            begin: Alignment.topCenter,
+            end: Alignment.bottomCenter,
+            colors: [
+              AppColors.avatarColor,
+              AppColors.inputColor,
+            ],
+          ),
         ),
         child: Padding(
           padding: EdgeInsets.all(16.r),
