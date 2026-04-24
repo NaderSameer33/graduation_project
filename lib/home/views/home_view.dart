@@ -1,3 +1,5 @@
+import 'package:etmaen/core/logic/app_routes.dart';
+
 import '../../core/ui/app_color.dart';
 import '../../core/ui/app_image.dart';
 import '../../core/ui/app_style.dart';
@@ -28,12 +30,11 @@ class _HomeViewState extends State<HomeView> {
       page: DoctorsPage(),
       title: 'الأطباء',
     ),
+
     HomeModel(
       image: 'ai.svg',
-      page: ChatBotPage(),
       title: 'مساعدك',
     ),
-
     HomeModel(
       image: 'profile.svg',
       page: ProfilePage(),
@@ -46,7 +47,6 @@ class _HomeViewState extends State<HomeView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-    
       body: AnimatedSwitcher(
         duration: Duration(seconds: 1),
         child: list[currentIndex].page,
@@ -71,6 +71,9 @@ class _HomeViewState extends State<HomeView> {
             currentIndex: currentIndex,
 
             onTap: (index) {
+              if (index == 2) {
+                Navigator.pushNamed(context, AppRoutes.chatBot);
+              }
               setState(() {
                 currentIndex = index;
               });

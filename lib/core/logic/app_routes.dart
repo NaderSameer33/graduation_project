@@ -1,3 +1,4 @@
+import 'package:etmaen/home/pages/chat_bot/chat_bot_page.dart';
 import '../../ai/ai_analysis_view.dart';
 import '../../ai/ai_quiz_view.dart';
 import '../../ai/quiz_onborading/quiz_onborading.dart';
@@ -6,11 +7,9 @@ import '../../notifaction/notificaion_view.dart';
 import '../../views/app_plan.dart';
 import '../../auth/forget_passwrd/forget_passwrord_view.dart';
 import '../../auth/new_passwrod/new_passwrd_view.dart';
-
 import '../../auth/login/login_view.dart';
 import '../../auth/otp/otp_view.dart';
 import '../../auth/register/register_view.dart';
-
 import '../../on_borading/on_borading_view.dart';
 import '../../views/splash_view.dart';
 import '../../views/welcome_view.dart';
@@ -34,6 +33,7 @@ abstract class AppRoutes {
   static const String appPlan = '/appPlan';
   static const String home = '/home';
   static const String notifaction = '/notificaion';
+  static const String chatBot = '/chatBot';
 
   static Route? routeSetting(RouteSettings settings) {
     switch (settings.name) {
@@ -97,6 +97,10 @@ abstract class AppRoutes {
       case notifaction:
         return CupertinoPageRoute(
           builder: (context) => const NotificaionView(),
+        );
+      case chatBot:
+        return CupertinoPageRoute(
+          builder: (context) => const ChatBotPage(),
         );
 
       default:
