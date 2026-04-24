@@ -1,3 +1,4 @@
+import 'package:etmaen/core/logic/app_routes.dart';
 import 'package:etmaen/core/ui/app_color.dart';
 import 'package:etmaen/core/ui/app_image.dart';
 import 'package:etmaen/core/ui/app_style.dart';
@@ -18,7 +19,7 @@ class ChatBotHeader extends StatelessWidget {
             builder: (context) {
               return IconButton(
                 onPressed: () {
-                  Navigator.pop(context);
+                  Navigator.pushNamed(context, AppRoutes.home);
                 },
                 icon: AppImage(image: 'arrow_back.svg'),
               );
