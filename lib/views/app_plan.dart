@@ -1,9 +1,9 @@
-import 'package:etmaen/core/logic/app_routes.dart';
-import 'package:etmaen/core/ui/app_button.dart';
-import 'package:etmaen/core/ui/app_color.dart';
-import 'package:etmaen/core/ui/app_image.dart';
-import 'package:etmaen/core/ui/app_style.dart';
-import 'package:etmaen/views/widgets/app_plan_item.dart';
+import '../core/logic/app_routes.dart';
+import '../core/ui/app_button.dart';
+import '../core/ui/app_color.dart';
+import '../core/ui/app_image.dart';
+import '../core/ui/app_style.dart';
+import 'widgets/app_plan_item.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 

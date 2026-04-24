@@ -1,4 +1,4 @@
-import 'package:etmaen/core/ui/app_image.dart';
+import '../../../../core/ui/app_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 

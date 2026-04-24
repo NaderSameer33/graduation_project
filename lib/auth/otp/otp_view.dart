@@ -1,9 +1,9 @@
 import 'dart:developer';
 
-import 'package:etmaen/core/logic/app_routes.dart';
-import 'package:etmaen/core/ui/app_button.dart';
-import 'package:etmaen/core/ui/app_resent_code.dart';
-import 'package:etmaen/core/ui/app_verfiy_code.dart';
+import '../../core/logic/app_routes.dart';
+import '../../core/ui/app_button.dart';
+import '../../core/ui/app_resent_code.dart';
+import '../../core/ui/app_verfiy_code.dart';
 
 import '../../core/ui/app_back.dart';
 import '../../core/ui/app_style.dart';

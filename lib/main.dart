@@ -11,13 +11,13 @@ class EtmaenApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ScreenUtilInit(
-      designSize: const Size(375, 811),
-      minTextAdapt: true,
-      splitScreenMode: true,
+    return GestureDetector(
+      onTap: () => FocusManager.instance.primaryFocus!.unfocus(),
+      child: ScreenUtilInit(
+        designSize: const Size(375, 811),
+        minTextAdapt: true,
+        splitScreenMode: true,
 
-      child: GestureDetector(
-        onTap: () => FocusManager.instance.primaryFocus!.unfocus(),
         child: MaterialApp(
           builder: (context, child) {
             return Directionality(
@@ -26,7 +26,7 @@ class EtmaenApp extends StatelessWidget {
             );
           },
 
-          initialRoute: AppRoutes.notifaction,
+          initialRoute: AppRoutes.home,
           onGenerateRoute: AppRoutes.routeSetting,
           darkTheme: ThemeData(
             fontFamily: 'Cairo',

@@ -1,11 +1,13 @@
-import 'package:etmaen/core/ui/app_color.dart';
-import 'package:etmaen/core/ui/app_image.dart';
-import 'package:etmaen/core/ui/app_style.dart';
-import 'package:etmaen/home/models/home_model.dart';
-import 'package:etmaen/home/pages/chat_with_ai_page.dart';
-import 'package:etmaen/home/pages/doctors_page.dart';
-import 'package:etmaen/home/pages/home/home_page.dart';
-import 'package:etmaen/home/pages/profile_page.dart';
+import 'package:etmaen/core/logic/app_routes.dart';
+
+import '../../core/ui/app_color.dart';
+import '../../core/ui/app_image.dart';
+import '../../core/ui/app_style.dart';
+import '../models/home_model.dart';
+import '../pages/chat_bot/chat_bot_page.dart';
+import '../pages/doctors_page.dart';
+import '../pages/home/home_page.dart';
+import '../pages/profile_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -28,12 +30,11 @@ class _HomeViewState extends State<HomeView> {
       page: DoctorsPage(),
       title: 'الأطباء',
     ),
+
     HomeModel(
       image: 'ai.svg',
-      page: ChatWithAiPage(),
       title: 'مساعدك',
     ),
-
     HomeModel(
       image: 'profile.svg',
       page: ProfilePage(),
@@ -50,7 +51,7 @@ class _HomeViewState extends State<HomeView> {
         duration: Duration(seconds: 1),
         child: list[currentIndex].page,
       ),
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       extendBody: true,
       floatingActionButton: Padding(
         padding: EdgeInsets.symmetric(horizontal: 16.r),
@@ -70,6 +71,9 @@ class _HomeViewState extends State<HomeView> {
             currentIndex: currentIndex,
 
             onTap: (index) {
+              if (index == 2) {
+                Navigator.pushNamed(context, AppRoutes.chatBot);
+              }
               setState(() {
                 currentIndex = index;
               });

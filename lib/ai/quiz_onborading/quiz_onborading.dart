@@ -1,4 +1,4 @@
-import 'package:etmaen/ai/quiz_onborading/widget/quiz_onborading_item.dart';
+import 'widget/quiz_onborading_item.dart';
 import 'package:flutter/material.dart';
 
 class QuizOnboradingView extends StatefulWidget {

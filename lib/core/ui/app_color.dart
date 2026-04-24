@@ -9,5 +9,6 @@ abstract class AppColors {
   static const inputColor = Color(0xff1E1E1E);
   static const inputHintColor = Color(0xff666666);
   static const avatarColor = Color(0xff333232);
-  static const errorColro = Color(0xffEF9A9A); 
+  static const errorColro = Color(0xffEF9A9A);
+  static const blackColor = Colors.black;
 }

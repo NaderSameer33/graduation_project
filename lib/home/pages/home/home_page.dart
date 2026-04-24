@@ -1,11 +1,11 @@
-import 'package:etmaen/core/ui/app_color.dart';
-import 'package:etmaen/core/ui/app_style.dart';
-import 'package:etmaen/home/pages/home/widgets/cinema_etmean_list_view.dart';
-import 'package:etmaen/home/pages/home/widgets/home_feel_item.dart';
-import 'package:etmaen/home/pages/home/widgets/home_header.dart';
-import 'package:etmaen/home/pages/home/widgets/therapeutic_content_header.dart';
-import 'package:etmaen/home/pages/home/widgets/therapeutic_content_list_view.dart';
-import 'package:etmaen/home/pages/home/widgets/therapeutic_traning_grid_view.dart';
+import '../../../core/ui/app_color.dart';
+import '../../../core/ui/app_style.dart';
+import 'widgets/cinema_etmean_list_view.dart';
+import 'widgets/home_feel_item.dart';
+import 'widgets/home_header.dart';
+import 'widgets/therapeutic_content_header.dart';
+import 'widgets/therapeutic_content_list_view.dart';
+import 'widgets/therapeutic_traning_grid_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 

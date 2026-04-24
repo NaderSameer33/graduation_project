@@ -92,7 +92,7 @@ class OnBoradingItem extends StatelessWidget {
                   onPressed: () => index == 4
                       ? Navigator.pushNamed(context, AppRoutes.welcomeLogin)
                       : pageController.nextPage(
-                          duration: const Duration(seconds: 1),
+                          duration: const Duration(milliseconds: 500),
                           curve: Curves.fastOutSlowIn,
                         ),
 
