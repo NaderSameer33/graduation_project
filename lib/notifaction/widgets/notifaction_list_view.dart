@@ -1,4 +1,4 @@
-import 'package:etmaen/notifaction/widgets/notifaction_list_view_item.dart';
+import 'notifaction_list_view_item.dart';
 import 'package:flutter/material.dart';
 
 class NotifactionListView extends StatelessWidget {

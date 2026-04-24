@@ -1,7 +1,7 @@
 
-import 'package:etmaen/notifaction/widgets/notifaction_header.dart';
-import 'package:etmaen/notifaction/widgets/notifaction_list_view.dart';
-import 'package:etmaen/notifaction/widgets/notification_item.dart';
+import 'widgets/notifaction_header.dart';
+import 'widgets/notifaction_list_view.dart';
+import 'widgets/notification_item.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 

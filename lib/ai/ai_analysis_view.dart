@@ -1,7 +1,7 @@
 import 'package:confetti/confetti.dart';
-import 'package:etmaen/ai/quiz_onborading/widget/ai_analysis_item.dart';
-import 'package:etmaen/core/logic/app_routes.dart';
-import 'package:etmaen/core/ui/success_dialog.dart';
+import 'quiz_onborading/widget/ai_analysis_item.dart';
+import '../core/logic/app_routes.dart';
+import '../core/ui/success_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 

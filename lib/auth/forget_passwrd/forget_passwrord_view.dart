@@ -1,10 +1,10 @@
-import 'package:etmaen/auth/otp/otp_view.dart';
-import 'package:etmaen/core/logic/app_routes.dart';
-import 'package:etmaen/core/ui/app_back.dart';
-import 'package:etmaen/core/ui/app_button.dart';
-import 'package:etmaen/core/ui/app_color.dart';
-import 'package:etmaen/core/ui/app_input.dart';
-import 'package:etmaen/core/ui/app_style.dart';
+import '../otp/otp_view.dart';
+import '../../core/logic/app_routes.dart';
+import '../../core/ui/app_back.dart';
+import '../../core/ui/app_button.dart';
+import '../../core/ui/app_color.dart';
+import '../../core/ui/app_input.dart';
+import '../../core/ui/app_style.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 

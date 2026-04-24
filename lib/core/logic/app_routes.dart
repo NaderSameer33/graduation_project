@@ -1,11 +1,11 @@
-import 'package:etmaen/ai/ai_analysis_view.dart';
-import 'package:etmaen/ai/ai_quiz_view.dart';
-import 'package:etmaen/ai/quiz_onborading/quiz_onborading.dart';
-import 'package:etmaen/home/views/home_view.dart';
-import 'package:etmaen/notifaction/notificaion_view.dart';
-import 'package:etmaen/views/app_plan.dart';
-import 'package:etmaen/auth/forget_passwrd/forget_passwrord_view.dart';
-import 'package:etmaen/auth/new_passwrod/new_passwrd_view.dart';
+import '../../ai/ai_analysis_view.dart';
+import '../../ai/ai_quiz_view.dart';
+import '../../ai/quiz_onborading/quiz_onborading.dart';
+import '../../home/views/home_view.dart';
+import '../../notifaction/notificaion_view.dart';
+import '../../views/app_plan.dart';
+import '../../auth/forget_passwrd/forget_passwrord_view.dart';
+import '../../auth/new_passwrod/new_passwrd_view.dart';
 
 import '../../auth/login/login_view.dart';
 import '../../auth/otp/otp_view.dart';
