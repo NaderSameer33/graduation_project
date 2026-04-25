@@ -7,7 +7,7 @@ import '../models/home_model.dart';
 import '../pages/chat_bot/chat_bot_page.dart';
 import '../pages/doctors_page.dart';
 import '../pages/home/home_page.dart';
-import '../pages/profile_page.dart';
+import '../pages/profile/profile_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
