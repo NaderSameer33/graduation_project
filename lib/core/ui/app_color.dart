@@ -11,4 +11,5 @@ abstract class AppColors {
   static const avatarColor = Color(0xff333232);
   static const errorColro = Color(0xffEF9A9A);
   static const blackColor = Colors.black;
+  static const profileColor = Color(0xffFFB74D) ; 
 }
