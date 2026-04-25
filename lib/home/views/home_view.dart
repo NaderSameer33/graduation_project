@@ -73,6 +73,7 @@ class _HomeViewState extends State<HomeView> {
             onTap: (index) {
               if (index == 2) {
                 Navigator.pushNamed(context, AppRoutes.chatBot);
+                return;
               }
               setState(() {
                 currentIndex = index;

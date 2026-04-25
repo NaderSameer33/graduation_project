@@ -55,8 +55,11 @@ class HomePage extends StatelessWidget {
                   height: 20.h,
                 ),
               ),
-              TherapeuticContentHeader(
-                title: 'محتوي علاجي مخصص لك',
+              SliverToBoxAdapter(
+                child: TherapeuticContentHeader(
+                  onTap: () {},
+                  title: 'محتوي علاجي مخصص لك',
+                ),
               ),
               TherapeuticContentListView(),
               SliverToBoxAdapter(
@@ -64,15 +67,23 @@ class HomePage extends StatelessWidget {
                   height: 20,
                 ),
               ),
-              TherapeuticContentHeader(
-                title: 'تمارين بناء المهارات النفسية',
+              SliverToBoxAdapter(
+                child: TherapeuticContentHeader(
+                  onTap: () {},
+
+                  title: 'تمارين بناء المهارات النفسية',
+                ),
               ),
 
               SliverToBoxAdapter(
                 child: TherapeuticTraningGridView(),
               ),
-              TherapeuticContentHeader(
-                title: 'ٍسينما اطمئن',
+              SliverToBoxAdapter(
+                child: TherapeuticContentHeader(
+                  onTap: () {},
+
+                  title: 'ٍسينما اطمئن',
+                ),
               ),
               SliverToBoxAdapter(
                 child: CinemaEtmeanListView(),

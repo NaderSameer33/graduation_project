@@ -1,4 +1,5 @@
 import 'package:etmaen/home/pages/chat_bot/chat_bot_page.dart';
+import 'package:etmaen/home/pages/profile/profile_track_mode_view.dart';
 import '../../ai/ai_analysis_view.dart';
 import '../../ai/ai_quiz_view.dart';
 import '../../ai/quiz_onborading/quiz_onborading.dart';
@@ -34,6 +35,7 @@ abstract class AppRoutes {
   static const String home = '/home';
   static const String notifaction = '/notificaion';
   static const String chatBot = '/chatBot';
+  static const String trackMode = '/trackMode';
 
   static Route? routeSetting(RouteSettings settings) {
     switch (settings.name) {
@@ -101,6 +103,10 @@ abstract class AppRoutes {
       case chatBot:
         return CupertinoPageRoute(
           builder: (context) => const ChatBotPage(),
+        );
+      case trackMode:
+        return CupertinoPageRoute(
+          builder: (context) => const ProfileTrackModeView(),
         );
 
       default:

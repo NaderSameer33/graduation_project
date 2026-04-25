@@ -7,35 +7,37 @@ class TherapeuticContentHeader extends StatelessWidget {
   const TherapeuticContentHeader({
     super.key,
     required this.title,
+    required this.onTap,
+    this.isProfile = false,
   });
   final String title;
+  final VoidCallback onTap;
+  final bool isProfile;
 
   @override
   Widget build(BuildContext context) {
-    return SliverToBoxAdapter(
-      child: Row(
-        children: [
-          Text(
-            title,
-            style: AppStyle.regular16.copyWith(
-              color: AppColors.whiteColor,
+    return Row(
+      children: [
+        Text(
+          title,
+          style: AppStyle.regular16.copyWith(
+            color: AppColors.whiteColor,
+          ),
+        ),
+        Spacer(),
+        TextButton(
+          onPressed: onTap,
+          child: Text(
+            isProfile ? 'رؤية السجل' : 'مشاهدة المزيد',
+            style: AppStyle.bold12.copyWith(
+              color: AppColors.inputHintColor,
             ),
           ),
-          Spacer(),
-          TextButton(
-            onPressed: () {},
-            child: Text(
-              'مشاهدة المزيد',
-              style: AppStyle.bold12.copyWith(
-                color: AppColors.inputHintColor,
-              ),
-            ),
-          ),
-          SizedBox(
-            height: 20.h,
-          ),
-        ],
-      ),
+        ),
+        SizedBox(
+          height: 20.h,
+        ),
+      ],
     );
   }
 }
