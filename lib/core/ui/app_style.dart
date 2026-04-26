@@ -49,3 +49,33 @@ abstract class AppStyle {
     color: AppColors.primiryColor,
   );
 }
+
+class AppTextStyles {
+  AppTextStyles._();
+  static const TextStyle heading28White = TextStyle(color: AppColors.textWhite, fontSize: 28, fontFamily: 'Cairo', fontWeight: FontWeight.w700);
+  static const TextStyle heading24White = TextStyle(color: AppColors.textWhite, fontSize: 24, fontFamily: 'Cairo', fontWeight: FontWeight.w700);
+  static const TextStyle heading20White = TextStyle(color: AppColors.textWhite, fontSize: 20, fontFamily: 'Cairo', fontWeight: FontWeight.w700);
+  static const TextStyle heading19White = TextStyle(color: AppColors.textWhite, fontSize: 19, fontFamily: 'Cairo', fontWeight: FontWeight.w700);
+  static const TextStyle heading28Normal = TextStyle(color: AppColors.textWhite, fontSize: 28, fontFamily: 'Cairo', fontWeight: FontWeight.w400);
+  static const TextStyle body16White = TextStyle(color: AppColors.textWhite, fontSize: 16, fontFamily: 'Cairo', fontWeight: FontWeight.w400);
+  static const TextStyle body16Bold = TextStyle(color: AppColors.textWhite, fontSize: 16, fontFamily: 'Cairo', fontWeight: FontWeight.w700);
+  static const TextStyle body16Secondary = TextStyle(color: AppColors.textSecondary, fontSize: 16, fontFamily: 'Cairo', fontWeight: FontWeight.w400);
+  static const TextStyle body16Primary = TextStyle(color: AppColors.textPrimary, fontSize: 16, fontFamily: 'Cairo', fontWeight: FontWeight.w700);
+  static const TextStyle body16Disabled = TextStyle(color: AppColors.textDisabled, fontSize: 16, fontFamily: 'Cairo', fontWeight: FontWeight.w700);
+  static const TextStyle body12Secondary = TextStyle(color: AppColors.textSecondary, fontSize: 12, fontFamily: 'Cairo', fontWeight: FontWeight.w400);
+  static const TextStyle brandAccent19 = TextStyle(color: AppColors.textAccent, fontSize: 19, fontFamily: 'Cairo', fontWeight: FontWeight.w700);
+  static const TextStyle brandAccent18 = TextStyle(color: AppColors.textAccent, fontSize: 18, fontFamily: 'Alexandria', fontWeight: FontWeight.w400);
+  static const TextStyle brandAccent28 = TextStyle(color: AppColors.textAccent, fontSize: 28, fontFamily: 'Cairo', fontWeight: FontWeight.w400);
+  static const TextStyle caption8Primary = TextStyle(color: AppColors.textPrimary, fontSize: 8, fontFamily: 'Cairo', fontWeight: FontWeight.w700);
+  static const TextStyle forgotPassword = TextStyle(color: AppColors.textPrimary, fontSize: 14, fontFamily: 'Inter', fontWeight: FontWeight.w600);
+}
+
+class AppDecorations {
+  AppDecorations._();
+  static ShapeDecoration inputField = ShapeDecoration(color: AppColors.card, shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)));
+  static ShapeDecoration inputFieldBordered = ShapeDecoration(color: AppColors.card, shape: RoundedRectangleBorder(side: const BorderSide(width: 1, color: AppColors.stroke), borderRadius: BorderRadius.circular(12)));
+  static ShapeDecoration primaryButton = const ShapeDecoration(gradient: AppGradients.primary, shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(32))));
+  static ShapeDecoration outlinedButton = ShapeDecoration(shape: RoundedRectangleBorder(side: const BorderSide(width: 1, color: AppColors.primaryTop), borderRadius: BorderRadius.circular(32)));
+  static const ShapeDecoration backButton = ShapeDecoration(gradient: AppGradients.backButton, shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(32))));
+  static ShapeDecoration otpBox = ShapeDecoration(color: AppColors.card, shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)));
+}

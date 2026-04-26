@@ -2,6 +2,7 @@ import 'package:etmaen/core/ui/app_color.dart';
 import 'package:etmaen/core/ui/app_style.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:etmaen/core/logic/app_routes.dart';
 
 class ProfileTodayTasks extends StatefulWidget {
   const ProfileTodayTasks({super.key});
@@ -11,26 +12,33 @@ class ProfileTodayTasks extends StatefulWidget {
 }
 
 class _ProfileTodayTasksState extends State<ProfileTodayTasks> {
-  final list = [
-    ProfileTodayModel(
-      title: 'مشاهدة جلسات المستوى\n الاول ',
-      subTitle: 'ابدا الان',
-      onTap: () {},
-    ),
-    ProfileTodayModel(
-      title: 'تنفيذ 4 تحديات علاجية  من اختيارك',
-      subTitle: 'ابدا الان',
-      onTap: () {},
-    ),
-    ProfileTodayModel(
-      title: 'تحديد فكرة مزعجة لك  ومناقشتها مع البوت',
-      subTitle: 'ابدا الان',
-      onTap: () {},
-    ),
-  ];
   bool isDone = true;
   @override
   Widget build(BuildContext context) {
+    final list = [
+      ProfileTodayModel(
+        title: 'مشاهدة جلسات المستوى\n الاول ',
+        subTitle: 'ابدا الان',
+        onTap: () {
+          // Navigate to Tests or Video
+        },
+      ),
+      ProfileTodayModel(
+        title: 'تنفيذ 4 تحديات علاجية  من اختيارك',
+        subTitle: 'ابدا الان',
+        onTap: () {
+          Navigator.pushNamed(context, AppRoutes.challenges);
+        },
+      ),
+      ProfileTodayModel(
+        title: 'تحديد فكرة مزعجة لك  ومناقشتها مع البوت',
+        subTitle: 'ابدا الان',
+        onTap: () {
+          Navigator.pushNamed(context, AppRoutes.chatBot);
+        },
+      ),
+    ];
+
     return Container(
       padding: EdgeInsets.all(20.r),
       height: 414.h,
@@ -41,7 +49,7 @@ class _ProfileTodayTasksState extends State<ProfileTodayTasks> {
       child: ListView.builder(
         itemCount: list.length,
         itemBuilder: (context, index) => GestureDetector(
-          onTap: () => list[index].onTap,
+          onTap: () => list[index].onTap(),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [

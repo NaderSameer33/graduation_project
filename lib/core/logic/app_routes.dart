@@ -15,6 +15,11 @@ import '../../on_borading/on_borading_view.dart';
 import '../../views/splash_view.dart';
 import '../../views/welcome_view.dart';
 import '../../views/welocme_login_view.dart';
+import '../../home/pages/profile/settings/settings_screen.dart';
+import '../../home/pages/profile/challenges/challenges_screen.dart';
+import '../../home/pages/tests/tests_screen.dart';
+import '../../home/pages/pro/pro_content_screen.dart';
+import '../../home/pages/doctors/favorites/favorites_screen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -35,10 +40,15 @@ abstract class AppRoutes {
   static const String home = '/home';
   static const String notifaction = '/notificaion';
   static const String chatBot = '/chatBot';
+  static const String settings = '/settings';
+  static const String challenges = '/challenges';
+  static const String tests = '/tests';
+  static const String pro = '/pro';
+  static const String favorites = '/favorites';
   static const String trackMode = '/trackMode';
 
-  static Route? routeSetting(RouteSettings settings) {
-    switch (settings.name) {
+  static Route? routeSetting(RouteSettings routeSettings) {
+    switch (routeSettings.name) {
       case splash:
         return CupertinoPageRoute(
           builder: (context) => const SplashView(),
@@ -103,6 +113,26 @@ abstract class AppRoutes {
       case chatBot:
         return CupertinoPageRoute(
           builder: (context) => const ChatBotPage(),
+        );
+      case settings:
+        return CupertinoPageRoute(
+          builder: (context) => const SettingsScreen(),
+        );
+      case challenges:
+        return CupertinoPageRoute(
+          builder: (context) => const ChallengesScreen(),
+        );
+      case tests:
+        return CupertinoPageRoute(
+          builder: (context) => const TestsScreen(),
+        );
+      case pro:
+        return CupertinoPageRoute(
+          builder: (context) => const ProContentScreen(),
+        );
+      case favorites:
+        return CupertinoPageRoute(
+          builder: (context) => const FavoritesScreen(),
         );
       case trackMode:
         return CupertinoPageRoute(
