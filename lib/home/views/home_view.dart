@@ -5,9 +5,7 @@ import '../../core/ui/app_image.dart';
 import '../../core/ui/app_style.dart';
 import '../models/home_model.dart';
 import '../pages/chat_bot/chat_bot_page.dart';
-
 import '../pages/doctors/doctors_screen.dart';
-import '../pages/doctors_page.dart';
 import '../pages/home/home_page.dart';
 import '../pages/profile/profile_page.dart';
 import 'package:flutter/material.dart';

@@ -76,7 +76,7 @@ abstract class AppRoutes {
       case otp:
         return CupertinoPageRoute(
           builder: (context) => const OtpView(),
-          settings: settings,
+          settings: routeSettings,
         );
       case forgetPassword:
         return CupertinoPageRoute(
