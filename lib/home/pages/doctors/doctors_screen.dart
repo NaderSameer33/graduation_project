@@ -1,120 +1,10 @@
+import 'package:etmaen/home/pages/doctors/models/doctor_model.dart';
+import 'package:etmaen/home/pages/doctors/widgets/doctor_header.dart';
 import 'package:flutter/material.dart';
 import 'package:etmaen/core/ui/app_color.dart';
-import 'package:etmaen/core/ui/app_style.dart';
 import 'package:etmaen/home/pages/doctors/favorites/favorites_screen.dart';
 import 'doctor_detail_screen.dart';
 
-// ─────────────────────────────────────────────
-//  Doctors Screen
-//  Shows search bar, promotional banner and
-//  a 2-column grid of doctor cards.
-//  Matches design: "Doctors.png"
-// ─────────────────────────────────────────────
-
-// ── Data model ────────────────────────────────
-class DoctorModel {
-  DoctorModel({
-    required this.id,
-    required this.name,
-    required this.specialty,
-    required this.rating,
-    required this.price,
-    this.isTopRated = false,
-    this.isFavorite = false,
-    this.experience = 8,
-    this.reviewCount = 12,
-    this.sessionDuration = 45,
-  });
-
-  final String id;
-  final String name;
-  final String specialty;
-  final double rating;
-  final int price;
-  final bool isTopRated;
-  bool isFavorite;
-  final int experience;
-  final int reviewCount;
-  final int sessionDuration;
-}
-
-// ── Sample data ───────────────────────────────
-final List<DoctorModel> sampleDoctors = [
-  DoctorModel(
-    id: '1',
-    name: 'د محمد الامام',
-    specialty: 'دكتوراة في الطب النفسي',
-    rating: 4.9,
-    price: 400,
-    isTopRated: true,
-    isFavorite: false,
-    experience: 8,
-    reviewCount: 12,
-    sessionDuration: 45,
-  ),
-  DoctorModel(
-    id: '2',
-    name: 'د محمد الامام',
-    specialty: 'دكتوراة في الطب النفسي',
-    rating: 4.9,
-    price: 400,
-    isTopRated: true,
-    isFavorite: false,
-    experience: 6,
-    reviewCount: 8,
-    sessionDuration: 45,
-  ),
-  DoctorModel(
-    id: '3',
-    name: 'د محمد الامام',
-    specialty: 'دكتوراة في الطب النفسي',
-    rating: 4.8,
-    price: 400,
-    isTopRated: false,
-    isFavorite: false,
-    experience: 5,
-    reviewCount: 10,
-    sessionDuration: 60,
-  ),
-  DoctorModel(
-    id: '4',
-    name: 'د محمد الامام',
-    specialty: 'دكتوراة في الطب النفسي',
-    rating: 4.8,
-    price: 400,
-    isTopRated: false,
-    isFavorite: false,
-    experience: 7,
-    reviewCount: 15,
-    sessionDuration: 45,
-  ),
-  DoctorModel(
-    id: '5',
-    name: 'د محمد الامام',
-    specialty: 'دكتوراة في الطب النفسي',
-    rating: 4.7,
-    price: 350,
-    isTopRated: false,
-    isFavorite: false,
-    experience: 4,
-    reviewCount: 6,
-    sessionDuration: 30,
-  ),
-  DoctorModel(
-    id: '6',
-    name: 'د محمد الامام',
-    specialty: 'دكتوراة في الطب النفسي',
-    rating: 4.7,
-    price: 350,
-    isTopRated: false,
-    isFavorite: false,
-    experience: 4,
-    reviewCount: 6,
-    sessionDuration: 30,
-  ),
-];
-
-// ─────────────────────────────────────────────
 class DoctorsPage extends StatefulWidget {
   const DoctorsPage({super.key});
 
@@ -123,8 +13,8 @@ class DoctorsPage extends StatefulWidget {
 }
 
 class _DoctorsPagestate extends State<DoctorsPage> {
-  final TextEditingController _searchCtrl = TextEditingController();
-  List<DoctorModel> _doctors = List.from(sampleDoctors);
+  final _searchCtrl = TextEditingController();
+  final List<DoctorModel> _doctors = List.from(sampleDoctors);
   List<DoctorModel> _filtered = List.from(sampleDoctors);
 
   @override
@@ -138,9 +28,10 @@ class _DoctorsPagestate extends State<DoctorsPage> {
       _filtered = query.isEmpty
           ? List.from(_doctors)
           : _doctors
-              .where((d) =>
-                  d.name.contains(query) || d.specialty.contains(query))
-              .toList();
+                .where(
+                  (d) => d.name.contains(query) || d.specialty.contains(query),
+                )
+                .toList();
     });
   }
 
@@ -157,60 +48,16 @@ class _DoctorsPagestate extends State<DoctorsPage> {
     return Directionality(
       textDirection: TextDirection.rtl,
       child: Scaffold(
-        backgroundColor: AppColors.background,
+        resizeToAvoidBottomInset: true,
         body: SafeArea(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              // ── Header ──────────────────────────
-              Padding(
-                padding: const EdgeInsets.fromLTRB(16, 16, 16, 0),
-                child: Row(
-                  children: [
-                    // Heart/Favorites icon — appears on LEFT in RTL
-                    GestureDetector(
-                      onTap: () => Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (_) => FavoritesScreen(
-                            favoriteDoctors: _doctors
-                                .where((d) => d.isFavorite)
-                                .toList(),
-                          ),
-                        ),
-                      ),
-                      child: Container(
-                        width: 40,
-                        height: 40,
-                        decoration: BoxDecoration(
-                          color: AppColors.card,
-                          shape: BoxShape.circle,
-                        ),
-                        child: const Icon(
-                          Icons.favorite_border_rounded,
-                          color: Colors.white,
-                          size: 20,
-                        ),
-                      ),
-                    ),
-                    const Spacer(),
-                    // Title — appears on RIGHT in RTL
-                    const Text(
-                      'فريق من الخبراء جاهز لدعمك',
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 16,
-                        fontFamily: 'Cairo',
-                        fontWeight: FontWeight.w700,
-                      ),
-                    ),
-                  ],
-                ),
+              DoctorHeader(
+                doctors: _doctors,
               ),
-
               const SizedBox(height: 16),
 
-              // ── Search bar ───────────────────────
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 16),
                 child: Container(
@@ -223,8 +70,11 @@ class _DoctorsPagestate extends State<DoctorsPage> {
                     children: [
                       const SizedBox(width: 12),
                       // Filter icon (left)
-                      const Icon(Icons.tune_rounded,
-                          color: AppColors.textSecondary, size: 22),
+                      const Icon(
+                        Icons.tune_rounded,
+                        color: AppColors.textSecondary,
+                        size: 22,
+                      ),
                       const Spacer(),
                       // Search text field
                       Expanded(
@@ -252,8 +102,11 @@ class _DoctorsPagestate extends State<DoctorsPage> {
                         ),
                       ),
                       // Search icon (right in RTL → left visually)
-                      const Icon(Icons.search_rounded,
-                          color: AppColors.textSecondary, size: 22),
+                      const Icon(
+                        Icons.search_rounded,
+                        color: AppColors.textSecondary,
+                        size: 22,
+                      ),
                       const SizedBox(width: 12),
                     ],
                   ),
@@ -293,11 +146,11 @@ class _DoctorsPagestate extends State<DoctorsPage> {
                         physics: const NeverScrollableScrollPhysics(),
                         gridDelegate:
                             const SliverGridDelegateWithFixedCrossAxisCount(
-                          crossAxisCount: 2,
-                          mainAxisSpacing: 12,
-                          crossAxisSpacing: 12,
-                          childAspectRatio: 0.72,
-                        ),
+                              crossAxisCount: 2,
+                              mainAxisSpacing: 12,
+                              crossAxisSpacing: 12,
+                              childAspectRatio: 0.72,
+                            ),
                         itemCount: _filtered.length,
                         itemBuilder: (_, i) => _DoctorCard(
                           doctor: _filtered[i],
@@ -313,8 +166,7 @@ class _DoctorsPagestate extends State<DoctorsPage> {
                                 sessionPrice: _filtered[i].price,
                                 experience: _filtered[i].experience,
                                 reviewCount: _filtered[i].reviewCount,
-                                sessionDuration:
-                                    _filtered[i].sessionDuration,
+                                sessionDuration: _filtered[i].sessionDuration,
                               ),
                             ),
                           ),
@@ -437,7 +289,8 @@ class _DoctorCard extends StatelessWidget {
                     width: double.infinity,
                     decoration: const BoxDecoration(
                       borderRadius: BorderRadius.vertical(
-                          top: Radius.circular(16)),
+                        top: Radius.circular(16),
+                      ),
                       gradient: LinearGradient(
                         begin: Alignment.topCenter,
                         end: Alignment.bottomCenter,
@@ -469,9 +322,7 @@ class _DoctorCard extends StatelessWidget {
                           doctor.isFavorite
                               ? Icons.favorite_rounded
                               : Icons.favorite_border_rounded,
-                          color: doctor.isFavorite
-                              ? Colors.red
-                              : Colors.white,
+                          color: doctor.isFavorite ? Colors.red : Colors.white,
                           size: 16,
                         ),
                       ),
@@ -484,7 +335,9 @@ class _DoctorCard extends StatelessWidget {
                       start: 8,
                       child: Container(
                         padding: const EdgeInsets.symmetric(
-                            horizontal: 6, vertical: 3),
+                          horizontal: 6,
+                          vertical: 3,
+                        ),
                         decoration: BoxDecoration(
                           color: const Color(0xFFFF8C00),
                           borderRadius: BorderRadius.circular(8),
@@ -553,8 +406,11 @@ class _DoctorCard extends StatelessWidget {
                         ),
                         const Spacer(),
                         // Rating
-                        const Icon(Icons.star_rounded,
-                            color: Color(0xFFFFAA00), size: 14),
+                        const Icon(
+                          Icons.star_rounded,
+                          color: Color(0xFFFFAA00),
+                          size: 14,
+                        ),
                         const SizedBox(width: 2),
                         Text(
                           doctor.rating.toString(),
