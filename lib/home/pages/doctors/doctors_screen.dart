@@ -63,8 +63,8 @@ class _DoctorsPagestate extends State<DoctorsPage> {
               SizedBox(height: 16.h),
 
               AppInput(
-                prefixIcon: 'menu.svg',
-                suffixIcon: 'search.svg',
+                suffixIcon: 'menu.svg',
+                prefixIcon: 'search.svg',
                 hintText: 'ابحث عن دكتور .....',
                 controller: _searchCtrl,
                 onChanged: _onSearch,

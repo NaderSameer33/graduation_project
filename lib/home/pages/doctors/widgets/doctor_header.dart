@@ -10,6 +10,17 @@ class DoctorHeader extends StatelessWidget {
   Widget build(BuildContext context) {
     return Row(
       children: [
+        const Text(
+          'فريق من الخبراء جاهز لدعمك',
+          style: TextStyle(
+            color: Colors.white,
+            fontSize: 16,
+            fontFamily: 'Cairo',
+            fontWeight: FontWeight.w700,
+          ),
+        ),
+        const Spacer(),
+
         GestureDetector(
           onTap: () => Navigator.push(
             context,
@@ -31,17 +42,6 @@ class DoctorHeader extends StatelessWidget {
               color: Colors.white,
               size: 20,
             ),
-          ),
-        ),
-        const Spacer(),
-        // Title — appears on RIGHT in RTL
-        const Text(
-          'فريق من الخبراء جاهز لدعمك',
-          style: TextStyle(
-            color: Colors.white,
-            fontSize: 16,
-            fontFamily: 'Cairo',
-            fontWeight: FontWeight.w700,
           ),
         ),
       ],
