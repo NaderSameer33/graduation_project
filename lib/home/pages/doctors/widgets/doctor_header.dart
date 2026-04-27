@@ -1,6 +1,7 @@
 import 'package:etmaen/core/ui/app_color.dart';
 import 'package:etmaen/home/pages/doctors/favorites/favorites_screen.dart';
 import 'package:etmaen/home/pages/doctors/models/doctor_model.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class DoctorHeader extends StatelessWidget {
@@ -24,7 +25,7 @@ class DoctorHeader extends StatelessWidget {
         GestureDetector(
           onTap: () => Navigator.push(
             context,
-            MaterialPageRoute(
+            CupertinoPageRoute(
               builder: (_) => FavoritesScreen(
                 favoriteDoctors: doctors.where((d) => d.isFavorite).toList(),
               ),

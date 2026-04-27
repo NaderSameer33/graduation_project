@@ -1,7 +1,7 @@
 import 'package:etmaen/home/pages/doctors/doctor_detail_screen.dart';
 import 'package:etmaen/home/pages/doctors/models/doctor_model.dart';
 import 'package:etmaen/home/pages/doctors/widgets/doctor_card.dart';
-import 'package:flutter/material.dart';
+import 'package:flutter/cupertino.dart';
 
 class DoctorGridView extends StatelessWidget {
   const DoctorGridView({
@@ -29,7 +29,7 @@ class DoctorGridView extends StatelessWidget {
         onFavoriteToggle: () => toogleFaourite(filtered[i].id),
         onTap: () => Navigator.push(
           context,
-          MaterialPageRoute(
+          CupertinoPageRoute(
             builder: (_) => DoctorDetailScreen(
               doctorName: filtered[i].name,
               specialty: filtered[i].specialty,
