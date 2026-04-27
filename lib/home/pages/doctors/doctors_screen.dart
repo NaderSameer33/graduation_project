@@ -1,8 +1,10 @@
+import 'package:etmaen/core/ui/app_input.dart';
 import 'package:etmaen/home/pages/doctors/models/doctor_model.dart';
+import 'package:etmaen/home/pages/doctors/widgets/doctor_banner.dart';
 import 'package:etmaen/home/pages/doctors/widgets/doctor_header.dart';
 import 'package:flutter/material.dart';
 import 'package:etmaen/core/ui/app_color.dart';
-import 'package:etmaen/home/pages/doctors/favorites/favorites_screen.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'doctor_detail_screen.dart';
 
 class DoctorsPage extends StatefulWidget {
@@ -45,84 +47,35 @@ class _DoctorsPagestate extends State<DoctorsPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Directionality(
-      textDirection: TextDirection.rtl,
-      child: Scaffold(
-        resizeToAvoidBottomInset: true,
-        body: SafeArea(
+    return Scaffold(
+      resizeToAvoidBottomInset: true,
+      body: SafeArea(
+        child: Padding(
+          padding: EdgeInsets.symmetric(
+            horizontal: 16.r,
+          ),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               DoctorHeader(
                 doctors: _doctors,
               ),
-              const SizedBox(height: 16),
+              SizedBox(height: 16.h),
 
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 16),
-                child: Container(
-                  height: 52,
-                  decoration: BoxDecoration(
-                    color: AppColors.card,
-                    borderRadius: BorderRadius.circular(14),
-                  ),
-                  child: Row(
-                    children: [
-                      const SizedBox(width: 12),
-                      // Filter icon (left)
-                      const Icon(
-                        Icons.tune_rounded,
-                        color: AppColors.textSecondary,
-                        size: 22,
-                      ),
-                      const Spacer(),
-                      // Search text field
-                      Expanded(
-                        flex: 6,
-                        child: TextField(
-                          controller: _searchCtrl,
-                          onChanged: _onSearch,
-                          textAlign: TextAlign.right,
-                          style: const TextStyle(
-                            color: Colors.white,
-                            fontFamily: 'Cairo',
-                            fontSize: 14,
-                          ),
-                          decoration: const InputDecoration(
-                            hintText: 'ابحث عن دكتورك.....',
-                            hintStyle: TextStyle(
-                              color: AppColors.textDisabled,
-                              fontFamily: 'Cairo',
-                              fontSize: 14,
-                            ),
-                            border: InputBorder.none,
-                            isDense: true,
-                            contentPadding: EdgeInsets.zero,
-                          ),
-                        ),
-                      ),
-                      // Search icon (right in RTL → left visually)
-                      const Icon(
-                        Icons.search_rounded,
-                        color: AppColors.textSecondary,
-                        size: 22,
-                      ),
-                      const SizedBox(width: 12),
-                    ],
-                  ),
-                ),
+              AppInput(
+                prefixIcon: 'menu.svg',
+                suffixIcon: 'search.svg',
+                hintText: 'ابحث عن دكتور .....',
+                controller: _searchCtrl,
+                onChanged: _onSearch,
               ),
 
               const SizedBox(height: 16),
 
-              // ── Body (scrollable) ────────────────
               Expanded(
                 child: ListView(
-                  padding: const EdgeInsets.fromLTRB(16, 0, 16, 16),
                   children: [
-                    // ── Promotional Banner ──────────
-                    _PromoBanner(),
-
+                    DoctorBanner(),
                     const SizedBox(height: 20),
 
                     // ── Grid of doctors ─────────────
@@ -178,76 +131,6 @@ class _DoctorsPagestate extends State<DoctorsPage> {
             ],
           ),
         ),
-      ),
-    );
-  }
-}
-
-// ─────────────────────────────────────────────
-//  Promotional Banner Card
-// ─────────────────────────────────────────────
-class _PromoBanner extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      height: 160,
-      decoration: BoxDecoration(
-        gradient: const LinearGradient(
-          begin: Alignment.topRight,
-          end: Alignment.bottomLeft,
-          colors: [Color(0xFF9B5FCC), Color(0xFF4A2D6E)],
-        ),
-        borderRadius: BorderRadius.circular(20),
-      ),
-      child: Stack(
-        children: [
-          // Doctor avatar silhouette (leading side in RTL = right visually)
-          PositionedDirectional(
-            end: 0,
-            bottom: 0,
-            child: ClipRRect(
-              borderRadius: const BorderRadius.only(
-                topRight: Radius.circular(20),
-                bottomRight: Radius.circular(20),
-              ),
-              child: Container(
-                width: 130,
-                height: 160,
-                decoration: const BoxDecoration(
-                  gradient: LinearGradient(
-                    begin: Alignment.topCenter,
-                    end: Alignment.bottomCenter,
-                    colors: [Color(0x33FFFFFF), Color(0x00FFFFFF)],
-                  ),
-                ),
-                child: const Center(
-                  child: Icon(
-                    Icons.person_rounded,
-                    color: Colors.white54,
-                    size: 90,
-                  ),
-                ),
-              ),
-            ),
-          ),
-          // Text content (trailing side in RTL = left visually)
-          PositionedDirectional(
-            start: 16,
-            top: 20,
-            end: 130,
-            child: const Text(
-              'مع كل جلسة... خطوة أقرب نحو نسخة أكثر وعيًا واتزانًا منك',
-              textAlign: TextAlign.right,
-              style: TextStyle(
-                color: Colors.white,
-                fontSize: 15,
-                fontFamily: 'Cairo',
-                fontWeight: FontWeight.w700,
-                height: 1.6,
-              ),
-            ),
-          ),
-        ],
       ),
     );
   }

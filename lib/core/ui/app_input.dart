@@ -11,21 +11,31 @@ class AppInput extends StatelessWidget {
     this.prefixIcon,
     this.topSpacing = 0,
     this.bottomSpacing = 0,
+    this.controller, this.onChanged, this.suffixIcon
   });
   final String hintText;
   final String? prefixIcon;
+  final String ? suffixIcon;
   final double topSpacing, bottomSpacing;
+  final TextEditingController ? controller ;
+
+  final void Function(String)? onChanged ; 
+  
+  
 
   @override
   Widget build(BuildContext context) {
     return Padding(
       padding: EdgeInsets.only(top: topSpacing, bottom: bottomSpacing),
       child: TextFormField(
+        onChanged: onChanged,
+        controller: controller,
         style: const TextStyle(
           color: Colors.white,
           fontWeight: FontWeight.bold,
         ),
         decoration: InputDecoration(
+          suffixIcon: suffixIcon!= null? AppImage(image: suffixIcon!): null,
           prefixIcon: prefixIcon != null ? AppImage(image: prefixIcon!) : null,
           hintText: hintText,
           hintStyle: AppStyle.bold16.copyWith(color: AppColors.inputHintColor),
