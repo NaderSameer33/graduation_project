@@ -74,6 +74,10 @@ class _DoctorsPagestate extends State<DoctorsPage> {
 
               Expanded(
                 child: ListView(
+                  padding: EdgeInsets.only(
+                    bottom: MediaQuery.of(context).padding.bottom + 75,
+                  ),
+
                   children: [
                     DoctorBanner(),
 
