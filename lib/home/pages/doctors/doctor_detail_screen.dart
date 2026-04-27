@@ -1,9 +1,13 @@
+import 'package:etmaen/core/ui/app_button.dart';
 import 'package:etmaen/core/ui/app_image.dart';
+import 'package:etmaen/core/ui/app_secondry_button.dart';
 import 'package:etmaen/core/ui/app_style.dart';
+import 'package:etmaen/core/ui/custom_divider.dart';
 import 'package:etmaen/home/pages/doctors/widgets/doctor_details_header.dart';
 import 'package:etmaen/home/pages/doctors/widgets/review_doctor_item.dart';
 import 'package:etmaen/home/pages/doctors/widgets/review_header.dart';
 import 'package:etmaen/home/pages/doctors/widgets/statchip.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:etmaen/core/ui/app_color.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -35,8 +39,6 @@ class DoctorDetailScreen extends StatefulWidget {
 }
 
 class _DoctorDetailScreenState extends State<DoctorDetailScreen> {
-
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -89,7 +91,7 @@ class _DoctorDetailScreenState extends State<DoctorDetailScreen> {
                 style: AppStyle.regular12,
               ),
 
-              const _Divider(),
+              const CustomDivider(),
 
               const _SectionTitle('الموقع'),
               SizedBox(height: 6.h),
@@ -106,7 +108,7 @@ class _DoctorDetailScreenState extends State<DoctorDetailScreen> {
                 child: AppImage(image: 'map.png'),
               ),
 
-              const _Divider(),
+              const CustomDivider(),
 
               const _SectionTitle('مواعيد العمل'),
               SizedBox(height: 6.h),
@@ -115,98 +117,43 @@ class _DoctorDetailScreenState extends State<DoctorDetailScreen> {
                 style: AppStyle.regular12,
               ),
 
-              const _Divider(),
+              const CustomDivider(),
 
               ReviewHeader(widget: widget),
               SizedBox(height: 12.h),
               ReviewDoctorItem(),
-              const _Divider(),
+              const CustomDivider(),
 
-              const Center(
-                child: Text(
-                  'هل قمت بزيارة هذا الدكتور ؟',
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 15,
-                    fontFamily: 'Cairo',
-                    fontWeight: FontWeight.w700,
-                  ),
-                ),
+              Text(
+                textAlign: TextAlign.center,
+                'هل قمت بزيارة هذا الدكتور ؟',
+                style: AppStyle.bold16,
               ),
-              const SizedBox(height: 12),
-              // Write review button
-              GestureDetector(
+              SizedBox(height: 12.h),
+              AppSecondryButton(
+                title: 'اكتب مراجعه',
                 onTap: () => Navigator.push(
                   context,
-                  MaterialPageRoute(
+                  CupertinoPageRoute(
                     builder: (_) => WriteReviewScreen(
                       doctorName: widget.doctorName,
                     ),
                   ),
                 ),
-                child: Container(
-                  width: double.infinity,
-                  height: 52,
-                  decoration: BoxDecoration(
-                    border: Border.all(
-                      color: AppColors.primaryTop,
-                      width: 1.5,
-                    ),
-                    borderRadius: BorderRadius.circular(30),
-                  ),
-                  child: const Center(
-                    child: Text(
-                      'اكتب مراجعة',
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 16,
-                        fontFamily: 'Cairo',
-                        fontWeight: FontWeight.w600,
-                      ),
-                    ),
-                  ),
-                ),
               ),
+              SizedBox(height: 20.h),
 
-              const SizedBox(height: 20),
-
-              // ── Book session button ────────────
-              GestureDetector(
+              AppButton(
                 onTap: () => Navigator.push(
                   context,
                   MaterialPageRoute(
                     builder: (_) => const AddCardScreen(),
                   ),
                 ),
-                child: Container(
-                  width: double.infinity,
-                  height: 56,
-                  decoration: BoxDecoration(
-                    gradient: const LinearGradient(
-                      colors: [
-                        AppColors.primaryTop,
-                        AppColors.primaryBot,
-                      ],
-                      begin: Alignment.topCenter,
-                      end: Alignment.bottomCenter,
-                    ),
-                    borderRadius: BorderRadius.circular(30),
-                  ),
-                  child: Center(
-                    child: Text(
-                      'احجز جلسة – ${widget.sessionPrice} جنية',
-                      style: const TextStyle(
-                        color: Colors.white,
-                        fontSize: 16,
-                        fontFamily: 'Cairo',
-                        fontWeight: FontWeight.w700,
-                      ),
-                    ),
-                  ),
-                ),
+                title: 'احجز جلسة – ${widget.sessionPrice} جنية',
               ),
 
-              const SizedBox(height: 32),
+              SizedBox(height: 32.h),
             ],
           ),
         ),
@@ -214,8 +161,6 @@ class _DoctorDetailScreenState extends State<DoctorDetailScreen> {
     );
   }
 }
-
-
 
 class _SectionTitle extends StatelessWidget {
   const _SectionTitle(this.title);
@@ -227,18 +172,6 @@ class _SectionTitle extends StatelessWidget {
       title,
       textAlign: TextAlign.right,
       style: AppStyle.bold16,
-    );
-  }
-}
-
-class _Divider extends StatelessWidget {
-  const _Divider();
-
-  @override
-  Widget build(BuildContext context) {
-    return const Padding(
-      padding: EdgeInsets.symmetric(vertical: 16),
-      child: Divider(color: Color(0xFF2A2A2A), height: 1),
     );
   }
 }
