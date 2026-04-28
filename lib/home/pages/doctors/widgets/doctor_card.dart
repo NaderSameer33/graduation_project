@@ -8,7 +8,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class DoctorCard extends StatelessWidget {
   const DoctorCard({
-    super.key , 
+    super.key,
     required this.doctor,
     required this.onFavoriteToggle,
     required this.onTap,

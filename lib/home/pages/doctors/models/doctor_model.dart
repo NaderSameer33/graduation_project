@@ -98,3 +98,44 @@ final  sampleDoctors = [
     sessionDuration: 30,
   ),
 ];
+
+  List<DoctorModel> sampleFavorites() {
+    return [
+      DoctorModel(
+        id: 'f1',
+        name: 'د محمد الامام',
+        specialty: 'دكتوراة في الطب النفسي',
+        rating: 4.9,
+        price: 400,
+        isTopRated: true,
+        isFavorite: true,
+      ),
+      DoctorModel(
+        id: 'f2',
+        name: 'د محمد الامام',
+        specialty: 'دكتوراة في الطب النفسي',
+        rating: 4.9,
+        price: 400,
+        isTopRated: true,
+        isFavorite: true,
+      ),
+      DoctorModel(
+        id: 'f3',
+        name: 'د محمد الامام',
+        specialty: 'دكتوراة في الطب النفسي',
+        rating: 4.8,
+        price: 400,
+        isTopRated: false,
+        isFavorite: true,
+      ),
+      DoctorModel(
+        id: 'f4',
+        name: 'د محمد الامام',
+        specialty: 'دكتوراة في الطب النفسي',
+        rating: 4.8,
+        price: 400,
+        isTopRated: false,
+        isFavorite: true,
+      ),
+    ]  ;
+  }
