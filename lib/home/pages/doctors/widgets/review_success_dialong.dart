@@ -1,11 +1,11 @@
 import 'package:etmaen/core/ui/app_color.dart';
+import 'package:etmaen/core/ui/app_image.dart';
 import 'package:etmaen/core/ui/app_style.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class ReviewSuccessDialog extends StatelessWidget {
-  const ReviewSuccessDialog({required this.onDone , super.key});
+  const ReviewSuccessDialog({required this.onDone, super.key});
   final VoidCallback onDone;
 
   @override
@@ -17,20 +17,11 @@ class ReviewSuccessDialog extends StatelessWidget {
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            Container(
-              width: 64,
-              height: 64,
-              decoration: BoxDecoration(
-                color: AppColors.primaryTop.withOpacity(0.2),
-                shape: BoxShape.circle,
-              ),
-              child: const Icon(
-                Icons.check_rounded,
-                color: AppColors.primaryTop,
-                size: 36,
-              ),
+            AppImage(
+              image: 'success.json',
+              height: 200,
+              width: 200,
             ),
-            SizedBox(height: 16.h),
             const Text(
               'تم إرسال مراجعتك بنجاح',
               textAlign: TextAlign.center,

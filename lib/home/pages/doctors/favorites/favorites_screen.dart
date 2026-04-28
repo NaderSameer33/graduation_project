@@ -4,11 +4,6 @@ import 'package:etmaen/core/ui/app_color.dart';
 
 import 'package:etmaen/home/pages/doctors/doctor_detail_screen.dart';
 
-// ─────────────────────────────────────────────
-//  Favorites Screen
-//  Displays doctors marked as favorite.
-//  Matches design: "Fav.png"
-// ─────────────────────────────────────────────
 
 class FavoritesScreen extends StatefulWidget {
   const FavoritesScreen({super.key, this.favoriteDoctors = const []});
@@ -25,7 +20,6 @@ class _FavoritesScreenState extends State<FavoritesScreen> {
   @override
   void initState() {
     super.initState();
-    // Use passed favorites or show sample data
     _favorites = widget.favoriteDoctors.isNotEmpty
         ? List.from(widget.favoriteDoctors)
         : _sampleFavorites();
