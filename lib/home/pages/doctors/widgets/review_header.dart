@@ -1,6 +1,6 @@
 
-import 'package:etmaen/core/ui/app_color.dart';
-import 'package:etmaen/home/pages/doctors/doctor_detail_screen.dart';
+import '../../../../core/ui/app_color.dart';
+import '../doctor_detail_screen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 

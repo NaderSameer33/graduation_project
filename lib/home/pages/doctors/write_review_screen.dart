@@ -1,13 +1,13 @@
-import 'package:etmaen/core/ui/app_back.dart';
-import 'package:etmaen/core/ui/app_button.dart';
-import 'package:etmaen/core/ui/app_image.dart';
-import 'package:etmaen/core/ui/app_input.dart';
-import 'package:etmaen/core/ui/app_style.dart';
-import 'package:etmaen/core/ui/success_dialog.dart';
-import 'package:etmaen/home/pages/doctors/widgets/doctor_review_star.dart';
-import 'package:etmaen/home/pages/doctors/widgets/review_success_dialong.dart';
+import '../../../core/ui/app_back.dart';
+import '../../../core/ui/app_button.dart';
+import '../../../core/ui/app_image.dart';
+import '../../../core/ui/app_input.dart';
+import '../../../core/ui/app_style.dart';
+import '../../../core/ui/success_dialog.dart';
+import 'widgets/doctor_review_star.dart';
+import 'widgets/review_success_dialong.dart';
 import 'package:flutter/material.dart';
-import 'package:etmaen/core/ui/app_color.dart';
+import '../../../core/ui/app_color.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class WriteReviewScreen extends StatefulWidget {

@@ -1,6 +1,6 @@
-import 'package:etmaen/core/ui/app_color.dart';
-import 'package:etmaen/core/ui/app_image.dart';
-import 'package:etmaen/home/pages/chat_bot/widgets/chat_bot_input_fild.dart';
+import '../../../../core/ui/app_color.dart';
+import '../../../../core/ui/app_image.dart';
+import 'chat_bot_input_fild.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 

@@ -1,4 +1,4 @@
-import 'package:etmaen/core/ui/app_color.dart';
+import '../../../../core/ui/app_color.dart';
 import 'package:flutter/material.dart';
 
 class EmptyFavorites extends StatelessWidget {

@@ -1,16 +1,16 @@
 import 'dart:typed_data';
-import 'package:etmaen/core/logic/helper_method.dart';
-import 'package:etmaen/core/ui/app_back.dart';
+import '../../../../core/logic/helper_method.dart';
+import '../../../../core/ui/app_back.dart';
 
-import 'package:etmaen/core/ui/app_style.dart';
-import 'package:etmaen/home/pages/profile/settings/widgets/setting_group.dart';
-import 'package:etmaen/home/pages/profile/settings/widgets/setting_header.dart';
-import 'package:etmaen/home/pages/profile/settings/widgets/setting_item.dart';
+import '../../../../core/ui/app_style.dart';
+import 'widgets/setting_group.dart';
+import 'widgets/setting_header.dart';
+import 'widgets/setting_item.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart' hide showAboutDialog;
-import 'package:etmaen/core/logic/user_prefs.dart';
+import '../../../../core/logic/user_prefs.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:etmaen/home/pages/pro/pro_content_screen.dart';
+import '../../pro/pro_content_screen.dart';
 
 class SettingsScreen extends StatefulWidget {
   const SettingsScreen({super.key});

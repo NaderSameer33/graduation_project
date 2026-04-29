@@ -1,6 +1,6 @@
 
-import 'package:etmaen/core/ui/app_color.dart';
-import 'package:etmaen/home/pages/profile/settings/widgets/setting_item.dart';
+import '../../../../../core/ui/app_color.dart';
+import 'setting_item.dart';
 import 'package:flutter/material.dart';
 
 class SettingGroup extends StatelessWidget {

@@ -1,11 +1,11 @@
-import 'package:etmaen/core/logic/app_routes.dart';
-import 'package:etmaen/core/ui/app_color.dart';
-import 'package:etmaen/core/ui/app_style.dart';
-import 'package:etmaen/home/pages/home/widgets/therapeutic_content_header.dart';
-import 'package:etmaen/home/pages/profile/widgets/profiel_today_tasks.dart';
-import 'package:etmaen/home/pages/profile/widgets/profiel_track_mode_item.dart';
-import 'package:etmaen/home/pages/profile/widgets/profile_header.dart';
-import 'package:etmaen/home/pages/profile/widgets/profile_track_point_item.dart';
+import '../../../core/logic/app_routes.dart';
+import '../../../core/ui/app_color.dart';
+import '../../../core/ui/app_style.dart';
+import '../home/widgets/therapeutic_content_header.dart';
+import 'widgets/profiel_today_tasks.dart';
+import 'widgets/profiel_track_mode_item.dart';
+import 'widgets/profile_header.dart';
+import 'widgets/profile_track_point_item.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 

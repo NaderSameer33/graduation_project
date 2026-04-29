@@ -1,5 +1,5 @@
-import 'package:etmaen/core/logic/app_routes.dart';
-import 'package:etmaen/home/pages/home/widgets/home_bottom_sheet.dart';
+import '../../core/logic/app_routes.dart';
+import '../pages/home/widgets/home_bottom_sheet.dart';
 import '../../core/ui/app_color.dart';
 import '../../core/ui/app_image.dart';
 import '../../core/ui/app_style.dart';

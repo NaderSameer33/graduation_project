@@ -1,14 +1,14 @@
-import 'package:etmaen/core/ui/app_back.dart';
-import 'package:etmaen/core/ui/app_style.dart';
-import 'package:etmaen/home/pages/doctors/models/doctor_model.dart';
-import 'package:etmaen/home/pages/doctors/widgets/empty_Favourite.dart';
-import 'package:etmaen/home/pages/doctors/widgets/favourite_card.dart';
-import 'package:etmaen/home/pages/doctors/widgets/favourite_header.dart';
+import '../../../../core/ui/app_back.dart';
+import '../../../../core/ui/app_style.dart';
+import '../models/doctor_model.dart';
+import '../widgets/empty_Favourite.dart';
+import '../widgets/favourite_card.dart';
+import '../widgets/favourite_header.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:etmaen/core/ui/app_color.dart';
+import '../../../../core/ui/app_color.dart';
 
-import 'package:etmaen/home/pages/doctors/doctor_detail_screen.dart';
+import '../doctor_detail_screen.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class FavoritesScreen extends StatefulWidget {

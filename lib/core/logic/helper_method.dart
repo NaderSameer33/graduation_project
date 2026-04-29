@@ -1,9 +1,9 @@
-import 'package:etmaen/core/dialogs/delete_account_dialog.dart';
-import 'package:etmaen/core/dialogs/leaving_message_dialog.dart';
-import 'package:etmaen/core/dialogs/rate_dialog.dart';
-import 'package:etmaen/core/dialogs/support_dialog.dart';
-import 'package:etmaen/core/ui/app_color.dart';
-import 'package:etmaen/core/ui/app_style.dart';
+import '../dialogs/delete_account_dialog.dart';
+import '../dialogs/leaving_message_dialog.dart';
+import '../dialogs/rate_dialog.dart';
+import '../dialogs/support_dialog.dart';
+import '../ui/app_color.dart';
+import '../ui/app_style.dart';
 import 'package:flutter/material.dart';
 
 void showSnak({required BuildContext context, required String title}) {

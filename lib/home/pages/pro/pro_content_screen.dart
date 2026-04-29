@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:etmaen/core/ui/app_color.dart';
-import 'package:etmaen/core/ui/app_style.dart';
+import '../../../core/ui/app_color.dart';
+import '../../../core/ui/app_style.dart';
 import '../payment/add_card_screen.dart';
 
 // ─────────────────────────────────────────────

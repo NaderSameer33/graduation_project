@@ -1,6 +1,6 @@
-import 'package:etmaen/home/pages/doctors/doctor_detail_screen.dart';
-import 'package:etmaen/home/pages/doctors/models/doctor_model.dart';
-import 'package:etmaen/home/pages/doctors/widgets/doctor_card.dart';
+import '../doctor_detail_screen.dart';
+import '../models/doctor_model.dart';
+import 'doctor_card.dart';
 import 'package:flutter/cupertino.dart';
 
 class DoctorGridView extends StatelessWidget {

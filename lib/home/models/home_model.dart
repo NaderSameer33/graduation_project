@@ -1,6 +1,6 @@
-import 'package:etmaen/home/pages/doctors/doctors_screen.dart';
-import 'package:etmaen/home/pages/home/home_page.dart';
-import 'package:etmaen/home/pages/profile/profile_page.dart';
+import '../pages/doctors/doctors_screen.dart';
+import '../pages/home/home_page.dart';
+import '../pages/profile/profile_page.dart';
 import 'package:flutter/material.dart';
 
 class HomeModel {

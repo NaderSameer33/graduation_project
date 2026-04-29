@@ -1,5 +1,5 @@
-import 'package:etmaen/core/ui/app_color.dart';
-import 'package:etmaen/core/ui/app_style.dart';
+import '../ui/app_color.dart';
+import '../ui/app_style.dart';
 import 'package:flutter/material.dart';
 
 class AboutDialog extends StatelessWidget {

@@ -1,6 +1,6 @@
-import 'package:etmaen/core/ui/app_color.dart';
-import 'package:etmaen/home/pages/doctors/favorites/favorites_screen.dart';
-import 'package:etmaen/home/pages/doctors/models/doctor_model.dart';
+import '../../../../core/ui/app_color.dart';
+import '../favorites/favorites_screen.dart';
+import '../models/doctor_model.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 

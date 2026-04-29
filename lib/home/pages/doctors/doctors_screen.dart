@@ -1,10 +1,10 @@
-import 'package:etmaen/core/ui/app_input.dart';
-import 'package:etmaen/home/pages/doctors/models/doctor_model.dart';
-import 'package:etmaen/home/pages/doctors/widgets/doctor_banner.dart';
-import 'package:etmaen/home/pages/doctors/widgets/doctor_grid_view.dart';
-import 'package:etmaen/home/pages/doctors/widgets/doctor_header.dart';
+import '../../../core/ui/app_input.dart';
+import 'models/doctor_model.dart';
+import 'widgets/doctor_banner.dart';
+import 'widgets/doctor_grid_view.dart';
+import 'widgets/doctor_header.dart';
 import 'package:flutter/material.dart';
-import 'package:etmaen/core/ui/app_color.dart';
+import '../../../core/ui/app_color.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class DoctorsPage extends StatefulWidget {

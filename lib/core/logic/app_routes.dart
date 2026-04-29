@@ -1,5 +1,5 @@
-import 'package:etmaen/home/pages/chat_bot/chat_bot_page.dart';
-import 'package:etmaen/home/pages/profile/profile_track_mode_view.dart';
+import '../../home/pages/chat_bot/chat_bot_page.dart';
+import '../../home/pages/profile/profile_track_mode_view.dart';
 import '../../ai/ai_analysis_view.dart';
 import '../../ai/ai_quiz_view.dart';
 import '../../ai/quiz_onborading/quiz_onborading.dart';

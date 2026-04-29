@@ -1,7 +1,7 @@
-import 'package:etmaen/core/ui/app_color.dart';
-import 'package:etmaen/core/ui/app_image.dart';
-import 'package:etmaen/core/ui/app_style.dart';
-import 'package:etmaen/home/pages/profile/settings/personal_settings_screen.dart';
+import '../../../../../core/ui/app_color.dart';
+import '../../../../../core/ui/app_image.dart';
+import '../../../../../core/ui/app_style.dart';
+import '../personal_settings_screen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 

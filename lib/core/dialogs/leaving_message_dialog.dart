@@ -1,8 +1,8 @@
-import 'package:etmaen/core/logic/helper_method.dart';
-import 'package:etmaen/core/ui/app_button.dart';
-import 'package:etmaen/core/ui/app_color.dart';
-import 'package:etmaen/core/ui/app_image.dart';
-import 'package:etmaen/core/ui/app_style.dart';
+import '../logic/helper_method.dart';
+import '../ui/app_button.dart';
+import '../ui/app_color.dart';
+import '../ui/app_image.dart';
+import '../ui/app_style.dart';
 import 'package:flutter/material.dart';
 
 class LeaveMessageDialog extends StatefulWidget {

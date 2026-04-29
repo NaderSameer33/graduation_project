@@ -1,9 +1,9 @@
 import 'dart:typed_data';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:etmaen/core/ui/app_color.dart';
-import 'package:etmaen/core/ui/app_style.dart';
-import 'package:etmaen/core/logic/user_prefs.dart';
+import '../../../../core/ui/app_color.dart';
+import '../../../../core/ui/app_style.dart';
+import '../../../../core/logic/user_prefs.dart';
 
 class PersonalSettingsScreen extends StatefulWidget {
   const PersonalSettingsScreen({super.key});
