@@ -33,8 +33,13 @@ class SettingHeader extends StatelessWidget {
         ),
         child: Row(
           children: [
-            AppImage(image: 'arrow_back.svg'),
-            const Spacer(),
+            AppImage(
+              image: 'setting.png',
+              height: 50.h,
+              width: 50.w,
+              isCircle: true,
+            ),
+            SizedBox(width: 12.w),
             Column(
               crossAxisAlignment: CrossAxisAlignment.end,
               children: [
@@ -54,12 +59,13 @@ class SettingHeader extends StatelessWidget {
                 ),
               ],
             ),
-            SizedBox(width: 12.w),
+
+            const Spacer(),
+
             AppImage(
-              image: 'setting.png',
-              height: 50.h,
-              width: 50.w,
-              isCircle: true,
+              image: 'arrow.svg',
+              height: 24.h,
+              width: 12.w,
             ),
           ],
         ),

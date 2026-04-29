@@ -4,7 +4,7 @@ import 'package:etmaen/core/ui/app_style.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-class SettingsItem extends StatelessWidget {
+class SettingsItem extends StatefulWidget {
   const SettingsItem({
     super.key,
     required this.label,
@@ -21,26 +21,37 @@ class SettingsItem extends StatelessWidget {
   final VoidCallback? onTap;
 
   @override
+  State<SettingsItem> createState() => _SettingsItemState();
+}
+
+class _SettingsItemState extends State<SettingsItem> {
+  bool isSwitch = false;
+
+  @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: onTap,
+      onTap: widget.onTap,
       behavior: HitTestBehavior.opaque,
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
         child: Row(
           children: [
-            AppImage(image: iconName),
+            AppImage(image: widget.iconName),
             SizedBox(width: 10.w),
             Text(
-              label,
+              widget.label,
               style: AppStyle.bold16,
             ),
             Spacer(),
 
-            isSwitch
+            widget.isSwitch
                 ? Switch(
-                    value: true,
-                    onChanged: (value) {},
+                    value: isSwitch,
+                    onChanged: (value) {
+                      setState(() {
+                        isSwitch = value;
+                      });
+                    },
                     activeColor: AppColors.primaryTop,
                     inactiveTrackColor: AppColors.textDisabled,
                   )
