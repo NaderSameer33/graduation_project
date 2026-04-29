@@ -1,3 +1,5 @@
+import 'package:etmaen/home/pages/profile/settings/widgets/personal_setting_bottom_sheet.dart';
+
 import '../dialogs/delete_account_dialog.dart';
 import '../dialogs/leaving_message_dialog.dart';
 import '../dialogs/rate_dialog.dart';
@@ -70,3 +72,15 @@ void showDeleteDialog(BuildContext context) {
     ),
   );
 }
+
+
+  Future<void> pickImage({required BuildContext context}) async {
+    await showModalBottomSheet(
+      context: context,
+      backgroundColor: AppColors.card,
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
+      ),
+      builder: (_) => PersonalSettingBottomSheet(),
+    );
+  }

@@ -4,7 +4,7 @@ import 'app_style.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-class AppInput extends StatelessWidget {
+class AppInput extends StatefulWidget {
   const AppInput({
     super.key,
     required this.hintText,
@@ -15,6 +15,7 @@ class AppInput extends StatelessWidget {
     this.onChanged,
     this.suffixIcon,
     this.maxLines,
+    this.isPasswrod = false,
   });
   final String hintText;
   final String? prefixIcon;
@@ -23,23 +24,49 @@ class AppInput extends StatelessWidget {
   final TextEditingController? controller;
   final int? maxLines;
   final void Function(String)? onChanged;
+  final bool isPasswrod;
 
+  @override
+  State<AppInput> createState() => _AppInputState();
+}
+
+class _AppInputState extends State<AppInput> {
+  bool isHidden = true;
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.only(top: topSpacing, bottom: bottomSpacing),
+      padding: EdgeInsets.only(
+        top: widget.topSpacing,
+        bottom: widget.bottomSpacing,
+      ),
       child: TextFormField(
-        maxLines: maxLines,
-        onChanged: onChanged,
-        controller: controller,
+        obscureText: widget.isPasswrod && isHidden,
+        maxLines: widget.isPasswrod ? 1 : widget.maxLines,
+        onChanged: widget.onChanged,
+        controller: widget.controller,
         style: const TextStyle(
           color: Colors.white,
           fontWeight: FontWeight.bold,
         ),
         decoration: InputDecoration(
-          suffixIcon: suffixIcon != null ? AppImage(image: suffixIcon!) : null,
-          prefixIcon: prefixIcon != null ? AppImage(image: prefixIcon!) : null,
-          hintText: hintText,
+          suffixIcon: widget.isPasswrod
+              ? IconButton(
+                  onPressed: () {
+                    setState(() {
+                      isHidden = !isHidden;
+                    });
+                  },
+                  icon: Icon(
+                    isHidden ? Icons.visibility_off : Icons.visibility,
+                  ),
+                )
+              : widget.suffixIcon != null
+              ? AppImage(image: widget.suffixIcon!)
+              : null,
+          prefixIcon: widget.prefixIcon != null
+              ? AppImage(image: widget.prefixIcon!)
+              : null,
+          hintText: widget.hintText,
           hintStyle: AppStyle.bold16.copyWith(color: AppColors.inputHintColor),
           filled: true,
           fillColor: AppColors.inputColor,
