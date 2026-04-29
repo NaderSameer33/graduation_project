@@ -1,14 +1,13 @@
 import 'dart:typed_data';
 import 'package:etmaen/core/ui/app_back.dart';
-import 'package:etmaen/core/ui/app_image.dart';
 import 'package:etmaen/core/ui/app_style.dart';
 import 'package:etmaen/home/pages/profile/settings/widgets/setting_header.dart';
-import 'package:flutter/cupertino.dart';
+import 'package:etmaen/home/pages/profile/settings/widgets/setting_item.dart';
+import 'package:etmaen/home/pages/profile/settings/widgets/settings_group.dart';
 import 'package:flutter/material.dart';
 import 'package:etmaen/core/ui/app_color.dart';
 import 'package:etmaen/core/logic/user_prefs.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'personal_settings_screen.dart';
 import 'package:etmaen/home/pages/pro/pro_content_screen.dart';
 
 class SettingsScreen extends StatefulWidget {
@@ -19,7 +18,7 @@ class SettingsScreen extends StatefulWidget {
 }
 
 class _SettingsScreenState extends State<SettingsScreen> {
-  bool _notificationsOn = true;
+  final bool _notificationsOn = true;
   final bool _isPro = false;
   String _userName = UserPrefs.defaultName;
   Uint8List? _avatarBytes;
@@ -64,24 +63,19 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 ispro: _isPro,
               ),
 
-              const SizedBox(height: 16),
+              SizedBox(height: 16.h),
 
               _SettingsGroup(
                 items: [
-                  _SettingsItem(
-                    icon: Icons.notifications_rounded,
+                  SettingsItem(
+                    iconName: 'notification.svg',
                     label: 'الاشعارات',
-                    trailing: Switch(
-                      value: _notificationsOn,
-                      onChanged: (v) => setState(() => _notificationsOn = v),
-                      activeColor: AppColors.primaryTop,
-                      inactiveTrackColor: AppColors.textDisabled,
-                    ),
+                    isSwitch: true,
                   ),
-                  _SettingsItem(
-                    icon: Icons.workspace_premium_rounded,
+                  SettingsItem(
+                    iconName: 'pro.svg',
                     label: 'ترقية الحساب الى برو',
-                    showChevron: true,
+
                     onTap: () => Navigator.push(
                       context,
                       MaterialPageRoute(
@@ -89,22 +83,19 @@ class _SettingsScreenState extends State<SettingsScreen> {
                       ),
                     ),
                   ),
-                  _SettingsItem(
-                    icon: Icons.headset_mic_rounded,
+                  SettingsItem(
+                    iconName: 'support.svg',
                     label: 'الدعم والمساعدة',
-                    showChevron: true,
                     onTap: () => _showSupportDialog(context),
                   ),
-                  _SettingsItem(
-                    icon: Icons.info_outline_rounded,
+                  SettingsItem(
+                    iconName: 'about.svg',
                     label: 'حول التطبيق',
-                    showChevron: true,
                     onTap: () => _showAboutDialog(context),
                   ),
-                  _SettingsItem(
-                    icon: Icons.share_rounded,
+                  SettingsItem(
+                    iconName: 'share.svg',
                     label: 'مشاركة التطبيق',
-                    showChevron: true,
                     onTap: () {
                       ScaffoldMessenger.of(context).showSnackBar(
                         const SnackBar(
@@ -118,10 +109,9 @@ class _SettingsScreenState extends State<SettingsScreen> {
                       );
                     },
                   ),
-                  _SettingsItem(
-                    icon: Icons.favorite_rounded,
+                  SettingsItem(
+                    iconName: 'love.svg',
                     label: 'ادعمنا للمزيد من التطوير',
-                    showChevron: true,
                     onTap: () => _showRateDialog(context),
                   ),
                 ],
@@ -132,10 +122,9 @@ class _SettingsScreenState extends State<SettingsScreen> {
               // ── Legal group ──────────────────────
               _SettingsGroup(
                 items: [
-                  _SettingsItem(
-                    icon: Icons.security_rounded,
+                  SettingsItem(
+                    iconName: 'privacy.svg',
                     label: 'سياسة الخصوصية',
-                    showChevron: true,
                     onTap: () {
                       ScaffoldMessenger.of(context).showSnackBar(
                         const SnackBar(
@@ -149,10 +138,9 @@ class _SettingsScreenState extends State<SettingsScreen> {
                       );
                     },
                   ),
-                  _SettingsItem(
-                    icon: Icons.balance_rounded,
+                  SettingsItem(
+                    iconName: 'using.svg',
                     label: 'شروط الاستخدام',
-                    showChevron: true,
                     onTap: () {
                       ScaffoldMessenger.of(context).showSnackBar(
                         const SnackBar(
@@ -166,10 +154,9 @@ class _SettingsScreenState extends State<SettingsScreen> {
                       );
                     },
                   ),
-                  _SettingsItem(
-                    icon: Icons.language_rounded,
+                  SettingsItem(
+                    iconName: 'global.svg',
                     label: 'خدمات الطرف الثالث',
-                    showChevron: true,
                     onTap: () {
                       ScaffoldMessenger.of(context).showSnackBar(
                         const SnackBar(
@@ -310,19 +297,15 @@ class _SettingsScreenState extends State<SettingsScreen> {
         onKeep: () => Navigator.pop(context),
         onDelete: () {
           Navigator.pop(context);
-          // TODO: call delete API
         },
       ),
     );
   }
 }
 
-// ─────────────────────────────────────────────
-//  Settings Group (card container with dividers)
-// ─────────────────────────────────────────────
 class _SettingsGroup extends StatelessWidget {
   const _SettingsGroup({required this.items});
-  final List<_SettingsItem> items;
+  final List<SettingsItem> items;
 
   @override
   Widget build(BuildContext context) {
@@ -350,62 +333,7 @@ class _SettingsGroup extends StatelessWidget {
   }
 }
 
-// ── Single settings row ───────────────────────
-class _SettingsItem extends StatelessWidget {
-  const _SettingsItem({
-    required this.icon,
-    required this.label,
-    this.trailing,
-    this.showChevron = false,
-    this.onTap,
-  });
 
-  final IconData icon;
-  final String label;
-  final Widget? trailing;
-  final bool showChevron;
-  final VoidCallback? onTap;
-
-  @override
-  Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: onTap,
-      behavior: HitTestBehavior.opaque,
-      child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
-        child: Row(
-          children: [
-            // Left: chevron or custom trailing
-            if (showChevron)
-              const Icon(
-                Icons.chevron_left_rounded,
-                color: AppColors.textSecondary,
-                size: 20,
-              )
-            else if (trailing != null)
-              trailing!,
-            const Spacer(),
-            // Right: label + icon
-            Text(
-              label,
-              style: const TextStyle(
-                color: Colors.white,
-                fontSize: 14,
-                fontFamily: 'Cairo',
-              ),
-            ),
-            const SizedBox(width: 10),
-            Icon(icon, color: AppColors.textSecondary, size: 20),
-          ],
-        ),
-      ),
-    );
-  }
-}
-
-// ─────────────────────────────────────────────
-//  Rate App Dialog  (rate.png)
-// ─────────────────────────────────────────────
 class _AppRateDialog extends StatelessWidget {
   const _AppRateDialog({
     required this.onLeaveMessage,
