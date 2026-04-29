@@ -1,4 +1,7 @@
 import 'dart:typed_data';
+
+import 'package:etmaen/home/pages/profile/settings/widgets/setting_remove_account.dart';
+
 import '../../../../core/logic/helper_method.dart';
 import '../../../../core/ui/app_back.dart';
 
@@ -143,33 +146,11 @@ class _SettingsScreenState extends State<SettingsScreen> {
               ),
 
               const SizedBox(height: 24),
+              SettingRemoveAccount() , 
 
-              Center(
-                child: GestureDetector(
-                  onTap: () => showDeleteDialog(context),
-                  child: const Row(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      Text(
-                        'حذف حسابي على التطبيق',
-                        style: TextStyle(
-                          color: Colors.redAccent,
-                          fontSize: 14,
-                          fontFamily: 'Cairo',
-                        ),
-                      ),
-                      SizedBox(width: 6),
-                      Icon(
-                        Icons.delete_outline_rounded,
-                        color: Colors.redAccent,
-                        size: 18,
-                      ),
-                    ],
-                  ),
-                ),
+              SizedBox(
+                height: 50.h,
               ),
-
-              const SizedBox(height: 40),
             ],
           ),
         ),
@@ -177,4 +158,3 @@ class _SettingsScreenState extends State<SettingsScreen> {
     );
   }
 }
-
