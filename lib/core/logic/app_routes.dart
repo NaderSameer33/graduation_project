@@ -1,4 +1,5 @@
 import 'package:etmaen/cinema/cinema_etmaen.dart';
+import 'package:etmaen/cinema/cinema_video_view.dart';
 
 import '../../home/pages/chat_bot/chat_bot_page.dart';
 import '../../home/pages/profile/profile_track_mode_view.dart';
@@ -49,6 +50,7 @@ abstract class AppRoutes {
   static const String favorites = '/favorites';
   static const String trackMode = '/trackMode';
   static const String cinema = '/cinema';
+  static const String cinemaVideo = '/cinemaVideo';
 
   static Route? routeSetting(RouteSettings routeSettings) {
     switch (routeSettings.name) {
@@ -144,6 +146,10 @@ abstract class AppRoutes {
       case cinema:
         return CupertinoPageRoute(
           builder: (context) => const CinemaEtmaen(),
+        );
+      case cinemaVideo:
+        return CupertinoPageRoute(
+          builder: (context) => const CinemaVideoView(),
         );
 
       default:

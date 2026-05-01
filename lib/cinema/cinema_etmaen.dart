@@ -1,11 +1,8 @@
-import 'package:carousel_slider/carousel_slider.dart';
 import 'package:etmaen/cinema/widgets/cinema_header.dart';
 import 'package:etmaen/cinema/widgets/cinema_header_list_view.dart';
 import 'package:etmaen/cinema/widgets/cinema_most_view.dart';
 import 'package:etmaen/cinema/widgets/cinema_short_film.dart';
 import 'package:etmaen/cinema/widgets/cinema_slider.dart';
-import 'package:etmaen/core/ui/app_color.dart';
-import 'package:etmaen/core/ui/app_image.dart';
 import 'package:etmaen/core/ui/app_style.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
