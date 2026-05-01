@@ -1,3 +1,6 @@
+import 'app_image.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+
 import 'app_color.dart';
 import 'app_style.dart';
 import 'package:flutter/material.dart';
@@ -18,6 +21,15 @@ class SuccessDialog extends StatelessWidget {
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
+            SizedBox(
+              height: 200.h,
+              width: 200.w,
+
+              child: FittedBox(
+                fit: BoxFit.contain,
+                child: AppImage(image: 'space_rocket.json'),
+              ),
+            ),
             Text(
               "تهانينا 🎉",
               style: AppStyle.regular28.copyWith(

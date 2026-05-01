@@ -42,7 +42,7 @@ class _QuizOnboradingItemState extends State<QuizOnboradingItem> {
                 begin: oldProgress,
                 end: newProgress,
               ),
-              duration: const Duration(seconds: 1),
+              duration: const Duration(milliseconds: 500),
               curve: Curves.fastOutSlowIn,
               onEnd: () {
                 oldProgress = newProgress;

@@ -1,9 +1,10 @@
 import 'package:confetti/confetti.dart';
-import 'quiz_onborading/widget/ai_analysis_item.dart';
-import '../core/logic/app_routes.dart';
-import '../core/ui/success_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+
+import '../core/logic/app_routes.dart';
+import '../core/ui/success_dialog.dart';
+import 'quiz_onborading/widget/ai_analysis_item.dart';
 
 class AiAnalysisView extends StatefulWidget {
   const AiAnalysisView({super.key});

@@ -1,8 +1,8 @@
-import 'package:etmaen/home/pages/chat_bot/widgets/chat_bot_header.dart';
-import 'package:etmaen/home/pages/chat_bot/widgets/chat_bot_input.dart';
-import 'package:etmaen/home/pages/chat_bot/widgets/chat_bubble.dart';
-import 'package:etmaen/home/pages/chat_bot/widgets/chat_bubble_friend.dart';
-import 'package:etmaen/home/pages/chat_bot/widgets/custom_drawer.dart';
+import 'widgets/chat_bot_header.dart';
+import 'widgets/chat_bot_input.dart';
+import 'widgets/chat_bubble.dart';
+import 'widgets/chat_bubble_friend.dart';
+import 'widgets/custom_drawer.dart';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';

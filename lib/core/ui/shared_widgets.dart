@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:etmaen/core/ui/app_color.dart';
-import 'package:etmaen/core/ui/app_style.dart';
+import 'app_color.dart';
+import 'app_style.dart';
 
 // ─────────────────────────────────────────────
 //  ETMAEN – Shared Widgets

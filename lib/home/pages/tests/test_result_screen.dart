@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:etmaen/core/ui/app_color.dart';
-import 'package:etmaen/home/views/home_view.dart';
+import '../../../core/ui/app_color.dart';
+import '../../views/home_view.dart';
 
 // ─────────────────────────────────────────────
 //  Test Result Screen

@@ -1,8 +1,8 @@
-import 'package:etmaen/core/ui/app_color.dart';
-import 'package:etmaen/core/ui/app_style.dart';
+import '../../../../core/ui/app_color.dart';
+import '../../../../core/ui/app_style.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:etmaen/core/logic/app_routes.dart';
+import '../../../../core/logic/app_routes.dart';
 
 class ProfileTodayTasks extends StatefulWidget {
   const ProfileTodayTasks({super.key});
@@ -24,14 +24,14 @@ class _ProfileTodayTasksState extends State<ProfileTodayTasks> {
         },
       ),
       ProfileTodayModel(
-        title: 'تنفيذ 4 تحديات علاجية  من اختيارك',
+        title: 'تنفيذ 4 تحديات علاجية من اختيارك',
         subTitle: 'ابدا الان',
         onTap: () {
           Navigator.pushNamed(context, AppRoutes.challenges);
         },
       ),
       ProfileTodayModel(
-        title: 'تحديد فكرة مزعجة لك  ومناقشتها مع البوت',
+        title: 'تحديد فكرة مزعجة لك ومناقشتها مع البوت',
         subTitle: 'ابدا الان',
         onTap: () {
           Navigator.pushNamed(context, AppRoutes.chatBot);
