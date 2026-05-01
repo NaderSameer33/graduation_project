@@ -1,3 +1,5 @@
+import 'package:etmaen/core/logic/app_routes.dart';
+
 import '../../../core/ui/app_color.dart';
 import '../../../core/ui/app_style.dart';
 import 'widgets/cinema_etmean_list_view.dart';
@@ -80,7 +82,7 @@ class HomePage extends StatelessWidget {
               ),
               SliverToBoxAdapter(
                 child: TherapeuticContentHeader(
-                  onTap: () {},
+                  onTap: () => Navigator.pushNamed(context, AppRoutes.cinema),
 
                   title: 'ٍسينما اطمئن',
                 ),
