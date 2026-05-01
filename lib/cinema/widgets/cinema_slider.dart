@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:etmaen/core/ui/app_color.dart';
 import 'package:etmaen/core/ui/app_image.dart';
@@ -31,10 +29,11 @@ class _CinemaSliderState extends State<CinemaSlider> {
             AppImage(image: 'cinema.png'),
           ],
           options: CarouselOptions(
+            viewportFraction: 1,
+
             onPageChanged: (index, _) {
               setState(() {
                 currentIndex = index;
-               
               });
             },
 
@@ -46,7 +45,7 @@ class _CinemaSliderState extends State<CinemaSlider> {
         ),
 
         SizedBox(
-          height: 5.h,
+          height: 10.h,
         ),
         Row(
           mainAxisAlignment: MainAxisAlignment.center,

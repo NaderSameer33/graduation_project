@@ -1,6 +1,8 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:etmaen/cinema/widgets/cinema_header.dart';
 import 'package:etmaen/cinema/widgets/cinema_header_list_view.dart';
+import 'package:etmaen/cinema/widgets/cinema_most_view.dart';
+import 'package:etmaen/cinema/widgets/cinema_short_film.dart';
 import 'package:etmaen/cinema/widgets/cinema_slider.dart';
 import 'package:etmaen/core/ui/app_color.dart';
 import 'package:etmaen/core/ui/app_image.dart';
@@ -16,6 +18,7 @@ class CinemaEtmaen extends StatelessWidget {
     return Scaffold(
       body: SafeArea(
         child: SingleChildScrollView(
+          physics: BouncingScrollPhysics(),
           padding: EdgeInsets.symmetric(horizontal: 16.r),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -37,6 +40,29 @@ class CinemaEtmaen extends StatelessWidget {
                 height: 10.h,
               ),
               CinemaSlider(),
+              SizedBox(
+                height: 10.h,
+              ),
+              Text(
+                'الاكثر مشاهدة',
+                style: AppStyle.bold16,
+              ),
+              SizedBox(
+                height: 10.h,
+              ),
+
+              CinemaMostView(),
+              SizedBox(
+                height: 10.h,
+              ),
+              Text(
+                'افلام قصيرة',
+                style: AppStyle.bold16,
+              ),
+              SizedBox(
+                height: 10.h,
+              ),
+              CinemaShortFilm(),
             ],
           ),
         ),
@@ -44,4 +70,3 @@ class CinemaEtmaen extends StatelessWidget {
     );
   }
 }
-
