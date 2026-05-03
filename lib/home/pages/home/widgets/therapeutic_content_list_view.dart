@@ -1,0 +1,122 @@
+import '../../../../core/ui/app_color.dart';
+import '../../../../core/ui/app_image.dart';
+import '../../../../core/ui/app_style.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+
+class TherapeuticContentListView extends StatelessWidget {
+  const TherapeuticContentListView({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return SliverList.builder(
+      itemCount: 7,
+      itemBuilder: (context, index) => TherapeuticContentItem(index: index),
+    );
+  }
+}
+
+class TherapeuticContentItem extends StatelessWidget {
+  final int index;
+  const TherapeuticContentItem({super.key, required this.index});
+
+  @override
+  Widget build(BuildContext context) {
+    final title = index.isEven ? 'ما هو الاكتئاب الخفيف ؟' : 'اساسيات العلاج بال CBT';
+    final subtitle = 'المستوى الاول - فيديو ${index + 1}';
+
+    return GestureDetector(
+      onTap: () {
+        Navigator.pushNamed(
+          context, 
+          '/audioPlayer', 
+          arguments: {
+            'title': title,
+            'subtitle': subtitle,
+          },
+        );
+      },
+      child: Container(
+        margin: EdgeInsets.only(bottom: 16.r),
+        height: 115.h,
+        width: double.infinity,
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(12.r),
+          gradient: LinearGradient(
+            transform: const GradientRotation(0.2),
+            stops: const [0, 1],
+            begin: Alignment.topCenter,
+            end: Alignment.bottomCenter,
+            colors: [
+              AppColors.avatarColor,
+              AppColors.inputColor,
+            ],
+          ),
+        ),
+        child: Padding(
+          padding: EdgeInsets.all(16.r),
+          child: Row(
+            children: [
+              AppImage(
+                image: 'worry.png',
+                height: 88.h,
+                width: 88.w,
+              ),
+              SizedBox(
+                width: 12.w,
+              ),
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Row(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text.rich(
+                          TextSpan(
+                            text: 'المستوى الاول\t\t\t\t',
+                            style: AppStyle.regular12,
+                            children: [
+                              TextSpan(
+                                text: 'فيديو ${index + 1} \t\t\t\t',
+                                style: AppStyle.regular12,
+                              ),
+                              TextSpan(
+                                text: '20 دقيقة',
+                                style: AppStyle.regular12,
+                              ),
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
+                    SizedBox(
+                      height: 5.h,
+                    ),
+                    Text(
+                      textAlign: TextAlign.start,
+                      title,
+                      style: AppStyle.regular16.copyWith(
+                        color: AppColors.whiteColor,
+                      ),
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                    ),
+                    SizedBox(
+                      height: 5.h,
+                    ),
+                    Text(
+                      textAlign: TextAlign.start,
+                      'د نادر سمير ',
+                      style: AppStyle.regular16,
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
