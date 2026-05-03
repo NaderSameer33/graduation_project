@@ -26,7 +26,7 @@ class EtmaenApp extends StatelessWidget {
             );
           },
 
-          initialRoute: AppRoutes.home,
+          initialRoute: AppRoutes.splash,
           onGenerateRoute: AppRoutes.routeSetting,
           darkTheme: ThemeData(
             fontFamily: 'Cairo',
