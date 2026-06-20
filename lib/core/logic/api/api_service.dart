@@ -43,7 +43,7 @@ class ApiService {
         connectTimeout: ApiConfig.connectTimeout,
         receiveTimeout: ApiConfig.receiveTimeout,
         headers:        ApiConfig.defaultHeaders,
-        validateStatus: (status) => status != null && status < 500,
+        validateStatus: (status) => status != null && status < 600,
       ),
     );
     // ── Logging interceptor (debug builds only) ──
@@ -62,6 +62,9 @@ class ApiService {
         onError: (error, handler) {
           // ignore: avoid_print
           print('[API] ✗ ${error.message}');
+          if (error.response?.data != null) {
+            print('[API] Server Response Data: ${error.response?.data}');
+          }
           handler.next(error);
         },
       ),

@@ -7,7 +7,8 @@ import '../core/ui/success_dialog.dart';
 import 'quiz_onborading/widget/ai_analysis_item.dart';
 
 class AiAnalysisView extends StatefulWidget {
-  const AiAnalysisView({super.key});
+  final Map<String, dynamic>? planData;
+  const AiAnalysisView({super.key, this.planData});
 
   @override
   State<AiAnalysisView> createState() => _AiAnalysisViewState();
@@ -19,7 +20,7 @@ class _AiAnalysisViewState extends State<AiAnalysisView> {
   @override
   void initState() {
     super.initState();
-    confettiController = ConfettiController(duration: Duration(seconds: 2));
+    confettiController = ConfettiController(duration: const Duration(seconds: 2));
     startAnalysis();
   }
 
@@ -34,15 +35,19 @@ class _AiAnalysisViewState extends State<AiAnalysisView> {
 
     confettiController.play();
     if (!mounted) return;
-    showDialog(context: context, builder: (context) => SuccessDialog());
+    showDialog(context: context, builder: (context) => const SuccessDialog());
 
     await Future.delayed(
       const Duration(seconds: 5),
     );
 
     if (!mounted) return;
-    Navigator.pop(context);
-    Navigator.pushNamed(context, AppRoutes.appPlan);
+    Navigator.pop(context); // Close dialog
+    Navigator.pushReplacementNamed(
+      context, 
+      AppRoutes.appPlan,
+      arguments: widget.planData,
+    );
   }
 
   @override

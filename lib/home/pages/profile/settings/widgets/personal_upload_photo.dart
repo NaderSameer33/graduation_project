@@ -5,15 +5,22 @@ import 'package:etmaen/core/ui/app_color.dart';
 import 'package:flutter/material.dart';
 
 class PersonalUploadPhoto extends StatelessWidget {
-  const PersonalUploadPhoto({super.key, required this.avatarBytes});
+  const PersonalUploadPhoto({super.key, required this.avatarBytes, this.onImageSelected});
   final Uint8List? avatarBytes;
+  final ValueChanged<Uint8List?>? onImageSelected;
 
   @override
   Widget build(BuildContext context) {
     return Center(
       child: GestureDetector(
         onTap: () async {
-          await pickImage(context: context);
+          final newImage = await pickImage(
+            context: context,
+            currentAvatarBytes: avatarBytes,
+          );
+          if (newImage != null && onImageSelected != null) {
+            onImageSelected!(newImage);
+          }
         },
         child: Stack(
           children: [

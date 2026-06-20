@@ -17,7 +17,6 @@ class EtmaenApp extends StatelessWidget {
         designSize: const Size(375, 811),
         minTextAdapt: true,
         splitScreenMode: true,
-
         child: MaterialApp(
           builder: (context, child) {
             return Directionality(
@@ -25,15 +24,13 @@ class EtmaenApp extends StatelessWidget {
               child: child!,
             );
           },
-
-          initialRoute: AppRoutes.home,
+          initialRoute: AppRoutes.onBorading,
           onGenerateRoute: AppRoutes.routeSetting,
           darkTheme: ThemeData(
             fontFamily: 'Cairo',
             brightness: Brightness.dark,
             scaffoldBackgroundColor: Colors.black,
           ),
-
           themeMode: ThemeMode.dark,
           debugShowCheckedModeBanner: false,
         ),

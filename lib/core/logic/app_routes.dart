@@ -113,9 +113,11 @@ abstract class AppRoutes {
       case aiQuizOnBorading:
         return _customRoute(const QuizOnboradingView(), settings: routeSettings);
       case aiAnalysis:
-        return _customRoute(const AiAnalysisView(), settings: routeSettings);
+        final args = routeSettings.arguments as Map<String, dynamic>?;
+        return _customRoute(AiAnalysisView(planData: args), settings: routeSettings);
       case appPlan:
-        return _customRoute(const AppPlanView(), settings: routeSettings);
+        final args = routeSettings.arguments as Map<String, dynamic>?;
+        return _customRoute(AppPlanView(planData: args), settings: routeSettings);
       case home:
         return _customRoute(const HomeView(), settings: routeSettings);
       case notifaction:

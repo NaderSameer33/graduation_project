@@ -11,10 +11,20 @@ class QuizOnboradingItem extends StatefulWidget {
     super.key,
     required this.currentInex,
     required this.pageController,
+    required this.totalQuestions,
+    required this.questionData,
+    this.selectedAnswerIndex,
+    required this.onAnswerSelected,
+    required this.onSubmit,
   });
 
   final int currentInex;
   final PageController pageController;
+  final int totalQuestions;
+  final dynamic questionData;
+  final int? selectedAnswerIndex;
+  final ValueChanged<int> onAnswerSelected;
+  final VoidCallback onSubmit;
 
   @override
   State<QuizOnboradingItem> createState() => _QuizOnboradingItemState();
@@ -26,8 +36,17 @@ class _QuizOnboradingItemState extends State<QuizOnboradingItem> {
 
   @override
   Widget build(BuildContext context) {
-    final int totalQuestions = 3;
-    final double newProgress = (widget.currentInex + 1) / totalQuestions;
+    final double newProgress = (widget.currentInex + 1) / widget.totalQuestions;
+    final String title = widget.questionData['title'] ?? 'سؤال';
+    final String text = widget.questionData['text'] ?? '';
+    // The API does not return options, so we use the standard assessment options
+    final List<String> options = [
+      'لا أوافق إطلاقاً',
+      'نادراً',
+      'أحياناً',
+      'غالباً',
+      'دائماً'
+    ];
 
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: 16.r),
@@ -63,7 +82,7 @@ class _QuizOnboradingItemState extends State<QuizOnboradingItem> {
             Align(
               alignment: Alignment.centerRight,
               child: Text(
-                'هل انت على دراية بالدعم',
+                title,
                 style: AppStyle.bold19.copyWith(
                   color: AppColors.whiteColor,
                 ),
@@ -75,7 +94,7 @@ class _QuizOnboradingItemState extends State<QuizOnboradingItem> {
             Align(
               alignment: Alignment.centerRight,
               child: Text(
-                'نحن نطبق اساليب العلاج المعرفي السلوكي \n(CBT) المثبتة ما مدى معرفتك بهذا النهج',
+                text,
                 style: AppStyle.regular16.copyWith(
                   color: AppColors.whiteColor,
                 ),
@@ -85,14 +104,38 @@ class _QuizOnboradingItemState extends State<QuizOnboradingItem> {
               height: 30.h,
             ),
             ...List.generate(
-              3,
-              (index) => QuizQuestion(
-                isSelected: selectedIndex == index,
-                onTap: () {
-                  selectedIndex = index;
-                  setState(() {});
-                },
-                currentIndex: index,
+              options.length,
+              (index) => Padding(
+                padding: EdgeInsets.only(bottom: 10.h),
+                child: GestureDetector(
+                  onTap: () {
+                    widget.onAnswerSelected(index);
+                  },
+                  child: Container(
+                    padding: EdgeInsets.all(16.r),
+                    decoration: BoxDecoration(
+                      color: widget.selectedAnswerIndex == index ? AppColors.primiryColor : AppColors.inputColor,
+                      borderRadius: BorderRadius.circular(12.r),
+                      border: Border.all(
+                        color: widget.selectedAnswerIndex == index ? AppColors.primiryColor : Colors.transparent,
+                      ),
+                    ),
+                    child: Row(
+                      children: [
+                        Expanded(
+                          child: Text(
+                            options[index].toString(),
+                            style: AppStyle.regular16.copyWith(
+                              color: AppColors.whiteColor,
+                            ),
+                          ),
+                        ),
+                        if (widget.selectedAnswerIndex == index)
+                          Icon(Icons.check_circle, color: Colors.white, size: 24.r),
+                      ],
+                    ),
+                  ),
+                ),
               ),
             ),
             SizedBox(
@@ -100,11 +143,22 @@ class _QuizOnboradingItemState extends State<QuizOnboradingItem> {
             ),
             AppButton(
               onTap: () {
-                if (widget.currentInex == 2) {
-                  Navigator.pushNamed(context, AppRoutes.aiAnalysis);
+                if (widget.selectedAnswerIndex == null) {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(
+                      content: Text('الرجاء اختيار إجابة للمتابعة', style: TextStyle(fontFamily: 'Cairo')),
+                      backgroundColor: Colors.redAccent,
+                      behavior: SnackBarBehavior.floating,
+                    ),
+                  );
+                  return;
+                }
+
+                if (widget.currentInex == widget.totalQuestions - 1) {
+                  widget.onSubmit();
                 } else {
                   widget.pageController.nextPage(
-                    duration: Duration(seconds: 1),
+                    duration: const Duration(seconds: 1),
                     curve: Curves.fastOutSlowIn,
                   );
                 }
