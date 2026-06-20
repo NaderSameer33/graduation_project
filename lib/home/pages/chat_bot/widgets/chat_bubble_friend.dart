@@ -3,11 +3,13 @@ import '../../../../core/ui/app_style.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
+/// Bubble shown on the LEFT side → bot message
 class ChatBubbleBot extends StatelessWidget {
   const ChatBubbleBot({
     super.key,
     required this.title,
   });
+
   final String title;
 
   @override
@@ -15,12 +17,16 @@ class ChatBubbleBot extends StatelessWidget {
     return Align(
       alignment: Alignment.centerLeft,
       child: Container(
-        alignment: Alignment.center,
-        padding: EdgeInsets.all(12.r),
-        width: 314.w,
+        padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 10.h),
+        constraints: BoxConstraints(maxWidth: 280.w),
         decoration: BoxDecoration(
           color: AppColors.inputColor,
-          borderRadius: BorderRadius.circular(12.r),
+          borderRadius: BorderRadius.only(
+            topLeft: Radius.circular(4.r),
+            topRight: Radius.circular(16.r),
+            bottomLeft: Radius.circular(16.r),
+            bottomRight: Radius.circular(16.r),
+          ),
         ),
         child: Text(
           title,

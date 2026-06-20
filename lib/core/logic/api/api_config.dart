@@ -53,6 +53,9 @@ class ApiConfig {
     'tests': '/api/tests',
     'profile': '/api/profile',
     'logout': '/api/auth/logout',
+
+    // Chatbot
+    'chat_send': '/api/Chat/send',
   };
 
   // ── Default headers ──────────────────────────
