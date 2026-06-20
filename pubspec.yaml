@@ -59,6 +59,7 @@ flutter:
 
   assets:
     - assets/images/
+    - assets/images/doctors/
     - assets/icons/
     - assets/lotties/
     - assets/animations/

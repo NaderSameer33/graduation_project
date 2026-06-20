@@ -2,7 +2,6 @@ import '../../../../core/ui/app_color.dart';
 import '../../../../core/ui/app_image.dart';
 import '../../../../core/ui/app_style.dart';
 import '../models/doctor_model.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -36,13 +35,12 @@ class DoctorCard extends StatelessWidget {
                 ClipRRect(
                   borderRadius: BorderRadius.circular(8.r),
                   child: AppImage(
-                    image: 'doctor_nader.png',
+                    image: doctor.image,
                     height: 145.h,
                     width: 152.w,
                     fit: BoxFit.cover,
                   ),
                 ),
-
                 PositionedDirectional(
                   top: 8,
                   end: 8,
@@ -94,17 +92,21 @@ class DoctorCard extends StatelessWidget {
             SizedBox(
               height: 5.h,
             ),
-
             Text(
               doctor.name,
-              style: AppStyle.bold16,
+              maxLines: 1,
+              overflow: TextOverflow.ellipsis,
+              style: AppStyle.bold16.copyWith(fontSize: 13.sp),
             ),
-
             Text(
               doctor.specialty,
-              style: AppStyle.regular12,
+              maxLines: 1,
+              overflow: TextOverflow.ellipsis,
+              style: AppStyle.regular12.copyWith(fontSize: 11.sp),
             ),
-
+            SizedBox(
+              height: 5.h,
+            ),
             Flexible(
               child: Row(
                 children: [
@@ -113,20 +115,17 @@ class DoctorCard extends StatelessWidget {
                     color: Color(0xFFFFAA00),
                     size: 14,
                   ),
-                  SizedBox(width: 5.w),
-
+                  SizedBox(width: 3.w),
                   Text(
                     doctor.rating.toString(),
-                    style: AppStyle.regular16.copyWith(
+                    style: AppStyle.regular12.copyWith(
                       color: AppColors.whiteColor,
                     ),
                   ),
-
                   const Spacer(),
-
                   Text(
                     '${doctor.price} جنية',
-                    style: AppStyle.regular16.copyWith(
+                    style: AppStyle.regular12.copyWith(
                       color: AppColors.whiteColor,
                     ),
                   ),

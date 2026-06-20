@@ -31,13 +31,7 @@ class DoctorGridView extends StatelessWidget {
           context,
           CupertinoPageRoute(
             builder: (_) => DoctorDetailScreen(
-              doctorName: filtered[i].name,
-              specialty: filtered[i].specialty,
-              rating: filtered[i].rating,
-              sessionPrice: filtered[i].price,
-              experience: filtered[i].experience,
-              reviewCount: filtered[i].reviewCount,
-              sessionDuration: filtered[i].sessionDuration,
+              doctor: filtered[i],
             ),
           ),
         ),

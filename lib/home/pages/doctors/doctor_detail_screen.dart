@@ -3,6 +3,7 @@ import '../../../core/ui/app_image.dart';
 import '../../../core/ui/app_secondry_button.dart';
 import '../../../core/ui/app_style.dart';
 import '../../../core/ui/custom_divider.dart';
+import 'models/doctor_model.dart';
 import 'widgets/doctor_details_header.dart';
 import 'widgets/review_doctor_item.dart';
 import 'widgets/review_header.dart';
@@ -17,22 +18,10 @@ import 'write_review_screen.dart';
 class DoctorDetailScreen extends StatefulWidget {
   const DoctorDetailScreen({
     super.key,
-    required this.doctorName,
-    required this.specialty,
-    required this.rating,
-    required this.sessionPrice,
-    required this.experience,
-    required this.reviewCount,
-    required this.sessionDuration,
+    required this.doctor,
   });
 
-  final String doctorName;
-  final String specialty;
-  final double rating;
-  final int sessionPrice;
-  final int experience;
-  final int reviewCount;
-  final int sessionDuration;
+  final DoctorModel doctor;
 
   @override
   State<DoctorDetailScreen> createState() => _DoctorDetailScreenState();
@@ -41,29 +30,29 @@ class DoctorDetailScreen extends StatefulWidget {
 class _DoctorDetailScreenState extends State<DoctorDetailScreen> {
   @override
   Widget build(BuildContext context) {
+    final doc = widget.doctor;
+
     return Scaffold(
       body: SafeArea(
         child: SingleChildScrollView(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-              DoctorDetailsHeader(),
-              SizedBox(
-                height: 10.h,
-              ),
+              DoctorDetailsHeader(doctor: doc),
+              SizedBox(height: 10.h),
 
               Padding(
-                padding: EdgeInsets.symmetric(horizontal: 8.r),
+                padding: EdgeInsets.symmetric(horizontal: 16.r),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
                     Text(
-                      widget.doctorName,
+                      doc.name,
                       style: AppStyle.bold16,
                     ),
                     SizedBox(height: 4.h),
                     Text(
-                      widget.specialty,
+                      doc.specialty,
                       style: AppStyle.regular12,
                     ),
                     SizedBox(height: 12.h),
@@ -74,16 +63,16 @@ class _DoctorDetailScreenState extends State<DoctorDetailScreen> {
                       children: [
                         StatChip(
                           icon: Icons.access_time_rounded,
-                          label: '${widget.sessionDuration} دقيقة',
+                          label: '${doc.sessionDuration} دقيقة',
                         ),
                         StatChip(
                           icon: Icons.star_rounded,
-                          label: '${widget.rating} نجوم',
+                          label: '${doc.rating} نجوم',
                           iconColor: const Color(0xFFFFAA00),
                         ),
                         StatChip(
                           icon: Icons.work_rounded,
-                          label: '${widget.experience} سنوات خبرة',
+                          label: '${doc.experience} سنوات خبرة',
                         ),
                       ],
                     ),
@@ -91,9 +80,12 @@ class _DoctorDetailScreenState extends State<DoctorDetailScreen> {
                     SizedBox(height: 16.h),
 
                     Text(
-                      'طبيب نفسي وخبير CBT. يقدم منهجيات علمية قائمة على الأدلة لتمكينك من إدارة عواطفك وأفكارك بفاعلية.',
+                      doc.description,
                       textAlign: TextAlign.right,
-                      style: AppStyle.regular12,
+                      style: AppStyle.regular12.copyWith(
+                        color: AppColors.whiteColor.withAlpha(200),
+                        height: 1.5,
+                      ),
                     ),
 
                     const CustomDivider(),
@@ -101,7 +93,7 @@ class _DoctorDetailScreenState extends State<DoctorDetailScreen> {
                     const _SectionTitle('الموقع'),
                     SizedBox(height: 6.h),
                     Text(
-                      'المنصورة، شارع بنك مصر برج الشاذلي الدور الرابع شقة 3',
+                      doc.location,
                       textAlign: TextAlign.right,
                       style: AppStyle.regular12.copyWith(
                         color: AppColors.whiteColor,
@@ -118,20 +110,20 @@ class _DoctorDetailScreenState extends State<DoctorDetailScreen> {
                     const _SectionTitle('مواعيد العمل'),
                     SizedBox(height: 6.h),
                     Text(
-                      'الاحد - الاربعاء (2 عصرا - 9 مساء)',
+                      doc.workingHours,
                       style: AppStyle.regular12,
                     ),
 
                     const CustomDivider(),
 
-                    ReviewHeader(widget: widget),
+                    ReviewHeader(doctor: doc),
                     SizedBox(height: 12.h),
-                    ReviewDoctorItem(),
+                    const ReviewDoctorItem(),
                     const CustomDivider(),
 
                     Text(
-                      textAlign: TextAlign.center,
                       'هل قمت بزيارة هذا الدكتور ؟',
+                      textAlign: TextAlign.center,
                       style: AppStyle.bold16,
                     ),
                     SizedBox(height: 12.h),
@@ -141,7 +133,7 @@ class _DoctorDetailScreenState extends State<DoctorDetailScreen> {
                         context,
                         CupertinoPageRoute(
                           builder: (_) => WriteReviewScreen(
-                            doctorName: widget.doctorName,
+                            doctorName: doc.name,
                           ),
                         ),
                       ),
@@ -155,7 +147,7 @@ class _DoctorDetailScreenState extends State<DoctorDetailScreen> {
                           builder: (_) => const AddCardScreen(),
                         ),
                       ),
-                      title: 'احجز جلسة – ${widget.sessionPrice} جنية',
+                      title: 'احجز جلسة – ${doc.fees}',
                     ),
 
                     SizedBox(height: 32.h),

@@ -36,7 +36,7 @@ class _DoctorsPagestate extends State<DoctorsPage> {
       final list = res.asList;
       setState(() {
         _doctors = list
-            .map((e) => DoctorModel.fromJson(e as Map<String, dynamic>))
+            .map((e) => DoctorModel.fromJson(e))
             .toList();
         _filtered = List.from(_doctors);
         _isLoading = false;

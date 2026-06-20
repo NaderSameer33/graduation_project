@@ -36,13 +36,12 @@ class FavDoctorCard extends StatelessWidget {
                   ClipRRect(
                     borderRadius: BorderRadius.circular(8.r),
                     child: AppImage(
-                      image: 'doctor_nader.png',
+                      image: doctor.image,
                       height: 145.h,
                       width: 152.w,
                       fit: BoxFit.cover,
                     ),
                   ),
-
                   PositionedDirectional(
                     top: 8,
                     end: 8,
@@ -96,10 +95,16 @@ class FavDoctorCard extends StatelessWidget {
               ),
               Text(
                 doctor.name,
-
-                style: AppStyle.bold16,
+                maxLines: 1,
+                overflow: TextOverflow.ellipsis,
+                style: AppStyle.bold16.copyWith(fontSize: 13.sp),
               ),
-              Text(doctor.specialty, style: AppStyle.regular12),
+              Text(
+                doctor.specialty,
+                maxLines: 1,
+                overflow: TextOverflow.ellipsis,
+                style: AppStyle.regular12.copyWith(fontSize: 11.sp),
+              ),
               SizedBox(
                 height: 5.h,
               ),
@@ -117,9 +122,7 @@ class FavDoctorCard extends StatelessWidget {
                       color: AppColors.whiteColor,
                     ),
                   ),
-
                   const Spacer(),
-
                   Text(
                     '${doctor.price} جنية',
                     style: AppStyle.regular12.copyWith(

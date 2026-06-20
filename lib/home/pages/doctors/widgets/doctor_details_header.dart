@@ -1,10 +1,13 @@
 import '../../../../core/ui/app_color.dart';
 import '../../../../core/ui/app_image.dart';
+import '../models/doctor_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class DoctorDetailsHeader extends StatefulWidget {
-  const DoctorDetailsHeader({super.key});
+  const DoctorDetailsHeader({super.key, required this.doctor});
+
+  final DoctorModel doctor;
 
   @override
   State<DoctorDetailsHeader> createState() => _DoctorDetailsHeaderState();
@@ -24,7 +27,7 @@ class _DoctorDetailsHeaderState extends State<DoctorDetailsHeader> {
           ),
           child: AppImage(
             width: double.infinity,
-            image: 'doctor_nader.png',
+            image: widget.doctor.image,
             height: 271.h,
             fit: BoxFit.cover,
           ),

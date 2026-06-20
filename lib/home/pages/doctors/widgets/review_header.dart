@@ -1,16 +1,14 @@
-
 import '../../../../core/ui/app_color.dart';
-import '../doctor_detail_screen.dart';
-import 'package:flutter/cupertino.dart';
+import '../models/doctor_model.dart';
 import 'package:flutter/material.dart';
 
 class ReviewHeader extends StatelessWidget {
   const ReviewHeader({
     super.key,
-    required this.widget,
+    required this.doctor,
   });
 
-  final DoctorDetailScreen widget;
+  final DoctorModel doctor;
 
   @override
   Widget build(BuildContext context) {
@@ -28,7 +26,7 @@ class ReviewHeader extends StatelessWidget {
         ),
         const SizedBox(width: 8),
         Text(
-          '(${widget.reviewCount} مراجعة)',
+          '(${doctor.reviewCount} مراجعة)',
           style: const TextStyle(
             color: AppColors.textSecondary,
             fontSize: 12,
