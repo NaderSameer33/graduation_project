@@ -1,4 +1,3 @@
-import '../otp/otp_view.dart';
 import '../../core/logic/app_routes.dart';
 import '../../core/ui/app_back.dart';
 import '../../core/ui/app_button.dart';
