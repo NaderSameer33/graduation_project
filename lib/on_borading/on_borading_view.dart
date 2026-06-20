@@ -1,3 +1,4 @@
+import 'package:confetti/confetti.dart';
 import 'model/on_borading_model.dart';
 import 'widget/on_borading_item.dart';
 import 'package:flutter/material.dart';
@@ -44,30 +45,53 @@ class _OnBoradingViewState extends State<OnBoradingView> {
   ];
 
   late PageController pageController;
+  late ConfettiController confettiController;
+
   @override
   void initState() {
     super.initState();
-
     pageController = PageController();
+    confettiController = ConfettiController(duration: const Duration(seconds: 2));
   }
 
   @override
   void dispose() {
     pageController.dispose();
+    confettiController.dispose();
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: PageView.builder(
-        controller: pageController,
-        itemCount: list.length,
-        itemBuilder: (context, index) => OnBoradingItem(
-          pageController: pageController,
-          index: index,
-          model: list[index],
-        ),
+      body: Stack(
+        children: [
+          PageView.builder(
+            controller: pageController,
+            itemCount: list.length,
+            itemBuilder: (context, index) => OnBoradingItem(
+              pageController: pageController,
+              confettiController: confettiController,
+              index: index,
+              model: list[index],
+            ),
+          ),
+          Align(
+            alignment: Alignment.topCenter,
+            child: ConfettiWidget(
+              confettiController: confettiController,
+              blastDirectionality: BlastDirectionality.explosive,
+              shouldLoop: false,
+              colors: const [
+                Colors.green,
+                Colors.blue,
+                Colors.pink,
+                Colors.orange,
+                Colors.purple
+              ],
+            ),
+          ),
+        ],
       ),
     );
   }

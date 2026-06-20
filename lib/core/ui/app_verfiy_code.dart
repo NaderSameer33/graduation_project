@@ -4,14 +4,18 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
 
 class AppVerfiyCode extends StatelessWidget {
-  const AppVerfiyCode({super.key});
+  final ValueChanged<String>? onChanged;
+  final ValueChanged<String>? onCompleted;
+
+  const AppVerfiyCode({super.key, this.onChanged, this.onCompleted});
 
   @override
   Widget build(BuildContext context) {
     return PinCodeTextField(
       autoFocus: true,
       keyboardType: TextInputType.number,
-
+      onChanged: onChanged ?? (value) {},
+      onCompleted: onCompleted,
       cursorColor: AppColors.inputHintColor,
       cursorWidth: 5.5.w,
       cursorHeight: 30.h,

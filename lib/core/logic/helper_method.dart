@@ -1,3 +1,7 @@
+import 'dart:typed_data';
+import 'api/api_service.dart';
+import 'app_routes.dart';
+import 'user_prefs.dart';
 import 'package:etmaen/home/pages/profile/settings/widgets/personal_setting_bottom_sheet.dart';
 
 import '../dialogs/delete_account_dialog.dart';
@@ -66,21 +70,45 @@ void showDeleteDialog(BuildContext context) {
     context: context,
     builder: (_) => DeleteAccountDialog(
       onKeep: () => Navigator.pop(context),
-      onDelete: () {
-        Navigator.pop(context);
+      onDelete: () async {
+        Navigator.pop(context); // Close dialog
+        
+        // Show loading indicator (optional but good UX)
+        showDialog(
+          context: context,
+          barrierDismissible: false,
+          builder: (context) => const Center(child: CircularProgressIndicator()),
+        );
+
+        final res = await ApiService.delete('deactivate');
+
+        if (context.mounted) {
+          Navigator.pop(context); // Close loading indicator
+          if (res.success) {
+            await UserPrefs.clearAll();
+            Navigator.pushNamedAndRemoveUntil(context, AppRoutes.login, (route) => false);
+          } else {
+            showSnak(context: context, title: res.error ?? 'فشل حذف الحساب');
+          }
+        }
       },
     ),
   );
 }
 
 
-  Future<void> pickImage({required BuildContext context}) async {
-    await showModalBottomSheet(
+  Future<Uint8List?> pickImage({
+    required BuildContext context,
+    Uint8List? currentAvatarBytes,
+  }) async {
+    return await showModalBottomSheet<Uint8List?>(
       context: context,
       backgroundColor: AppColors.card,
       shape: const RoundedRectangleBorder(
         borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
       ),
-      builder: (_) => PersonalSettingBottomSheet(),
+      builder: (_) => PersonalSettingBottomSheet(
+        currentAvatarBytes: currentAvatarBytes,
+      ),
     );
   }

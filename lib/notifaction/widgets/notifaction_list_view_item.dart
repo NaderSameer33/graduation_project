@@ -5,8 +5,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class NotificationListViewItem extends StatelessWidget {
+  final String title;
+  final String body;
+  final String time;
   const NotificationListViewItem({
     super.key,
+    this.title = 'تمرين تنفس جديد',
+    this.body = 'ابدأ معنا الأن ',
+    this.time = 'منذ دقيقة',
   });
 
   @override
@@ -35,7 +41,7 @@ class NotificationListViewItem extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  'تمرين تنفس جديد',
+                  title,
                   style: AppStyle.bold16,
                 ),
                 SizedBox(
@@ -45,14 +51,14 @@ class NotificationListViewItem extends StatelessWidget {
                 Row(
                   children: [
                     Text(
-                      'ابدأ معنا الأن ',
+                      body,
                       style: AppStyle.regular12.copyWith(
                         color: AppColors.whiteColor,
                       ),
                     ),
                     Spacer(),
                     Text(
-                      'منذ دقيقة',
+                      time,
                       style: AppStyle.regular12.copyWith(
                         color: AppColors.whiteColor,
                       ),

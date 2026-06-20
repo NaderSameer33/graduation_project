@@ -1,3 +1,5 @@
+import 'package:confetti/confetti.dart';
+
 import '../../core/logic/app_routes.dart';
 import '../../core/ui/app_color.dart';
 import '../../core/ui/app_image.dart';
@@ -12,10 +14,12 @@ class OnBoradingItem extends StatelessWidget {
     required this.model,
     required this.index,
     required this.pageController,
+    required this.confettiController,
   });
   final OnBoradingModel model;
   final int index;
   final PageController pageController;
+  final ConfettiController confettiController;
 
   @override
   Widget build(BuildContext context) {
@@ -89,13 +93,20 @@ class OnBoradingItem extends StatelessWidget {
                 radius: 32.r,
                 backgroundColor: AppColors.primiryColor,
                 child: IconButton(
-                  onPressed: () => index == 4
-                      ? Navigator.pushNamed(context, AppRoutes.welcomeLogin)
-                      : pageController.nextPage(
-                          duration: const Duration(milliseconds: 500),
-                          curve: Curves.fastOutSlowIn,
-                        ),
-
+                  onPressed: () async {
+                    if (index == 4) {
+                      confettiController.play();
+                      await Future.delayed(const Duration(seconds: 1));
+                      if (context.mounted) {
+                        Navigator.pushNamed(context, AppRoutes.welcomeLogin);
+                      }
+                    } else {
+                      pageController.nextPage(
+                        duration: const Duration(milliseconds: 500),
+                        curve: Curves.fastOutSlowIn,
+                      );
+                    }
+                  },
                   icon: const AppImage(image: 'arrow.svg'),
                 ),
               ),

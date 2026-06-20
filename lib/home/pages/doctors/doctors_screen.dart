@@ -1,3 +1,4 @@
+import '../../../core/logic/api/api_service.dart';
 import '../../../core/ui/app_input.dart';
 import 'models/doctor_model.dart';
 import 'widgets/doctor_banner.dart';
@@ -16,8 +17,39 @@ class DoctorsPage extends StatefulWidget {
 
 class _DoctorsPagestate extends State<DoctorsPage> {
   final _searchCtrl = TextEditingController();
-  final List<DoctorModel> _doctors = List.from(sampleDoctors);
-  List<DoctorModel> _filtered = List.from(sampleDoctors);
+  List<DoctorModel> _doctors = [];
+  List<DoctorModel> _filtered = [];
+  bool _isLoading = true;
+
+  @override
+  void initState() {
+    super.initState();
+    _fetchDoctors();
+  }
+
+  Future<void> _fetchDoctors() async {
+    setState(() => _isLoading = true);
+
+    final res = await ApiService.authenticatedGet('doctors');
+
+    if (res.success && res.asList.isNotEmpty) {
+      final list = res.asList;
+      setState(() {
+        _doctors = list
+            .map((e) => DoctorModel.fromJson(e as Map<String, dynamic>))
+            .toList();
+        _filtered = List.from(_doctors);
+        _isLoading = false;
+      });
+    } else {
+      // Fallback to sample data if API has no doctors yet
+      setState(() {
+        _doctors = List.from(sampleDoctors);
+        _filtered = List.from(sampleDoctors);
+        _isLoading = false;
+      });
+    }
+  }
 
   @override
   void dispose() {
@@ -37,12 +69,25 @@ class _DoctorsPagestate extends State<DoctorsPage> {
     });
   }
 
-  void _toggleFavorite(String id) {
+  void _toggleFavorite(String id) async {
+    final idx = _doctors.indexWhere((d) => d.id == id);
+    if (idx == -1) return;
+
+    final doctor = _doctors[idx];
+    final wasFav = doctor.isFavorite;
+
+    // Optimistic UI update
     setState(() {
-      final idx = _doctors.indexWhere((d) => d.id == id);
-      if (idx != -1) _doctors[idx].isFavorite = !_doctors[idx].isFavorite;
+      _doctors[idx].isFavorite = !wasFav;
       _filtered = List.from(_doctors);
     });
+
+    // Call API to toggle favorite
+    if (!wasFav) {
+      await ApiService.authenticatedPost('favorite_toggle', {}, id: id);
+    } else {
+      await ApiService.delete('favorite_toggle', id: id);
+    }
   }
 
   @override
@@ -73,37 +118,39 @@ class _DoctorsPagestate extends State<DoctorsPage> {
               SizedBox(height: 16.h),
 
               Expanded(
-                child: ListView(
-                  padding: EdgeInsets.only(
-                    bottom: MediaQuery.of(context).padding.bottom + 75,
-                  ),
-
-                  children: [
-                    DoctorBanner(),
-
-                    SizedBox(height: 20.h),
-
-                    if (_filtered.isEmpty)
-                      const Center(
-                        child: Padding(
-                          padding: EdgeInsets.all(32),
-                          child: Text(
-                            'لا يوجد أطباء مطابقون للبحث',
-                            style: TextStyle(
-                              color: AppColors.textSecondary,
-                              fontFamily: 'Cairo',
-                              fontSize: 16,
-                            ),
-                          ),
+                child: _isLoading
+                    ? const Center(child: CircularProgressIndicator())
+                    : ListView(
+                        padding: EdgeInsets.only(
+                          bottom: MediaQuery.of(context).padding.bottom + 75,
                         ),
-                      )
-                    else
-                      DoctorGridView(
-                        filtered: _filtered,
-                        toogleFaourite: _toggleFavorite,
+
+                        children: [
+                          DoctorBanner(),
+
+                          SizedBox(height: 20.h),
+
+                          if (_filtered.isEmpty)
+                            const Center(
+                              child: Padding(
+                                padding: EdgeInsets.all(32),
+                                child: Text(
+                                  'لا يوجد أطباء مطابقون للبحث',
+                                  style: TextStyle(
+                                    color: AppColors.textSecondary,
+                                    fontFamily: 'Cairo',
+                                    fontSize: 16,
+                                  ),
+                                ),
+                              ),
+                            )
+                          else
+                            DoctorGridView(
+                              filtered: _filtered,
+                              toogleFaourite: _toggleFavorite,
+                            ),
+                        ],
                       ),
-                  ],
-                ),
               ),
             ],
           ),

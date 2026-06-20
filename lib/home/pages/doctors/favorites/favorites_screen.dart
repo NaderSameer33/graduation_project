@@ -1,3 +1,4 @@
+import '../../../../core/logic/api/api_service.dart';
 import '../../../../core/ui/app_back.dart';
 import '../../../../core/ui/app_style.dart';
 import '../models/doctor_model.dart';
@@ -22,19 +23,50 @@ class FavoritesScreen extends StatefulWidget {
 
 class _FavoritesScreenState extends State<FavoritesScreen> {
   late List<DoctorModel> _favorites;
+  bool _isLoading = true;
 
   @override
   void initState() {
     super.initState();
-    _favorites = widget.favoriteDoctors.isNotEmpty
-        ? List.from(widget.favoriteDoctors)
-        : sampleFavorites();
+    _loadFavorites();
   }
 
-  void _removeFavorite(String id) {
+  Future<void> _loadFavorites() async {
+    // If doctors were passed in, use them directly
+    if (widget.favoriteDoctors.isNotEmpty) {
+      setState(() {
+        _favorites = List.from(widget.favoriteDoctors);
+        _isLoading = false;
+      });
+      return;
+    }
+
+    // Otherwise fetch from API
+    final res = await ApiService.authenticatedGet('favorites');
+
+    if (res.success && res.asList.isNotEmpty) {
+      final list = res.asList;
+      setState(() {
+        _favorites = list
+            .map((e) => DoctorModel.fromJson(e as Map<String, dynamic>))
+            .toList();
+        _isLoading = false;
+      });
+    } else {
+      // Fallback to sample favorites
+      setState(() {
+        _favorites = sampleFavorites();
+        _isLoading = false;
+      });
+    }
+  }
+
+  void _removeFavorite(String id) async {
     setState(() {
       _favorites.removeWhere((d) => d.id == id);
     });
+    // Call API to remove from favorites
+    await ApiService.delete('favorite_toggle', id: id);
   }
 
   @override
@@ -51,39 +83,41 @@ class _FavoritesScreenState extends State<FavoritesScreen> {
               ),
 
               Expanded(
-                child: _favorites.isEmpty
-                    ? EmptyFavorites()
-                    : GridView.builder(
-                        gridDelegate:
-                            const SliverGridDelegateWithFixedCrossAxisCount(
-                              crossAxisCount: 2,
-                              mainAxisSpacing: 12,
-                              crossAxisSpacing: 12,
-                              childAspectRatio: 0.72,
-                            ),
-                        itemCount: _favorites.length,
-                        itemBuilder: (_, i) {
-                          final doc = _favorites[i];
-                          return FavDoctorCard(
-                            doctor: doc,
-                            onRemoveFavorite: () => _removeFavorite(doc.id),
-                            onTap: () => Navigator.push(
-                              context,
-                              CupertinoPageRoute(
-                                builder: (_) => DoctorDetailScreen(
-                                  doctorName: doc.name,
-                                  specialty: doc.specialty,
-                                  rating: doc.rating,
-                                  sessionPrice: doc.price,
-                                  experience: doc.experience,
-                                  reviewCount: doc.reviewCount,
-                                  sessionDuration: doc.sessionDuration,
+                child: _isLoading
+                    ? const Center(child: CircularProgressIndicator())
+                    : _favorites.isEmpty
+                        ? EmptyFavorites()
+                        : GridView.builder(
+                            gridDelegate:
+                                const SliverGridDelegateWithFixedCrossAxisCount(
+                                  crossAxisCount: 2,
+                                  mainAxisSpacing: 12,
+                                  crossAxisSpacing: 12,
+                                  childAspectRatio: 0.72,
                                 ),
-                              ),
-                            ),
-                          );
-                        },
-                      ),
+                            itemCount: _favorites.length,
+                            itemBuilder: (_, i) {
+                              final doc = _favorites[i];
+                              return FavDoctorCard(
+                                doctor: doc,
+                                onRemoveFavorite: () => _removeFavorite(doc.id),
+                                onTap: () => Navigator.push(
+                                  context,
+                                  CupertinoPageRoute(
+                                    builder: (_) => DoctorDetailScreen(
+                                      doctorName: doc.name,
+                                      specialty: doc.specialty,
+                                      rating: doc.rating,
+                                      sessionPrice: doc.price,
+                                      experience: doc.experience,
+                                      reviewCount: doc.reviewCount,
+                                      sessionDuration: doc.sessionDuration,
+                                    ),
+                                  ),
+                                ),
+                              );
+                            },
+                          ),
               ),
             ],
           ),
