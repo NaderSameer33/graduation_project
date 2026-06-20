@@ -7,59 +7,83 @@ import 'package:etmaen/core/ui/app_style.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-class CinemaEtmaen extends StatelessWidget {
+class CinemaEtmaen extends StatefulWidget {
   const CinemaEtmaen({super.key});
+
+  @override
+  State<CinemaEtmaen> createState() => _CinemaEtmaenState();
+}
+
+class _CinemaEtmaenState extends State<CinemaEtmaen> {
+  String selectedFilter = 'عرض الكل';
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: SafeArea(
         child: SingleChildScrollView(
-          physics: BouncingScrollPhysics(),
+          physics: const BouncingScrollPhysics(),
           padding: EdgeInsets.symmetric(horizontal: 16.r),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-              CinemaHeader(),
+              const CinemaHeader(),
               SizedBox(
                 height: 30.h,
               ),
 
-              CinemaHeaderListView(),
+              CinemaHeaderListView(
+                onFilterChanged: (filter) {
+                  setState(() {
+                    selectedFilter = filter;
+                  });
+                },
+              ),
               SizedBox(
                 height: 28.h,
               ),
               Text(
                 'شاهدته مؤخرا',
                 style: AppStyle.bold16,
+                textAlign: TextAlign.right,
+                textDirection: TextDirection.rtl,
               ),
               SizedBox(
                 height: 10.h,
               ),
-              CinemaSlider(),
+              // We could pass selectedFilter to CinemaSlider if needed, but 'recently watched' 
+              // is usually independent of filters.
+              const CinemaSlider(),
               SizedBox(
                 height: 10.h,
               ),
               Text(
                 'الاكثر مشاهدة',
                 style: AppStyle.bold16,
+                textAlign: TextAlign.right,
+                textDirection: TextDirection.rtl,
               ),
               SizedBox(
                 height: 10.h,
               ),
-
-              CinemaMostView(),
+              // Filter logic can be applied inside CinemaMostView
+              CinemaMostView(filter: selectedFilter),
               SizedBox(
                 height: 10.h,
               ),
               Text(
                 'افلام قصيرة',
                 style: AppStyle.bold16,
+                textAlign: TextAlign.right,
+                textDirection: TextDirection.rtl,
               ),
               SizedBox(
                 height: 10.h,
               ),
-              CinemaShortFilm(),
+              CinemaShortFilm(filter: selectedFilter),
+              SizedBox(
+                height: 40.h,
+              ),
             ],
           ),
         ),

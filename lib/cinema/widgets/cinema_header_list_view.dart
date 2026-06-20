@@ -4,9 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class CinemaHeaderListView extends StatefulWidget {
-  const CinemaHeaderListView({
-    super.key,
-  });
+  final Function(String) onFilterChanged;
+  const CinemaHeaderListView({super.key, required this.onFilterChanged});
 
   @override
   State<CinemaHeaderListView> createState() => _CinemaHeaderListViewState();
@@ -14,34 +13,48 @@ class CinemaHeaderListView extends StatefulWidget {
 
 class _CinemaHeaderListViewState extends State<CinemaHeaderListView> {
   int currentIndex = 0;
+  final List<String> categories = [
+    'عرض الكل',
+    'تقبل الذات',
+    'التحكم في القلق',
+    'الثقة بالنفس',
+    'الصمود النفسي'
+  ];
+
   @override
   Widget build(BuildContext context) {
     return SizedBox(
       height: 40.h,
       child: ListView.builder(
-        physics: BouncingScrollPhysics(),
+        itemCount: categories.length,
+        physics: const BouncingScrollPhysics(),
         scrollDirection: Axis.horizontal,
+        reverse: true, // Arabic right-to-left layout
         itemBuilder: (context, index) => GestureDetector(
           onTap: () {
             setState(() {
               currentIndex = index;
             });
+            widget.onFilterChanged(categories[index]);
           },
           child: AnimatedContainer(
-            duration: Duration(milliseconds: 500),
+            duration: const Duration(milliseconds: 300),
             margin: EdgeInsets.symmetric(horizontal: 7.r),
+            padding: EdgeInsets.symmetric(horizontal: 20.w),
             alignment: Alignment.center,
-            width: 78.w,
             decoration: BoxDecoration(
               color: index == currentIndex
                   ? AppColors.primiryColor
                   : AppColors.card,
               borderRadius: BorderRadius.circular(32.r),
+              border: Border.all(
+                color: index == currentIndex ? Colors.transparent : Colors.white12,
+              )
             ),
             child: Text(
-              index == 0 ? 'عرض الكل' : 'تقبل الذات',
+              categories[index],
               style: AppStyle.bold12.copyWith(
-                color: AppColors.whiteColor,
+                color: index == currentIndex ? AppColors.whiteColor : AppColors.greyColor,
               ),
             ),
           ),

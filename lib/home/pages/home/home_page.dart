@@ -59,7 +59,9 @@ class HomePage extends StatelessWidget {
               ),
               SliverToBoxAdapter(
                 child: TherapeuticContentHeader(
-                  onTap: () {},
+                  onTap: () {
+                    Navigator.pushNamed(context, AppRoutes.learning);
+                  },
                   title: 'محتوي علاجي مخصص لك',
                 ),
               ),
@@ -71,8 +73,9 @@ class HomePage extends StatelessWidget {
               ),
               SliverToBoxAdapter(
                 child: TherapeuticContentHeader(
-                  onTap: () {},
-
+                  onTap: () {
+                    Navigator.pushNamed(context, AppRoutes.exercise);
+                  },
                   title: 'تمارين بناء المهارات النفسية',
                 ),
               ),

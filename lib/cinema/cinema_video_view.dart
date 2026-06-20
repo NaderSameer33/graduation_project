@@ -46,104 +46,99 @@ class _CinemaVideoViewState extends State<CinemaVideoView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Column(
-        children: [
-          Stack(
-            children: [
-              AspectRatio(
-                aspectRatio: 16 / 9,
-                child: FlickVideoPlayer(
-                  
-                  flickManager: flickManager,
-                ),
-              ),
-              Positioned(right: 16.r, top: 35.h, child: AppBack()),
-            ],
-          ),
-          SizedBox(
-            height: 16.h,
-          ),
-          Padding(
-            padding: EdgeInsets.symmetric(horizontal: 16.r),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.stretch,
+      backgroundColor: AppColors.blackColor,
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            Stack(
               children: [
-                Text(
-                  'The Pursuit of Happynes',
-                  style: AppStyle.bold16,
+                AspectRatio(
+                  aspectRatio: 16 / 9,
+                  child: FlickVideoPlayer(
+                    flickManager: flickManager,
+                  ),
                 ),
-                SizedBox(
-                  height: 16.h,
+                Positioned(
+                  right: 16.w, 
+                  top: 50.h, 
+                  child: const AppBack()
                 ),
-                Row(
-                  children: [
-                    ...List.generate(
-                      3,
-                      (index) => Container(
-                        margin: EdgeInsets.symmetric(horizontal: 8.r),
-                        alignment: Alignment.center,
-                        height: 38.h,
-                        width: 72.w,
-                        decoration: BoxDecoration(
-                          color: AppColors.card,
-                          borderRadius: BorderRadius.circular(8.r),
-                        ),
-                        child: Text(
-                          'دعم وتحفيز',
-                          style: AppStyle.regular12,
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-                SizedBox(
-                  height: 16.h,
-                ),
-
-                Text(
-                  'نبذة عن الفيلم',
-                  style: AppStyle.bold16,
-                ),
-                SizedBox(
-                  height: 16.h,
-                ),
-
-                Text(
-                  'يروي الفيلم قصة أب يواجه ضغوطًا نفسية واقتصادية قاسية، ويجد نفسه مطالبًا بالصمود من أجل ابنه رغم الفشل المتكرر وقلة الموارد.',
-                  style: AppStyle.regular12,
-                ),
-                SizedBox(
-                  height: 16.h,
-                ),
-
-                Text(
-                  'يروي الفيلم قصة أب يواجه ضغوطًا نفسية واقتصادية قاسية، ويجد نفسه مطالبًا بالصمود من أجل ابنه رغم الفشل المتكرر وقلة الموارد.',
-                  style: AppStyle.regular12,
-                ),
-                SizedBox(
-                  height: 16.h,
-                ),
-
-                Text(
-                  'يروي الفيلم قصة أب يواجه ضغوطًا نفسية واقتصادية قاسية، ويجد نفسه مطالبًا بالصمود من أجل ابنه رغم الفشل المتكرر وقلة الموارد.',
-                  style: AppStyle.regular12,
-                ),
-                SizedBox(
-                  height: 16.h,
-                ),
-
-                Text(
-                  'افلام مشابهة',
-                  style: AppStyle.bold16,
-                ),
-                SizedBox(
-                  height: 16.h,
-                ),
-                CinemaShortFilm(),
               ],
             ),
-          ),
-        ],
+            SizedBox(
+              height: 24.h,
+            ),
+            Padding(
+              padding: EdgeInsets.symmetric(horizontal: 16.w),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.end,
+                children: [
+                  Text(
+                    'The Pursuit of Happyness',
+                    style: AppStyle.bold24.copyWith(color: AppColors.whiteColor),
+                    textDirection: TextDirection.ltr,
+                  ),
+                  SizedBox(
+                    height: 16.h,
+                  ),
+                  Wrap(
+                    spacing: 8.w,
+                    runSpacing: 8.h,
+                    alignment: WrapAlignment.end,
+                    children: [
+                      'دعم وتحفيز',
+                      'تقبل الذات',
+                      'الصمود النفسي'
+                    ].map((tag) => Container(
+                          padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 8.h),
+                          decoration: BoxDecoration(
+                            color: AppColors.card,
+                            borderRadius: BorderRadius.circular(6.r),
+                          ),
+                          child: Text(
+                            tag,
+                            style: AppStyle.regular12.copyWith(color: AppColors.greyColor),
+                          ),
+                        )).toList(),
+                  ),
+                  SizedBox(
+                    height: 32.h,
+                  ),
+                  Text(
+                    'نبذة عن الفيلم',
+                    style: AppStyle.bold16.copyWith(color: AppColors.whiteColor),
+                  ),
+                  SizedBox(
+                    height: 12.h,
+                  ),
+                  Text(
+                    'يروي الفيلم قصة أب يواجه ضغوطًا نفسية واقتصادية قاسية، ويجد نفسه مطالبًا بالصمود من أجل ابنه رغم الفشل المتكرر وقلة الموارد.\n\nيسلّط العمل الضوء على قوة الإصرار، وتقبّل الفشل كجزء من الرحلة، وأهمية الأمل في مواجهة القلق والخوف من المستقبل.\n\nيُعد الفيلم مثالًا ملهمًا على الصمود النفسي وبناء الثقة بالنفس في أصعب الظروف.',
+                    style: AppStyle.regular12.copyWith(
+                      color: AppColors.greyColor,
+                      height: 1.8,
+                    ),
+                    textAlign: TextAlign.right,
+                    textDirection: TextDirection.rtl,
+                  ),
+                  SizedBox(
+                    height: 32.h,
+                  ),
+                  Text(
+                    'افلام مشابهة',
+                    style: AppStyle.bold16.copyWith(color: AppColors.whiteColor),
+                  ),
+                  SizedBox(
+                    height: 16.h,
+                  ),
+                  const CinemaShortFilm(),
+                  SizedBox(
+                    height: 40.h,
+                  ),
+                ],
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
