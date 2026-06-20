@@ -10,6 +10,7 @@ class DoctorModel {
     this.experience = 8,
     this.reviewCount = 12,
     this.sessionDuration = 45,
+    this.imageUrl,
   });
 
   final String id;
@@ -22,9 +23,26 @@ class DoctorModel {
   final int experience;
   final int reviewCount;
   final int sessionDuration;
+  final String? imageUrl;
+
+  /// Parse a doctor from the API JSON response.
+  factory DoctorModel.fromJson(Map<String, dynamic> json) {
+    return DoctorModel(
+      id: (json['id'] ?? json['doctorId'] ?? '').toString(),
+      name: json['fullName'] ?? json['name'] ?? json['firstName'] ?? '',
+      specialty: json['specialization'] ?? json['specialty'] ?? '',
+      rating: (json['rating'] ?? 0).toDouble(),
+      price: (json['sessionPrice'] ?? json['price'] ?? 0).toInt(),
+      isTopRated: json['isTopRated'] ?? false,
+      isFavorite: json['isFavorite'] ?? false,
+      experience: (json['experienceYears'] ?? json['experience'] ?? 0).toInt(),
+      reviewCount: (json['reviewCount'] ?? 0).toInt(),
+      sessionDuration: (json['sessionDuration'] ?? 45).toInt(),
+    );
+  }
 }
 
-final  sampleDoctors = [
+final sampleDoctors = [
   DoctorModel(
     id: '1',
     name: 'د محمد الامام',
@@ -99,43 +117,43 @@ final  sampleDoctors = [
   ),
 ];
 
-  List<DoctorModel> sampleFavorites() {
-    return [
-      DoctorModel(
-        id: 'f1',
-        name: 'د محمد الامام',
-        specialty: 'دكتوراة في الطب النفسي',
-        rating: 4.9,
-        price: 400,
-        isTopRated: true,
-        isFavorite: true,
-      ),
-      DoctorModel(
-        id: 'f2',
-        name: 'د محمد الامام',
-        specialty: 'دكتوراة في الطب النفسي',
-        rating: 4.9,
-        price: 400,
-        isTopRated: true,
-        isFavorite: true,
-      ),
-      DoctorModel(
-        id: 'f3',
-        name: 'د محمد الامام',
-        specialty: 'دكتوراة في الطب النفسي',
-        rating: 4.8,
-        price: 400,
-        isTopRated: false,
-        isFavorite: true,
-      ),
-      DoctorModel(
-        id: 'f4',
-        name: 'د محمد الامام',
-        specialty: 'دكتوراة في الطب النفسي',
-        rating: 4.8,
-        price: 400,
-        isTopRated: false,
-        isFavorite: true,
-      ),
-    ]  ;
-  }
+List<DoctorModel> sampleFavorites() {
+  return [
+    DoctorModel(
+      id: 'f1',
+      name: 'د محمد الامام',
+      specialty: 'دكتوراة في الطب النفسي',
+      rating: 4.9,
+      price: 400,
+      isTopRated: true,
+      isFavorite: true,
+    ),
+    DoctorModel(
+      id: 'f2',
+      name: 'د محمد الامام',
+      specialty: 'دكتوراة في الطب النفسي',
+      rating: 4.9,
+      price: 400,
+      isTopRated: true,
+      isFavorite: true,
+    ),
+    DoctorModel(
+      id: 'f3',
+      name: 'د محمد الامام',
+      specialty: 'دكتوراة في الطب النفسي',
+      rating: 4.8,
+      price: 400,
+      isTopRated: false,
+      isFavorite: true,
+    ),
+    DoctorModel(
+      id: 'f4',
+      name: 'د محمد الامام',
+      specialty: 'دكتوراة في الطب النفسي',
+      rating: 4.8,
+      price: 400,
+      isTopRated: false,
+      isFavorite: true,
+    ),
+  ];
+}

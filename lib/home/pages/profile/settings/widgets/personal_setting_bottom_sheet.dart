@@ -7,8 +7,11 @@ import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 
 class PersonalSettingBottomSheet extends StatefulWidget {
+  final Uint8List? currentAvatarBytes;
+  
   const PersonalSettingBottomSheet({
     super.key,
+    this.currentAvatarBytes,
   });
 
   @override
@@ -20,6 +23,12 @@ class _PersonalSettingBottomSheetState
     extends State<PersonalSettingBottomSheet> {
   final _picker = ImagePicker();
   Uint8List? _avatarBytes;
+
+  @override
+  void initState() {
+    super.initState();
+    _avatarBytes = widget.currentAvatarBytes;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -51,7 +60,6 @@ class _PersonalSettingBottomSheetState
               style: TextStyle(color: Colors.white, fontFamily: 'Cairo'),
             ),
             onTap: () async {
-              Navigator.pop(context);
               try {
                 final img = await _picker.pickImage(
                   source: ImageSource.camera,
@@ -59,9 +67,12 @@ class _PersonalSettingBottomSheetState
                 );
                 if (img != null) {
                   final b = await img.readAsBytes();
-                  if (mounted) setState(() => _avatarBytes = b);
+                  if (mounted) Navigator.pop(context, b);
+                } else {
+                  Navigator.pop(context);
                 }
               } catch (_) {
+                if (mounted) Navigator.pop(context);
                 if (mounted) {
                   ScaffoldMessenger.of(context).showSnackBar(
                     const SnackBar(
@@ -88,7 +99,6 @@ class _PersonalSettingBottomSheetState
               style: TextStyle(color: Colors.white, fontFamily: 'Cairo'),
             ),
             onTap: () async {
-              Navigator.pop(context);
               try {
                 final img = await _picker.pickImage(
                   source: ImageSource.gallery,
@@ -96,9 +106,12 @@ class _PersonalSettingBottomSheetState
                 );
                 if (img != null) {
                   final b = await img.readAsBytes();
-                  if (mounted) setState(() => _avatarBytes = b);
+                  if (mounted) Navigator.pop(context, b);
+                } else {
+                  Navigator.pop(context);
                 }
               } catch (_) {
+                if (mounted) Navigator.pop(context);
                 if (mounted) {
                   ScaffoldMessenger.of(context).showSnackBar(
                     const SnackBar(
@@ -129,9 +142,7 @@ class _PersonalSettingBottomSheetState
                 ),
               ),
               onTap: () {
-                Navigator.pop(context);
-                setState(() => _avatarBytes = null);
-                UserPrefs.clearAvatar();
+                Navigator.pop(context, Uint8List(0));
               },
             ),
           const SizedBox(height: 8),

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../../../../core/logic/api/api_service.dart';
 import '../../../../core/ui/app_color.dart';
 import '../../../../core/ui/app_style.dart';
 import 'challenge_detail_screen.dart';
@@ -30,6 +31,20 @@ class ChallengeModel {
   final List<String> steps;
   final String stepsDetail;
   final Color iconColor;
+
+  factory ChallengeModel.fromJson(Map<String, dynamic> json) {
+    return ChallengeModel(
+      id: (json['id'] ?? '').toString(),
+      title: json['title'] ?? json['name'] ?? '',
+      goal: json['goal'] ?? json['description'] ?? '',
+      duration: json['duration'] ?? '3 أيام',
+      difficulty: json['difficulty'] ?? 'متوسط الصعوبة',
+      steps: json['steps'] is List
+          ? (json['steps'] as List).map((e) => e.toString()).toList()
+          : <String>[],
+      stepsDetail: json['stepsDetail'] ?? json['details'] ?? '',
+    );
+  }
 }
 
 // ── Sample challenges ─────────────────────────
@@ -70,8 +85,39 @@ const List<ChallengeModel> sampleChallenges = [
 ];
 
 // ─────────────────────────────────────────────
-class ChallengesScreen extends StatelessWidget {
+class ChallengesScreen extends StatefulWidget {
   const ChallengesScreen({super.key});
+
+  @override
+  State<ChallengesScreen> createState() => _ChallengesScreenState();
+}
+
+class _ChallengesScreenState extends State<ChallengesScreen> {
+  List<ChallengeModel> _challenges = [];
+  bool _isLoading = true;
+
+  @override
+  void initState() {
+    super.initState();
+    _fetchChallenges();
+  }
+
+  Future<void> _fetchChallenges() async {
+    final res = await ApiService.authenticatedGet('challenges');
+    if (res.success && res.asList.isNotEmpty) {
+      setState(() {
+        _challenges = res.asList
+            .map((e) => ChallengeModel.fromJson(e))
+            .toList();
+        _isLoading = false;
+      });
+    } else {
+      setState(() {
+        _challenges = List.from(sampleChallenges);
+        _isLoading = false;
+      });
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -138,30 +184,32 @@ class ChallengesScreen extends StatelessWidget {
 
               // ── Challenge list ───────────────────
               Expanded(
-                child: ListView.separated(
-                  padding: const EdgeInsets.fromLTRB(16, 0, 16, 32),
-                  itemCount: sampleChallenges.length,
-                  separatorBuilder: (_, __) => const SizedBox(height: 12),
-                  itemBuilder: (_, i) => _ChallengeCard(
-                    challenge: sampleChallenges[i],
-                    onTap: () => Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (_) => ChallengeDetailScreen(
-                          title: sampleChallenges[i].title,
-                          description:
-                              'هذا التحدي مصمم لمساعدتك على تهدئة جهازك العصبي وإعادة التوازن إلى عقلك وجسمك من خلال لحظات قصيرة من الهدوء الواعي.',
-                          duration: sampleChallenges[i].duration,
-                          difficulty: sampleChallenges[i].difficulty,
-                          steps: sampleChallenges[i].steps,
-                          stepsDetail: sampleChallenges[i].stepsDetail,
-                          iconColor: sampleChallenges[i].iconColor,
-                          isCompleted: false,
+                child: _isLoading
+                    ? const Center(child: CircularProgressIndicator())
+                    : ListView.separated(
+                        padding: const EdgeInsets.fromLTRB(16, 0, 16, 32),
+                        itemCount: _challenges.length,
+                        separatorBuilder: (_, __) => const SizedBox(height: 12),
+                        itemBuilder: (_, i) => _ChallengeCard(
+                          challenge: _challenges[i],
+                          onTap: () => Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (_) => ChallengeDetailScreen(
+                                title: _challenges[i].title,
+                                description:
+                                    'هذا التحدي مصمم لمساعدتك على تهدئة جهازك العصبي وإعادة التوازن إلى عقلك وجسمك من خلال لحظات قصيرة من الهدوء الواعي.',
+                                duration: _challenges[i].duration,
+                                difficulty: _challenges[i].difficulty,
+                                steps: _challenges[i].steps,
+                                stepsDetail: _challenges[i].stepsDetail,
+                                iconColor: _challenges[i].iconColor,
+                                isCompleted: false,
+                              ),
+                            ),
+                          ),
                         ),
                       ),
-                    ),
-                  ),
-                ),
               ),
             ],
           ),

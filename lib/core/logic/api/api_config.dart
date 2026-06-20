@@ -12,36 +12,56 @@ class ApiConfig {
   ApiConfig._();
 
   // ── Base URL ─────────────────────────────────
-  // ← PASTE YOUR API URL HERE
-  static const String baseUrl = '';
+  static const String baseUrl = 'http://mental-health3.runasp.net';
 
   // ── Endpoints ────────────────────────────────
   // Add any new endpoint here. The UI reads data
   // dynamically, so adding a key is all you need.
   static const Map<String, String> endpoints = {
-    'doctors':          '/api/doctors',
-    'doctor_detail':    '/api/doctors/{id}',
-    'challenges':       '/api/challenges',
-    'challenge_detail': '/api/challenges/{id}',
-    'tests':            '/api/tests',
-    'test_result':      '/api/tests/{id}/result',
-    'profile':          '/api/profile',
-    'profile_update':   '/api/profile/update',
-    'favorites':        '/api/favorites',
-    'payment_cards':    '/api/payment/cards',
-    'payment_charge':   '/api/payment/charge',
-    'login':            '/api/auth/login',
-    'register':         '/api/auth/register',
-    'logout':           '/api/auth/logout',
+    // Auth
+    'login': '/api/Auth/login',
+    'register': '/api/Auth/register',
+    'forgot_password': '/api/Auth/forgot-password',
+    'verify_otp': '/api/Auth/verify-otp',
+    'reset_password': '/api/Auth/reset-password',
+
+    // Doctors
+    'doctors': '/api/Doctor',
+    'doctor_detail': '/api/Doctor/{id}',
+
+    // Patient
+    'profile_update_name': '/update-name',
+    'profile_update_email': '/update-email',
+    'profile_change_password': '/change-password',
+    'profile_update_image': '/update-image',
+    'deactivate': '/deactivate',
+    'favorites': '/favorites',
+    'favorite_toggle': '/favorite/{id}',
+    'doctor_search': '/api/Doctor/search',
+    'notifications': '/my-notifications',
+    'messages': '/my-messages',
+    'quizzes': '/api/patient/quizzes',
+    'quiz_detail': '/api/patient/quizzes/{id}',
+
+    // Admin / Content
+    'challenges': '/api/admin/challenges',
+    'articles': '/api/admin/articles',
+    'podcasts': '/api/admin/podcasts',
+    'videos': '/api/admin/videos',
+
+    // Legacy / Generic placeholders
+    'tests': '/api/tests',
+    'profile': '/api/profile',
+    'logout': '/api/auth/logout',
   };
 
   // ── Default headers ──────────────────────────
   // These are merged with every request. Add
   // custom headers here (e.g. API keys).
   static Map<String, String> get defaultHeaders => {
-    'Content-Type': 'application/json',
-    'Accept':       'application/json',
-  };
+        'Content-Type': 'application/json',
+        'Accept': 'application/json',
+      };
 
   // ── Timeouts ─────────────────────────────────
   static const Duration connectTimeout = Duration(seconds: 15);
