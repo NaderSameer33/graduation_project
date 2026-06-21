@@ -39,6 +39,7 @@ class _FavoritesScreenState extends State<FavoritesScreen> {
 
     // Otherwise fetch from API
     final res = await ApiService.authenticatedGet('favorites');
+    if (!mounted) return;
 
     if (res.success && res.asList.isNotEmpty) {
       final list = res.asList;

@@ -31,6 +31,7 @@ class _DoctorsPagestate extends State<DoctorsPage> {
     setState(() => _isLoading = true);
 
     final res = await ApiService.authenticatedGet('doctors');
+    if (!mounted) return;
 
     if (res.success && res.asList.isNotEmpty) {
       final list = res.asList;

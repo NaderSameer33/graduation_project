@@ -24,6 +24,7 @@ class _TherapeuticContentListViewState extends State<TherapeuticContentListView>
 
   Future<void> _fetchContent() async {
     final res = await ApiService.authenticatedGet('articles');
+    if (!mounted) return;
     if (res.success && res.asList.isNotEmpty) {
       setState(() {
         _items = res.asList;

@@ -22,6 +22,7 @@ class _CinemaEtmeanListViewState extends State<CinemaEtmeanListView> {
 
   Future<void> _fetchVideos() async {
     final res = await ApiService.authenticatedGet('videos');
+    if (!mounted) return;
     if (res.success && res.asList.isNotEmpty) {
       setState(() {
         _videos = res.asList;
