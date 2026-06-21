@@ -1,9 +1,11 @@
-import '../../../../core/logic/api/api_service.dart';
 import '../../../../core/ui/app_color.dart';
 import '../../../../core/ui/app_image.dart';
 import '../../../../core/ui/app_style.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import '../models/content_model.dart';
+import '../models/content_repository.dart';
+import '../../doctors/models/doctor_model.dart';
 
 class TherapeuticContentListView extends StatefulWidget {
   const TherapeuticContentListView({super.key});
@@ -13,7 +15,7 @@ class TherapeuticContentListView extends StatefulWidget {
 }
 
 class _TherapeuticContentListViewState extends State<TherapeuticContentListView> {
-  List<Map<String, dynamic>> _items = [];
+  List<ContentItem> _items = [];
   bool _loaded = false;
 
   @override
@@ -22,24 +24,12 @@ class _TherapeuticContentListViewState extends State<TherapeuticContentListView>
     _fetchContent();
   }
 
-  Future<void> _fetchContent() async {
-    final res = await ApiService.authenticatedGet('articles');
-    if (!mounted) return;
-    if (res.success && res.asList.isNotEmpty) {
-      setState(() {
-        _items = res.asList;
-        _loaded = true;
-      });
-    } else {
-      // Fallback to sample data
-      setState(() {
-        _items = List.generate(7, (i) => {
-          'title': i.isEven ? 'ما هو الاكتئاب الخفيف ؟' : 'اساسيات العلاج بال CBT',
-          'index': i,
-        });
-        _loaded = true;
-      });
-    }
+  void _fetchContent() {
+    // Load a subset of items to show on the home page (e.g. first 10 items)
+    _items = ContentRepository.getAll().take(10).toList();
+    setState(() {
+      _loaded = true;
+    });
   }
 
   @override
@@ -57,19 +47,33 @@ class _TherapeuticContentListViewState extends State<TherapeuticContentListView>
       itemCount: _items.length,
       itemBuilder: (context, index) {
         final item = _items[index];
-        final title = item['title'] as String? ?? 'محتوى علاجي';
-        final subtitle = item['subtitle'] as String? ?? 'المستوى الاول - فيديو ${index + 1}';
+        final doctor = sampleDoctors[index % sampleDoctors.length];
+        final cardImage = ContentRepository.getDoctorImage(item.id);
 
         return GestureDetector(
           onTap: () {
-            Navigator.pushNamed(
-              context,
-              '/audioPlayer',
-              arguments: {
-                'title': title,
-                'subtitle': subtitle,
-              },
-            );
+            if (item.isVideo) {
+              Navigator.pushNamed(
+                context,
+                '/videoList',
+                arguments: item.title,
+              );
+            } else if (item.isPodcast) {
+              Navigator.pushNamed(
+                context,
+                '/audioPlayer',
+                arguments: {
+                  'title': item.title,
+                  'subtitle': item.description,
+                },
+              );
+            } else {
+              Navigator.pushNamed(
+                context,
+                '/articleDetail',
+                arguments: item.title,
+              );
+            }
           },
           child: Container(
             margin: EdgeInsets.only(bottom: 16.r),
@@ -92,10 +96,19 @@ class _TherapeuticContentListViewState extends State<TherapeuticContentListView>
               padding: EdgeInsets.all(16.r),
               child: Row(
                 children: [
-                  AppImage(
-                    image: 'worry.png',
-                    height: 88.h,
-                    width: 88.w,
+                  ClipRRect(
+                    borderRadius: BorderRadius.circular(8.r),
+                    child: Image.asset(
+                      cardImage,
+                      height: 88.h,
+                      width: 88.w,
+                      fit: BoxFit.cover,
+                      errorBuilder: (c, e, s) => const AppImage(
+                        image: 'worry.png',
+                        height: 88 , 
+                        width: 88,
+                      ),
+                    ),
                   ),
                   SizedBox(
                     width: 12.w,
@@ -109,16 +122,12 @@ class _TherapeuticContentListViewState extends State<TherapeuticContentListView>
                           children: [
                             Text.rich(
                               TextSpan(
-                                text: 'المستوى الاول\t\t\t\t',
-                                style: AppStyle.regular12,
+                                text: '${item.type} • ${item.categoryLabel}\t\t\t\t',
+                                style: AppStyle.regular12.copyWith(color: AppColors.primiryColor, fontWeight: FontWeight.bold),
                                 children: [
                                   TextSpan(
-                                    text: 'فيديو ${index + 1} \t\t\t\t',
-                                    style: AppStyle.regular12,
-                                  ),
-                                  TextSpan(
                                     text: '20 دقيقة',
-                                    style: AppStyle.regular12,
+                                    style: AppStyle.regular12.copyWith(color: AppColors.greyColor, fontWeight: FontWeight.normal),
                                   ),
                                 ],
                               ),
@@ -130,7 +139,7 @@ class _TherapeuticContentListViewState extends State<TherapeuticContentListView>
                         ),
                         Text(
                           textAlign: TextAlign.start,
-                          title,
+                          item.title,
                           style: AppStyle.regular16.copyWith(
                             color: AppColors.whiteColor,
                           ),
@@ -142,8 +151,8 @@ class _TherapeuticContentListViewState extends State<TherapeuticContentListView>
                         ),
                         Text(
                           textAlign: TextAlign.start,
-                          item['author'] as String? ?? 'د نادر سمير ',
-                          style: AppStyle.regular16,
+                          doctor.name,
+                          style: AppStyle.regular12.copyWith(color: AppColors.greyColor),
                         ),
                       ],
                     ),

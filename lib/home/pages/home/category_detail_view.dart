@@ -4,6 +4,8 @@ import 'package:etmaen/core/ui/app_color.dart';
 import 'package:etmaen/core/ui/app_style.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'models/content_model.dart';
+import 'models/content_repository.dart';
 
 class CategoryDetailView extends StatefulWidget {
   final String categoryTitle;
@@ -17,6 +19,15 @@ class _CategoryDetailViewState extends State<CategoryDetailView> {
   int currentTab = 0;
   // Ordered from Right to Left in RTL: Videos, Podcasts, Articles
   final List<String> tabs = ['فيديوهات', 'بودكاست', 'مقالات'];
+
+  int _getConditionId() {
+    final title = widget.categoryTitle;
+    if (title.contains('اكتئاب') || title == 'الاكتئاب') return 1;
+    if (title.contains('اجهاد') || title.contains('قلق') || title == 'الاجهاد والقلق') return 2;
+    if (title.contains('احتراق') || title == 'الاحتراق النفسي') return 3;
+    if (title.contains('تفكير') || title == 'التفكير الزائد') return 4;
+    return 1;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -90,31 +101,37 @@ class _CategoryDetailViewState extends State<CategoryDetailView> {
   }
 
   Widget _buildDynamicContent() {
-    return _buildLevelList();
-  }
+    final conditionId = _getConditionId();
+    final String targetType = currentTab == 0 ? 'فيديو' : (currentTab == 1 ? 'بودكاست' : 'مقالة');
+    final items = ContentRepository.getByConditionAndType(conditionId, targetType);
 
-  Widget _buildLevelList() {
+    if (items.isEmpty) {
+      return Center(
+        child: Text(
+          'لا يوجد محتوى متوفر حالياً',
+          style: AppStyle.regular16.copyWith(color: AppColors.greyColor),
+        ),
+      );
+    }
+
     return ListView.builder(
       padding: EdgeInsets.symmetric(horizontal: 16.w),
       physics: const BouncingScrollPhysics(),
-      itemCount: 4,
+      itemCount: items.length,
       itemBuilder: (context, index) {
-        final isLocked = index > 0;
-        final levels = ['الاول', 'الثاني', 'الثالث', 'الرابع'];
+        final item = items[index];
+        final doctorImage = ContentRepository.getDoctorImage(index);
         return GestureDetector(
           onTap: () {
-            if (!isLocked) {
-              final titleArgs = 'علاج ${widget.categoryTitle} الخفيف';
-              if (currentTab == 0) { // Videos
-                Navigator.pushNamed(context, AppRoutes.videoList, arguments: titleArgs);
-              } else if (currentTab == 1) { // Podcasts
-                Navigator.pushNamed(context, AppRoutes.audioPlayer, arguments: {
-                  'title': titleArgs,
-                  'subtitle': 'المستوى ${levels[index]}'
-                });
-              } else if (currentTab == 2) { // Articles
-                Navigator.pushNamed(context, AppRoutes.articleDetail, arguments: titleArgs);
-              }
+            if (currentTab == 0) { // Videos
+              Navigator.pushNamed(context, AppRoutes.videoList, arguments: item.title);
+            } else if (currentTab == 1) { // Podcasts
+              Navigator.pushNamed(context, AppRoutes.audioPlayer, arguments: {
+                'title': item.title,
+                'subtitle': item.description,
+              });
+            } else if (currentTab == 2) { // Articles
+              Navigator.pushNamed(context, AppRoutes.articleDetail, arguments: item.title);
             }
           },
           child: Container(
@@ -137,7 +154,7 @@ class _CategoryDetailViewState extends State<CategoryDetailView> {
                       child: ClipRRect(
                         borderRadius: BorderRadius.horizontal(left: Radius.circular(12.r)),
                         child: Image.asset(
-                          'assets/images/doctor.png',
+                          doctorImage,
                           fit: BoxFit.cover,
                           errorBuilder: (c, e, s) => const SizedBox(),
                         ),
@@ -150,15 +167,21 @@ class _CategoryDetailViewState extends State<CategoryDetailView> {
                         crossAxisAlignment: CrossAxisAlignment.end,
                         children: [
                           Text(
-                            'علاج ${widget.categoryTitle} الخفيف',
-                            style: AppStyle.bold16.copyWith(color: Colors.white),
+                            item.title,
+                            style: AppStyle.bold12.copyWith(color: Colors.white),
                             textAlign: TextAlign.right,
+                            maxLines: 2,
+                            overflow: TextOverflow.ellipsis,
+                            textDirection: TextDirection.rtl,
                           ),
                           SizedBox(height: 8.h),
                           Text(
-                            'المستوى ${levels[index]}',
+                            item.description,
                             style: AppStyle.regular12.copyWith(color: AppColors.greyColor),
                             textAlign: TextAlign.right,
+                            maxLines: 2,
+                            overflow: TextOverflow.ellipsis,
+                            textDirection: TextDirection.rtl,
                           ),
                         ],
                       ),
@@ -172,28 +195,15 @@ class _CategoryDetailViewState extends State<CategoryDetailView> {
                   child: Container(
                     padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 4.h),
                     decoration: BoxDecoration(
-                      color: Colors.black.withAlpha(100),
+                      color: Colors.black.withAlpha((0.6 * 255).toInt()),
                       borderRadius: BorderRadius.circular(16.r),
                     ),
                     child: Text(
-                      '12 جلسة',
+                      targetType,
                       style: AppStyle.regular12.copyWith(color: Colors.white),
                     ),
                   ),
                 ),
-                if (isLocked)
-                  Positioned(
-                    bottom: 12.h,
-                    right: 12.w,
-                    child: Container(
-                      padding: EdgeInsets.all(8.r),
-                      decoration: BoxDecoration(
-                        color: Colors.black.withAlpha(100),
-                        shape: BoxShape.circle,
-                      ),
-                      child: Icon(Icons.lock_outline, color: Colors.white, size: 16.r),
-                    ),
-                  ),
               ],
             ),
           ),

@@ -4,6 +4,8 @@ import 'package:etmaen/core/ui/app_color.dart';
 import 'package:etmaen/core/ui/app_style.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'models/content_model.dart';
+import 'models/content_repository.dart';
 
 class LearningView extends StatefulWidget {
   const LearningView({super.key});
@@ -18,16 +20,8 @@ class _LearningViewState extends State<LearningView> {
     'عرض الكل',
     'الاكتئاب',
     'الاجهاد والقلق',
+    'الاحتراق النفسي',
     'التفكير الزائد',
-  ];
-
-  final List<Map<String, String>> items = [
-    {'title': 'الامتنان', 'image': 'assets/images/depression_man.png'}, // Use placeholder or existing asset
-    {'title': 'الاكتئاب', 'image': 'assets/images/depression_man.png'},
-    {'title': 'التقبل', 'image': 'assets/images/depression_man.png'},
-    {'title': 'التركيز', 'image': 'assets/images/depression_man.png'},
-    {'title': 'القلق', 'image': 'assets/images/depression_man.png'},
-    {'title': 'التعاطف', 'image': 'assets/images/depression_man.png'},
   ];
 
   @override
@@ -102,9 +96,15 @@ class _LearningViewState extends State<LearningView> {
               child: Builder(
                 builder: (context) {
                   final activeCategory = categories[currentIndex];
-                  final filteredItems = activeCategory == 'عرض الكل'
-                      ? items
-                      : items.where((item) => item['title'] == activeCategory || item['title'] == 'الامتنان').toList();
+                  int? filterConditionId;
+                  if (activeCategory == 'الاكتئاب') filterConditionId = 1;
+                  if (activeCategory == 'الاجهاد والقلق') filterConditionId = 2;
+                  if (activeCategory == 'الاحتراق النفسي') filterConditionId = 3;
+                  if (activeCategory == 'التفكير الزائد') filterConditionId = 4;
+
+                  final List<ContentItem> filteredItems = filterConditionId == null
+                      ? ContentRepository.getAll()
+                      : ContentRepository.getByCondition(filterConditionId);
                       
                   return GridView.builder(
                     padding: EdgeInsets.symmetric(horizontal: 16.w),
@@ -118,10 +118,14 @@ class _LearningViewState extends State<LearningView> {
                     itemCount: filteredItems.length,
                     itemBuilder: (context, index) {
                       final item = filteredItems[index];
+                      final doctorImage = ContentRepository.getDoctorImage(index);
                       return GestureDetector(
                         onTap: () {
-                          Navigator.pushNamed(context, AppRoutes.categoryDetail,
-                              arguments: item['title']);
+                          Navigator.pushNamed(
+                            context, 
+                            AppRoutes.categoryDetail,
+                            arguments: item.categoryLabel,
+                          );
                         },
                         child: Container(
                           decoration: BoxDecoration(
@@ -132,17 +136,20 @@ class _LearningViewState extends State<LearningView> {
                           child: Stack(
                             fit: StackFit.expand,
                             children: [
-                              // Background Image Placeholder
-                              // We use a dark color as fallback if image doesn't exist
-                              Container(color: AppColors.avatarColor),
-                              // Simulated image styling
+                              // Background Doctor Image from assets
+                              Image.asset(
+                                doctorImage,
+                                fit: BoxFit.cover,
+                                errorBuilder: (c, e, s) => Container(color: AppColors.avatarColor),
+                              ),
+                              // Simulated image styling (gradient overlay)
                               Positioned.fill(
                                 child: DecoratedBox(
                                   decoration: BoxDecoration(
                                     gradient: LinearGradient(
                                       colors: [
                                         Colors.black.withAlpha((0.1 * 255).toInt()),
-                                        Colors.black.withAlpha((0.6 * 255).toInt()),
+                                        Colors.black.withAlpha((0.7 * 255).toInt()),
                                       ],
                                       begin: Alignment.topCenter,
                                       end: Alignment.bottomCenter,
@@ -150,19 +157,33 @@ class _LearningViewState extends State<LearningView> {
                                   ),
                                 ),
                               ),
-                              // Badge
+                              // Title Overlay at Bottom
+                              Positioned(
+                                bottom: 12.h,
+                                left: 12.w,
+                                right: 12.w,
+                                child: Text(
+                                  item.title,
+                                  style: AppStyle.bold12.copyWith(color: Colors.white),
+                                  textAlign: TextAlign.right,
+                                  maxLines: 2,
+                                  overflow: TextOverflow.ellipsis,
+                                  textDirection: TextDirection.rtl,
+                                ),
+                              ),
+                              // Category Badge at Top Right
                               Positioned(
                                 top: 12.h,
                                 right: 12.w,
                                 child: Container(
                                   padding: EdgeInsets.symmetric(
-                                      horizontal: 16.w, vertical: 6.h),
+                                      horizontal: 12.w, vertical: 4.h),
                                   decoration: BoxDecoration(
-                                    color: Colors.black.withAlpha((0.5 * 255).toInt()),
+                                    color: Colors.black.withAlpha((0.6 * 255).toInt()),
                                     borderRadius: BorderRadius.circular(20.r),
                                   ),
                                   child: Text(
-                                    item['title']!,
+                                    item.categoryLabel,
                                     style: AppStyle.regular12
                                         .copyWith(color: Colors.white),
                                   ),

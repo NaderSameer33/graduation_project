@@ -4,13 +4,51 @@ import 'package:etmaen/core/ui/app_color.dart';
 import 'package:etmaen/core/ui/app_style.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'models/content_model.dart';
+import 'models/content_repository.dart';
+import '../doctors/models/doctor_model.dart';
 
-class VideoListView extends StatelessWidget {
+class VideoListView extends StatefulWidget {
   final String categoryTitle;
   const VideoListView({super.key, required this.categoryTitle});
 
   @override
+  State<VideoListView> createState() => _VideoListViewState();
+}
+
+class _VideoListViewState extends State<VideoListView> {
+  ContentItem? _selectedVideo;
+  List<ContentItem> _playlist = [];
+
+  @override
+  void initState() {
+    super.initState();
+    _loadPlaylist();
+  }
+
+  void _loadPlaylist() {
+    final allVideos = ContentRepository.getAll().where((e) => e.isVideo).toList();
+    // Search for matching video by title
+    final selected = allVideos.firstWhere(
+      (e) => e.title == widget.categoryTitle,
+      orElse: () => allVideos.first,
+    );
+    _selectedVideo = selected;
+    // Load other videos from same condition
+    _playlist = ContentRepository.getByConditionAndType(selected.conditionId, 'فيديو');
+  }
+
+  @override
   Widget build(BuildContext context) {
+    if (_selectedVideo == null) {
+      return const Scaffold(
+        body: Center(child: CircularProgressIndicator()),
+      );
+    }
+
+    final doctorIndex = (_selectedVideo!.id) % sampleDoctors.length;
+    final doctor = sampleDoctors[doctorIndex];
+
     return Scaffold(
       backgroundColor: AppColors.blackColor,
       body: SafeArea(
@@ -23,9 +61,13 @@ class VideoListView extends StatelessWidget {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
-                  Text(
-                    '$categoryTitle',
-                    style: AppStyle.bold24.copyWith(color: Colors.white),
+                  Expanded(
+                    child: Text(
+                      'علاج ${_selectedVideo!.categoryLabel}',
+                      style: AppStyle.bold24.copyWith(color: Colors.white),
+                      textAlign: TextAlign.right,
+                      overflow: TextOverflow.ellipsis,
+                    ),
                   ),
                   SizedBox(width: 16.w),
                   const AppBack(),
@@ -43,7 +85,7 @@ class VideoListView extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.end,
                       children: [
                         Text(
-                          'ستتعرف في المستوى الاول على الأسباب النفسية والسلوكية للاكتئاب الخفيف وكيفية فهم حالتك للبدء في العلاج مع منهج علاجي قائم على ال CBT',
+                          _selectedVideo!.description,
                           style: AppStyle.regular16.copyWith(color: Colors.white, height: 1.8),
                           textAlign: TextAlign.right,
                           textDirection: TextDirection.rtl,
@@ -51,22 +93,23 @@ class VideoListView extends StatelessWidget {
                         SizedBox(height: 24.h),
                         _buildProgressBar(),
                         SizedBox(height: 24.h),
-                        _buildDoctorInfo('د محمد الامام'),
+                        _buildDoctorInfo(doctor.name, doctor.image),
                         SizedBox(height: 24.h),
                         // Video List
                         ListView.builder(
                           shrinkWrap: true,
                           physics: const NeverScrollableScrollPhysics(),
-                          itemCount: 3,
+                          itemCount: _playlist.length,
                           itemBuilder: (context, index) {
-                            final titles = [
-                              'ما هو الاكتئاب الخفيف ؟',
-                              'اساسيات العلاج بال CBT',
-                              'تحديد التفكير الاسود والابيض'
-                            ];
+                            final video = _playlist[index];
+                            final isCurrent = video.id == _selectedVideo!.id;
+                            final cardDoctorImage = ContentRepository.getDoctorImage(video.id);
+
                             return GestureDetector(
                               onTap: () {
-                                Navigator.pushNamed(context, AppRoutes.cinemaVideo);
+                                setState(() {
+                                  _selectedVideo = video;
+                                });
                               },
                               child: Container(
                                 margin: EdgeInsets.only(bottom: 16.h),
@@ -74,6 +117,9 @@ class VideoListView extends StatelessWidget {
                                 decoration: BoxDecoration(
                                   color: AppColors.card,
                                   borderRadius: BorderRadius.circular(12.r),
+                                  border: isCurrent
+                                      ? Border.all(color: AppColors.primiryColor, width: 2.r)
+                                      : null,
                                 ),
                                 child: Row(
                                   children: [
@@ -86,7 +132,7 @@ class VideoListView extends StatelessWidget {
                                       child: ClipRRect(
                                         borderRadius: BorderRadius.horizontal(left: Radius.circular(12.r)),
                                         child: Image.asset(
-                                          'assets/images/depression_man.png',
+                                          cardDoctorImage,
                                           fit: BoxFit.cover,
                                           errorBuilder: (c, e, s) => const SizedBox(),
                                         ),
@@ -99,15 +145,20 @@ class VideoListView extends StatelessWidget {
                                         crossAxisAlignment: CrossAxisAlignment.end,
                                         children: [
                                           Text(
-                                            'المستوى الاول • فيديو ${index + 1} • 20 دقيقة',
-                                            style: AppStyle.regular12.copyWith(color: AppColors.greyColor),
+                                            isCurrent ? 'يشتغل الآن • فيديو ${index + 1}' : 'جلسة ${index + 1} • فيديو • 20 دقيقة',
+                                            style: AppStyle.regular12.copyWith(
+                                              color: isCurrent ? AppColors.primiryColor : AppColors.greyColor,
+                                              fontWeight: isCurrent ? FontWeight.bold : FontWeight.normal,
+                                            ),
                                             textAlign: TextAlign.right,
                                             textDirection: TextDirection.rtl,
                                           ),
                                           SizedBox(height: 8.h),
                                           Text(
-                                            titles[index],
-                                            style: AppStyle.bold16.copyWith(color: Colors.white),
+                                            video.title,
+                                            style: AppStyle.bold16.copyWith(
+                                              color: isCurrent ? AppColors.primiryColor : Colors.white,
+                                            ),
                                             textAlign: TextAlign.right,
                                             maxLines: 2,
                                             overflow: TextOverflow.ellipsis,
@@ -123,7 +174,7 @@ class VideoListView extends StatelessWidget {
                             );
                           },
                         ),
-                        SizedBox(height: 80.h), // space for mini player
+                        SizedBox(height: 100.h), // space for mini player
                       ],
                     ),
                   ),
@@ -134,7 +185,7 @@ class VideoListView extends StatelessWidget {
                     right: 0,
                     child: GestureDetector(
                       onTap: () {
-                         Navigator.pushNamed(context, AppRoutes.cinemaVideo);
+                        Navigator.pushNamed(context, AppRoutes.cinemaVideo);
                       },
                       child: Container(
                         height: 80.h,
@@ -163,9 +214,31 @@ class VideoListView extends StatelessWidget {
                               ),
                               child: Icon(Icons.play_arrow, color: Colors.black, size: 28.r),
                             ),
-                            Text(
-                              'اساسيات العلاج بال CBT',
-                              style: AppStyle.regular16.copyWith(color: Colors.white),
+                            Expanded(
+                              child: Padding(
+                                padding: EdgeInsets.symmetric(horizontal: 16.w),
+                                child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  crossAxisAlignment: CrossAxisAlignment.end,
+                                  children: [
+                                    Text(
+                                      _selectedVideo!.title,
+                                      style: AppStyle.bold12.copyWith(color: Colors.white),
+                                      maxLines: 1,
+                                      overflow: TextOverflow.ellipsis,
+                                      textAlign: TextAlign.right,
+                                    ),
+                                    SizedBox(height: 4.h),
+                                    Text(
+                                      doctor.name,
+                                      style: AppStyle.regular12.copyWith(color: AppColors.greyColor),
+                                      maxLines: 1,
+                                      overflow: TextOverflow.ellipsis,
+                                      textAlign: TextAlign.right,
+                                    ),
+                                  ],
+                                ),
+                              ),
                             ),
                             // Thumbnail
                             Container(
@@ -177,7 +250,7 @@ class VideoListView extends StatelessWidget {
                               ),
                               clipBehavior: Clip.antiAlias,
                               child: Image.asset(
-                                'assets/images/depression_man.png',
+                                ContentRepository.getDoctorImage(_selectedVideo!.id),
                                 fit: BoxFit.cover,
                                 errorBuilder: (c, e, s) => const SizedBox(),
                               ),
@@ -207,7 +280,7 @@ class VideoListView extends StatelessWidget {
               style: AppStyle.regular12.copyWith(color: Colors.white),
             ),
             Text(
-              '12 جلسة',
+              '${_playlist.length} جلسة',
               style: AppStyle.regular12.copyWith(color: Colors.white),
             ),
           ],
@@ -226,7 +299,7 @@ class VideoListView extends StatelessWidget {
     );
   }
 
-  Widget _buildDoctorInfo(String name) {
+  Widget _buildDoctorInfo(String name, String imageAsset) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.end,
       children: [
@@ -244,7 +317,7 @@ class VideoListView extends StatelessWidget {
           ),
           clipBehavior: Clip.antiAlias,
           child: Image.asset(
-            'assets/images/doctor.png',
+            imageAsset.startsWith('assets/') ? imageAsset : 'assets/images/$imageAsset',
             fit: BoxFit.cover,
             errorBuilder: (c, e, s) => Icon(Icons.person, color: Colors.black, size: 24.r),
           ),
