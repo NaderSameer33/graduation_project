@@ -35,6 +35,28 @@ class ContentItem {
     );
   }
 
+  factory ContentItem.fromBackendJson(Map<String, dynamic> json, int defaultConditionId) {
+    final doc = json['doctor'];
+    final docName = doc != null ? (doc['fullName'] ?? doc['FullName']) : null;
+    final docId = json['doctorId'] ?? json['DoctorId'] ?? json['doctor_id'] ?? doc?['id'] ?? doc?['Id'];
+
+    final bodyContent = json['content'] ?? json['Content'] ?? json['body'] ?? json['Body'] ?? json['articleBody'] ?? json['article_body'] ?? '';
+    final fileLink = json['fileUrl'] ?? json['FileUrl'] ?? json['filePath'] ?? json['FilePath'] ?? json['link'] ?? '';
+    final desc = json['description'] ?? json['Description'] ?? (bodyContent.toString().length > 100 ? bodyContent.toString().substring(0, 100) + '...' : bodyContent);
+
+    return ContentItem(
+      id: json['id'] ?? json['Id'] ?? 0,
+      type: 'مقالة',
+      conditionId: json['conditionId'] ?? json['ConditionId'] ?? json['condition_id'] ?? defaultConditionId,
+      title: json['title'] ?? json['Title'] ?? 'مقالة علاجية',
+      link: fileLink,
+      description: desc,
+      doctorId: docId,
+      articleBody: bodyContent,
+      doctorName: docName ?? json['doctorName'] ?? json['DoctorName'] ?? '',
+    );
+  }
+
   Map<String, dynamic> toJson() {
     return {
       'id': id,

@@ -42,6 +42,7 @@ class ApiConfig {
     'messages': '/my-messages',
     'quizzes': '/api/patient/quizzes',
     'quiz_detail': '/api/patient/quizzes/{id}',
+    'patient_articles': '/api/patient/articles/{id}',
 
     // Admin / Content
     'challenges': '/api/admin/challenges',

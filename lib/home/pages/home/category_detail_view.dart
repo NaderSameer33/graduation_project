@@ -20,6 +20,29 @@ class _CategoryDetailViewState extends State<CategoryDetailView> {
   // Ordered from Right to Left in RTL: Videos, Podcasts, Articles
   final List<String> tabs = ['فيديوهات', 'بودكاست', 'مقالات'];
 
+  List<ContentItem> _apiArticles = [];
+  bool _isLoadingArticles = false;
+
+  @override
+  void initState() {
+    super.initState();
+    _loadApiArticles();
+  }
+
+  Future<void> _loadApiArticles() async {
+    setState(() {
+      _isLoadingArticles = true;
+    });
+    final conditionId = _getConditionId();
+    final articles = await ContentRepository.fetchArticlesFromApi(conditionId);
+    if (mounted) {
+      setState(() {
+        _apiArticles = articles;
+        _isLoadingArticles = false;
+      });
+    }
+  }
+
   int _getConditionId() {
     final title = widget.categoryTitle;
     if (title.contains('اكتئاب') || title == 'الاكتئاب') return 1;
@@ -103,7 +126,18 @@ class _CategoryDetailViewState extends State<CategoryDetailView> {
   Widget _buildDynamicContent() {
     final conditionId = _getConditionId();
     final String targetType = currentTab == 0 ? 'فيديو' : (currentTab == 1 ? 'بودكاست' : 'مقالة');
-    final items = ContentRepository.getByConditionAndType(conditionId, targetType);
+
+    List<ContentItem> items = [];
+    if (targetType == 'مقالة') {
+      if (_isLoadingArticles) {
+        return const Center(child: CircularProgressIndicator());
+      }
+      items = _apiArticles.isNotEmpty
+          ? _apiArticles
+          : ContentRepository.getByConditionAndType(conditionId, 'مقالة');
+    } else {
+      items = ContentRepository.getByConditionAndType(conditionId, targetType);
+    }
 
     if (items.isEmpty) {
       return Center(
@@ -120,7 +154,9 @@ class _CategoryDetailViewState extends State<CategoryDetailView> {
       itemCount: items.length,
       itemBuilder: (context, index) {
         final item = items[index];
-        final doctorImage = ContentRepository.getDoctorImage(index);
+        final doctorImage = item.doctorId != null
+            ? ContentRepository.getDoctorImage(item.doctorId!)
+            : ContentRepository.getDoctorImage(index);
         return GestureDetector(
           onTap: () {
             if (currentTab == 0) { // Videos
@@ -131,7 +167,7 @@ class _CategoryDetailViewState extends State<CategoryDetailView> {
                 'subtitle': item.description,
               });
             } else if (currentTab == 2) { // Articles
-              Navigator.pushNamed(context, AppRoutes.articleDetail, arguments: item.title);
+              Navigator.pushNamed(context, AppRoutes.articleDetail, arguments: item);
             }
           },
           child: Container(

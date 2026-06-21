@@ -163,8 +163,24 @@ abstract class AppRoutes {
         final title = routeSettings.arguments as String? ?? '';
         return _customRoute(VideoListView(categoryTitle: title), settings: routeSettings);
       case articleDetail:
-        final title = routeSettings.arguments as String? ?? '';
-        return _customRoute(ArticleDetailView(categoryTitle: title), settings: routeSettings);
+        final args = routeSettings.arguments;
+        if (args is ContentItem) {
+          return _customRoute(
+            ArticleDetailView(categoryTitle: args.categoryLabel, item: args),
+            settings: routeSettings,
+          );
+        } else if (args is Map<String, dynamic>) {
+          return _customRoute(
+            ArticleDetailView(
+              categoryTitle: args['categoryTitle'] ?? '',
+              item: args['item'],
+            ),
+            settings: routeSettings,
+          );
+        } else {
+          final title = args as String? ?? '';
+          return _customRoute(ArticleDetailView(categoryTitle: title), settings: routeSettings);
+        }
       default:
         return _customRoute(const Scaffold(), settings: routeSettings);
     }

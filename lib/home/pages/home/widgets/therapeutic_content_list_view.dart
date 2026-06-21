@@ -71,7 +71,7 @@ class _TherapeuticContentListViewState extends State<TherapeuticContentListView>
               Navigator.pushNamed(
                 context,
                 '/articleDetail',
-                arguments: item.title,
+                arguments: item,
               );
             }
           },
