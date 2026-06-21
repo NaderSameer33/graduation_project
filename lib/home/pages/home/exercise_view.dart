@@ -45,7 +45,10 @@ class _ExerciseViewState extends State<ExerciseView> {
                 children: [
                   Text(
                     'تمارين بناء المهارات النفسية',
-                    style: AppStyle.bold24.copyWith(color: Colors.white),
+                    style: AppStyle.bold24.copyWith(
+                      color: Colors.white,
+                      fontSize: 16.sp,
+                    ),
                   ),
                   SizedBox(width: 16.w),
                   const AppBack(),
@@ -98,95 +101,103 @@ class _ExerciseViewState extends State<ExerciseView> {
             SizedBox(height: 24.h),
             // List
             Expanded(
-              child: Builder(
-                builder: (context) {
-                  final activeCategory = categories[currentIndex];
-                  final filteredExercises = activeCategory == 'عرض الكل'
-                      ? exercises
-                      : exercises.where((ex) {
-                          // Mocking filtering logic: if it's not "عرض الكل", just show items containing the category name or a subset
-                          if (activeCategory == 'الاكتئاب' && ex['title']!.contains('دقيقة')) return true;
-                          if (activeCategory == 'الاجهاد والقلق' && ex['title']!.contains('تحدي')) return true;
-                          if (activeCategory == 'التفكير الزائد' && ex['title']!.contains('قيمة')) return true;
-                          return ex['title'] == activeCategory;
-                        }).toList();
-                        
-                  if (filteredExercises.isEmpty) {
-                    return Center(
-                      child: Text(
-                        'لا توجد تمارين حالياً',
-                        style: AppStyle.regular16.copyWith(color: AppColors.greyColor),
-                      ),
-                    );
-                  }
+              child: Builder(builder: (context) {
+                final activeCategory = categories[currentIndex];
+                final filteredExercises = activeCategory == 'عرض الكل'
+                    ? exercises
+                    : exercises.where((ex) {
+                        // Mocking filtering logic: if it's not "عرض الكل", just show items containing the category name or a subset
+                        if (activeCategory == 'الاكتئاب' &&
+                            ex['title']!.contains('دقيقة')) return true;
+                        if (activeCategory == 'الاجهاد والقلق' &&
+                            ex['title']!.contains('تحدي')) return true;
+                        if (activeCategory == 'التفكير الزائد' &&
+                            ex['title']!.contains('قيمة')) return true;
+                        return ex['title'] == activeCategory;
+                      }).toList();
 
-                  return ListView.builder(
-                    padding: EdgeInsets.symmetric(horizontal: 16.w),
-                    physics: const BouncingScrollPhysics(),
-                    itemCount: filteredExercises.length,
-                    itemBuilder: (context, index) {
-                      final ex = filteredExercises[index];
-                      return GestureDetector(
-                        onTap: () {
-                           Navigator.pushNamed(context, AppRoutes.audioPlayer, arguments: {
-                             'title': ex['title'],
-                             'subtitle': 'تمرين صوتي'
-                           });
-                        },
-                        child: Container(
-                          margin: EdgeInsets.only(bottom: 16.h),
-                          padding: EdgeInsets.all(20.r),
-                          decoration: BoxDecoration(
-                            color: AppColors.card,
-                            borderRadius: BorderRadius.circular(16.r),
-                          ),
-                          child: Row(
-                            children: [
-                              // Content
-                              Expanded(
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.end,
-                                  children: [
-                                    Row(
-                                      mainAxisAlignment: MainAxisAlignment.end,
-                                      children: [
-                                        Text(
-                                          '${ex['duration']}',
-                                          style: AppStyle.regular12.copyWith(color: AppColors.greyColor),
-                                        ),
-                                        Text(
-                                          ' • تمرين صوتي',
-                                          style: AppStyle.regular12.copyWith(color: AppColors.greyColor),
-                                        ),
-                                      ],
-                                    ),
-                                    SizedBox(height: 8.h),
-                                    Text(
-                                      ex['title']!,
-                                      style: AppStyle.bold16.copyWith(color: Colors.white),
-                                      textAlign: TextAlign.right,
-                                    ),
-                                  ],
-                                ),
-                              ),
-                              SizedBox(width: 24.w),
-                              // Play Icon
-                              Container(
-                                padding: EdgeInsets.all(8.r),
-                                decoration: BoxDecoration(
-                                  shape: BoxShape.circle,
-                                  border: Border.all(color: Colors.white, width: 2),
-                                ),
-                                child: Icon(Icons.play_arrow, color: Colors.white, size: 28.r),
-                              ),
-                            ],
-                          ),
-                        ),
-                      );
-                    },
+                if (filteredExercises.isEmpty) {
+                  return Center(
+                    child: Text(
+                      'لا توجد تمارين حالياً',
+                      style: AppStyle.regular16
+                          .copyWith(color: AppColors.greyColor),
+                    ),
                   );
                 }
-              ),
+
+                return ListView.builder(
+                  padding: EdgeInsets.symmetric(horizontal: 16.w),
+                  physics: const BouncingScrollPhysics(),
+                  itemCount: filteredExercises.length,
+                  itemBuilder: (context, index) {
+                    final ex = filteredExercises[index];
+                    return GestureDetector(
+                      onTap: () {
+                        Navigator.pushNamed(context, AppRoutes.audioPlayer,
+                            arguments: {
+                              'title': ex['title'],
+                              'subtitle': 'تمرين صوتي'
+                            });
+                      },
+                      child: Container(
+                        margin: EdgeInsets.only(bottom: 16.h),
+                        padding: EdgeInsets.all(20.r),
+                        decoration: BoxDecoration(
+                          color: AppColors.card,
+                          borderRadius: BorderRadius.circular(16.r),
+                        ),
+                        child: Row(
+                          children: [
+                            // Content
+                            Expanded(
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.end,
+                                children: [
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.end,
+                                    children: [
+                                      Text(
+                                        '${ex['duration']}',
+                                        style: AppStyle.regular12.copyWith(
+                                            color: AppColors.greyColor),
+                                      ),
+                                      Text(
+                                        ' • تمرين صوتي',
+                                        style: AppStyle.regular12.copyWith(
+                                            color: AppColors.greyColor),
+                                      ),
+                                    ],
+                                  ),
+                                  SizedBox(height: 8.h),
+                                  Text(
+                                    ex['title']!,
+                                    style: AppStyle.bold16
+                                        .copyWith(color: Colors.white),
+                                    textAlign: TextAlign.right,
+                                  ),
+                                ],
+                              ),
+                            ),
+                            SizedBox(width: 24.w),
+                            // Play Icon
+                            Container(
+                              padding: EdgeInsets.all(8.r),
+                              decoration: BoxDecoration(
+                                shape: BoxShape.circle,
+                                border:
+                                    Border.all(color: Colors.white, width: 2),
+                              ),
+                              child: Icon(Icons.play_arrow,
+                                  color: Colors.white, size: 28.r),
+                            ),
+                          ],
+                        ),
+                      ),
+                    );
+                  },
+                );
+              }),
             ),
           ],
         ),
