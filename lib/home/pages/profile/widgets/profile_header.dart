@@ -6,8 +6,6 @@ import '../../../../core/ui/app_image.dart';
 import '../../../../core/ui/app_style.dart';
 import '../../../../core/logic/app_routes.dart';
 import '../../../../core/logic/user_prefs.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class ProfileHeader extends StatefulWidget {
   const ProfileHeader({super.key});

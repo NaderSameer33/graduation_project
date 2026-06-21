@@ -1,10 +1,11 @@
+import 'dart:convert';
+import '../../../core/logic/user_prefs.dart';
 import '../../../core/ui/app_color.dart';
 import '../../../core/ui/app_style.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:table_calendar/table_calendar.dart';
 
-// A simple local model for demonstrating tracked moods.
 class TrackedMood {
   final String emoji;
   final String title;
@@ -23,18 +24,19 @@ class ProfileTrackModeView extends StatefulWidget {
 class _ProfileTrackModeViewState extends State<ProfileTrackModeView> {
   DateTime _focusedDay = DateTime.now();
   DateTime? _selectedDay;
-
-  // Mock data for mood history
   final Map<DateTime, TrackedMood> _moods = {};
 
   @override
   void initState() {
     super.initState();
     _selectedDay = _focusedDay;
-    _generateMockData();
+    _loadMoods();
   }
 
-  void _generateMockData() {
+  Future<void> _loadMoods() async {
+    final userMoods = await UserPrefs.getMoodsMap();
+    final Map<DateTime, TrackedMood> loadedMoods = {};
+
     final now = DateTime.now();
     final List<TrackedMood> availableMoods = [
       const TrackedMood('😌', 'هادئ', AppColors.primiryColor),
@@ -44,19 +46,144 @@ class _ProfileTrackModeViewState extends State<ProfileTrackModeView> {
       const TrackedMood('😎', 'واثق', Colors.blue),
     ];
 
-    // Populate the last 15 days with some random moods
-    for (int i = 0; i < 15; i++) {
+    for (int i = 1; i <= 15; i++) {
       final date = now.subtract(Duration(days: i));
-      // Normalize date to ignore time
       final normalizedDate = DateTime(date.year, date.month, date.day);
-      // Pick a semi-random mood based on the day
-      _moods[normalizedDate] = availableMoods[(i * 3) % availableMoods.length];
+      loadedMoods[normalizedDate] = availableMoods[(i * 3) % availableMoods.length];
+    }
+
+    userMoods.forEach((dateKey, value) {
+      try {
+        final parts = dateKey.split('-');
+        final year = int.parse(parts[0]);
+        final month = int.parse(parts[1]);
+        final day = int.parse(parts[2]);
+        final date = DateTime(year, month, day);
+
+        final cleanHex = value['color']!.replaceAll('#', '');
+        final color = Color(int.parse('FF$cleanHex', radix: 16));
+
+        loadedMoods[date] = TrackedMood(
+          value['emoji']!,
+          value['title']!,
+          color,
+        );
+      } catch (_) {}
+    });
+
+    if (mounted) {
+      setState(() {
+        _moods.clear();
+        _moods.addAll(loadedMoods);
+      });
     }
   }
 
   TrackedMood? _getMoodForDay(DateTime day) {
     final normalizedDate = DateTime(day.year, day.month, day.day);
     return _moods[normalizedDate];
+  }
+
+  void _showMoodSelectorBottomSheet(DateTime day) {
+    showModalBottomSheet(
+      context: context,
+      backgroundColor: AppColors.card,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(top: Radius.circular(20.r)),
+      ),
+      builder: (context) {
+        final List<Map<String, String>> moods = [
+          {'emoji': '😌', 'title': 'هادئ', 'color': '5F59F7'},
+          {'emoji': '😁', 'title': 'سعيد', 'color': '4CAF50'},
+          {'emoji': '😔', 'title': 'متعب', 'color': 'FF9800'},
+          {'emoji': '🤔', 'title': 'غاضب', 'color': 'F44336'},
+          {'emoji': '😎', 'title': 'واثق', 'color': '2196F3'},
+          {'emoji': '😢', 'title': 'حزين', 'color': '9C27B0'},
+        ];
+
+        return SafeArea(
+          child: Padding(
+            padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 20.h),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Container(
+                  width: 40.w,
+                  height: 4.h,
+                  decoration: BoxDecoration(
+                    color: Colors.white24,
+                    borderRadius: BorderRadius.circular(2.r),
+                  ),
+                ),
+                SizedBox(height: 16.h),
+                Text(
+                  'كيف تشعر في هذا اليوم؟',
+                  style: AppStyle.bold16.copyWith(color: Colors.white),
+                ),
+                SizedBox(height: 20.h),
+                GridView.builder(
+                  shrinkWrap: true,
+                  physics: const NeverScrollableScrollPhysics(),
+                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 3,
+                    childAspectRatio: 1.2,
+                    crossAxisSpacing: 12,
+                    mainAxisSpacing: 12,
+                  ),
+                  itemCount: moods.length,
+                  itemBuilder: (context, index) {
+                    final mood = moods[index];
+                    return GestureDetector(
+                      onTap: () async {
+                        final String dateKey = "${day.year}-${day.month.toString().padLeft(2, '0')}-${day.day.toString().padLeft(2, '0')}";
+                        final moodsMap = await UserPrefs.getMoodsMap();
+                        final hasLoggedBefore = moodsMap.containsKey(dateKey);
+
+                        await UserPrefs.saveMoodForDay(
+                          day,
+                          mood['emoji']!,
+                          mood['title']!,
+                          mood['color']!,
+                        );
+
+                        if (!hasLoggedBefore) {
+                          final currentPoints = await UserPrefs.getPoints();
+                          await UserPrefs.savePoints(currentPoints + 10);
+                        }
+
+                        Navigator.pop(context);
+                        _loadMoods();
+                      },
+                      child: Container(
+                        decoration: BoxDecoration(
+                          color: AppColors.blackColor,
+                          borderRadius: BorderRadius.circular(16.r),
+                          border: Border.all(color: Colors.white12),
+                        ),
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text(
+                              mood['emoji']!,
+                              style: TextStyle(fontSize: 24.sp),
+                            ),
+                            SizedBox(height: 4.h),
+                            Text(
+                              mood['title']!,
+                              style: AppStyle.bold12.copyWith(color: Colors.white70),
+                            ),
+                          ],
+                        ),
+                      ),
+                    );
+                  },
+                ),
+              ],
+            ),
+          ),
+        );
+      },
+    );
   }
 
   @override
@@ -141,7 +268,6 @@ class _ProfileTrackModeViewState extends State<ProfileTrackModeView> {
                       shape: BoxShape.circle,
                     ),
                   ),
-                  // Custom marker builder to show a color dot if a mood exists
                   calendarBuilders: CalendarBuilders(
                     markerBuilder: (context, day, events) {
                       final mood = _getMoodForDay(day);
@@ -177,42 +303,55 @@ class _ProfileTrackModeViewState extends State<ProfileTrackModeView> {
                     color: AppColors.inputColor,
                     borderRadius: BorderRadius.circular(16.r),
                   ),
-                  child: Row(
-                    textDirection: TextDirection.rtl,
+                  child: Column(
                     children: [
-                      Container(
-                        padding: EdgeInsets.all(12.r),
-                        decoration: BoxDecoration(
-                          color: AppColors.avatarColor,
-                          shape: BoxShape.circle,
-                        ),
-                        child: Text(
-                          currentMood.emoji,
-                          style: TextStyle(fontSize: 24.sp),
-                        ),
+                      Row(
+                        textDirection: TextDirection.rtl,
+                        children: [
+                          Container(
+                            padding: EdgeInsets.all(12.r),
+                            decoration: BoxDecoration(
+                              color: AppColors.avatarColor,
+                              shape: BoxShape.circle,
+                            ),
+                            child: Text(
+                              currentMood.emoji,
+                              style: TextStyle(fontSize: 24.sp),
+                            ),
+                          ),
+                          SizedBox(width: 16.w),
+                          Expanded(
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.end,
+                              children: [
+                                Text(
+                                  'الشعور الغالب',
+                                  style: AppStyle.regular16.copyWith(
+                                    color: AppColors.greyColor,
+                                    fontSize: 12.sp,
+                                  ),
+                                  textDirection: TextDirection.rtl,
+                                ),
+                                SizedBox(height: 4.h),
+                                Text(
+                                  currentMood.title,
+                                  style: AppStyle.bold16.copyWith(
+                                    color: AppColors.whiteColor,
+                                  ),
+                                  textDirection: TextDirection.rtl,
+                                ),
+                              ],
+                            ),
+                          ),
+                        ],
                       ),
-                      SizedBox(width: 16.w),
-                      Expanded(
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.end,
-                          children: [
-                            Text(
-                              'الشعور الغالب',
-                              style: AppStyle.regular16.copyWith(
-                                color: AppColors.greyColor,
-                                fontSize: 12.sp,
-                              ),
-                              textDirection: TextDirection.rtl,
-                            ),
-                            SizedBox(height: 4.h),
-                            Text(
-                              currentMood.title,
-                              style: AppStyle.bold16.copyWith(
-                                color: AppColors.whiteColor,
-                              ),
-                              textDirection: TextDirection.rtl,
-                            ),
-                          ],
+                      SizedBox(height: 16.h),
+                      TextButton.icon(
+                        onPressed: () => _showMoodSelectorBottomSheet(_selectedDay!),
+                        icon: const Icon(Icons.edit, color: AppColors.primiryColor, size: 16),
+                        label: Text(
+                          'تعديل الشعور',
+                          style: AppStyle.bold12.copyWith(color: AppColors.primiryColor),
                         ),
                       ),
                     ],
@@ -220,19 +359,35 @@ class _ProfileTrackModeViewState extends State<ProfileTrackModeView> {
                 )
               else
                 Container(
-                  padding: EdgeInsets.all(32.r),
+                  padding: EdgeInsets.all(24.r),
                   decoration: BoxDecoration(
                     color: AppColors.inputColor,
                     borderRadius: BorderRadius.circular(16.r),
                   ),
-                  child: Center(
-                    child: Text(
-                      'لم يتم تسجيل أي شعور في هذا اليوم',
-                      style: AppStyle.regular16.copyWith(
-                        color: AppColors.greyColor,
+                  child: Column(
+                    children: [
+                      Text(
+                        'لم يتم تسجيل أي شعور في هذا اليوم',
+                        style: AppStyle.regular16.copyWith(
+                          color: AppColors.greyColor,
+                        ),
+                        textAlign: TextAlign.center,
                       ),
-                      textAlign: TextAlign.center,
-                    ),
+                      SizedBox(height: 16.h),
+                      ElevatedButton(
+                        onPressed: () => _showMoodSelectorBottomSheet(_selectedDay!),
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: AppColors.primiryColor,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(20.r),
+                          ),
+                        ),
+                        child: Text(
+                          'سجل شعورك الآن',
+                          style: AppStyle.bold12.copyWith(color: Colors.white),
+                        ),
+                      ),
+                    ],
                   ),
                 ),
               SizedBox(height: 40.h),

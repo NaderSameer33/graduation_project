@@ -1,3 +1,4 @@
+import 'dart:typed_data';
 import '../../../../../core/ui/app_color.dart';
 import '../../../../../core/ui/app_image.dart';
 import '../../../../../core/ui/app_style.dart';
@@ -11,10 +12,12 @@ class SettingHeader extends StatelessWidget {
     required this.loadProfile,
     required this.userName,
     required this.ispro,
+    this.avatarBytes,
   });
   final VoidCallback loadProfile;
   final String userName;
   final bool ispro;
+  final Uint8List? avatarBytes;
 
   @override
   Widget build(BuildContext context) {
@@ -33,12 +36,24 @@ class SettingHeader extends StatelessWidget {
         ),
         child: Row(
           children: [
-            AppImage(
-              image: 'setting.png',
-              height: 50.h,
-              width: 50.w,
-              isCircle: true,
-            ),
+            avatarBytes != null
+                ? Container(
+                    width: 50.w,
+                    height: 50.h,
+                    decoration: BoxDecoration(
+                      shape: BoxShape.circle,
+                      image: DecorationImage(
+                        image: MemoryImage(avatarBytes!),
+                        fit: BoxFit.cover,
+                      ),
+                    ),
+                  )
+                : AppImage(
+                    image: 'setting.png',
+                    height: 50.h,
+                    width: 50.w,
+                    isCircle: true,
+                  ),
             SizedBox(width: 12.w),
             Column(
               crossAxisAlignment: CrossAxisAlignment.end,

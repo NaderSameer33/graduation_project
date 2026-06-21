@@ -131,4 +131,61 @@ class UserPrefs {
       'avatarBytes': avatarBytes,
     };
   }
+
+  static const String _keyPoints         = 'user_points';
+  static const String _keyCompletedTasks = 'user_completed_tasks';
+  static const String _keyMoodsMap       = 'user_moods_map';
+
+  // Points
+  static Future<void> savePoints(int points) async {
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setInt(_keyPoints, points);
+  }
+
+  static Future<int> getPoints() async {
+    final prefs = await SharedPreferences.getInstance();
+    return prefs.getInt(_keyPoints) ?? 120;
+  }
+
+  // Completed Tasks list
+  static Future<void> saveCompletedTasks(List<String> list) async {
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setStringList(_keyCompletedTasks, list);
+  }
+
+  static Future<List<String>> getCompletedTasks() async {
+    final prefs = await SharedPreferences.getInstance();
+    return prefs.getStringList(_keyCompletedTasks) ?? <String>[];
+  }
+
+  // Mood Tracker map (date key: yyyy-MM-dd -> JSON string representation of Mood)
+  static Future<void> saveMoodForDay(DateTime day, String emoji, String title, String colorHex) async {
+    final prefs = await SharedPreferences.getInstance();
+    final key = "${day.year}-${day.month.toString().padLeft(2, '0')}-${day.day.toString().padLeft(2, '0')}";
+    final moods = await getMoodsMap();
+    moods[key] = {
+      'emoji': emoji,
+      'title': title,
+      'color': colorHex,
+    };
+    await prefs.setString(_keyMoodsMap, jsonEncode(moods));
+  }
+
+  static Future<Map<String, Map<String, String>>> getMoodsMap() async {
+    final prefs = await SharedPreferences.getInstance();
+    final data = prefs.getString(_keyMoodsMap);
+    if (data == null || data.isEmpty) return {};
+    try {
+      final decoded = jsonDecode(data) as Map<String, dynamic>;
+      final result = <String, Map<String, String>>{};
+      decoded.forEach((key, value) {
+        if (value is Map) {
+          result[key] = value.map((k, v) => MapEntry(k.toString(), v.toString()));
+        }
+      });
+      return result;
+    } catch (_) {
+      return {};
+    }
+  }
 }

@@ -4,10 +4,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class ProfileTrackPointItem extends StatelessWidget {
-  const ProfileTrackPointItem({super.key});
+  final int points;
+  const ProfileTrackPointItem({super.key, required this.points});
 
   @override
   Widget build(BuildContext context) {
+    const int targetPoints = 300;
+    final double progress = (points / targetPoints).clamp(0.0, 1.0);
+
     return Container(
       padding: EdgeInsets.all(20.r),
       height: 96.h,
@@ -44,15 +48,17 @@ class ProfileTrackPointItem extends StatelessWidget {
                   borderRadius: BorderRadius.circular(12.r),
                   backgroundColor: AppColors.blackColor,
                   color: AppColors.primiryColor,
-
-                  value: .3,
+                  value: progress,
                 ),
               ),
               SizedBox(
                 width: 10.w,
               ),
               Text(
-                '220 / 120',
+                '$points / $targetPoints',
+                style: AppStyle.bold12.copyWith(
+                  color: AppColors.whiteColor,
+                ),
               ),
             ],
           ),

@@ -70,6 +70,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 loadProfile: _loadProfile,
                 userName: _userName,
                 ispro: _isPro,
+                avatarBytes: _avatarBytes,
               ),
 
               SizedBox(height: 16.h),
