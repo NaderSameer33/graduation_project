@@ -24,8 +24,11 @@ class ArticleDetailView extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
                   Text(
-                    '$categoryTitle',
-                    style: AppStyle.bold24.copyWith(color: Colors.white),
+                    categoryTitle,
+                    style: AppStyle.bold24.copyWith(
+                        color: Colors.white,
+                        fontSize: 13.sp,
+                        overflow: TextOverflow.ellipsis),
                   ),
                   SizedBox(width: 16.w),
                   const AppBack(),
@@ -46,7 +49,8 @@ class ArticleDetailView extends StatelessWidget {
                     SizedBox(height: 24.h),
                     Text(
                       'العلاج المعرفي السلوكي (CBT) هو نهج علاجي يساعد الإنسان على فهم العلاقة بين أفكاره ومشاعره وسلوكياته. يعتمد هذا الأسلوب على ملاحظة الأفكار التلقائية التي تظهر بسرعة في المواقف اليومية، خاصة تلك التي تكون سلبية أو غير دقيقة، ثم التعامل معها بطريقة منظمة تساعد على تعديل تأثيرها.\n\nمن خلال هذا النهج، يمكن للفرد أن يكتسب أدوات عملية تساعده على التفكير بوضوح أكثر واتخاذ قرارات أفضل، مما يساهم في تحسين جودة حياته وتخفيف مشاعر القلق أو التوتر. يركز الـ CBT على الحاضر وعلى إيجاد حلول عملية للمشكلات الحالية بدلاً من الغوص عميقاً في الماضي، وهو ما يجعله فعالاً ومناسباً للكثيرين في حياتهم اليومية.',
-                      style: AppStyle.regular16.copyWith(color: Colors.white, height: 1.8),
+                      style: AppStyle.regular16
+                          .copyWith(color: Colors.white, height: 1.8),
                       textAlign: TextAlign.right,
                       textDirection: TextDirection.rtl,
                     ),
@@ -56,10 +60,12 @@ class ArticleDetailView extends StatelessWidget {
                       child: GestureDetector(
                         onTap: () {
                           // Show confetti and pop back
-                          AppAchievement.show(context, message: 'لقد أتممت قراءة المقال بنجاح!');
+                          AppAchievement.show(context,
+                              message: 'لقد أتممت قراءة المقال بنجاح!');
                         },
                         child: Container(
-                          padding: EdgeInsets.symmetric(horizontal: 40.w, vertical: 16.h),
+                          padding: EdgeInsets.symmetric(
+                              horizontal: 40.w, vertical: 16.h),
                           decoration: BoxDecoration(
                             color: AppColors.primiryColor,
                             borderRadius: BorderRadius.circular(30.r),
@@ -73,7 +79,8 @@ class ArticleDetailView extends StatelessWidget {
                           ),
                           child: Text(
                             'إنهاء المقال',
-                            style: AppStyle.bold16.copyWith(color: Colors.white),
+                            style:
+                                AppStyle.bold16.copyWith(color: Colors.white),
                           ),
                         ),
                       ),
@@ -139,7 +146,8 @@ class ArticleDetailView extends StatelessWidget {
           child: Image.asset(
             'assets/images/doctor.png',
             fit: BoxFit.cover,
-            errorBuilder: (c, e, s) => Icon(Icons.person, color: Colors.black, size: 24.r),
+            errorBuilder: (c, e, s) =>
+                Icon(Icons.person, color: Colors.black, size: 24.r),
           ),
         ),
       ],

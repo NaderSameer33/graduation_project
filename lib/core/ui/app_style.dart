@@ -48,6 +48,21 @@ abstract class AppStyle {
     fontWeight: FontWeight.bold,
     color: AppColors.primiryColor,
   );
+  static TextStyle bold14 = TextStyle(
+    fontSize: 14.sp,
+    fontWeight: FontWeight.bold,
+    color: AppColors.whiteColor,
+  );
+  static TextStyle bold20 = TextStyle(
+    fontSize: 20.sp,
+    fontWeight: FontWeight.bold,
+    color: AppColors.whiteColor,
+  );
+  static TextStyle regular14 = TextStyle(
+    fontSize: 14.sp,
+    fontWeight: FontWeight.w400,
+    color: AppColors.greyColor,
+  );
 }
 
 class AppTextStyles {

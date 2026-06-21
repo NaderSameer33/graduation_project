@@ -1,23 +1,41 @@
-import 'package:etmaen/core/ui/app_image.dart';
+import 'package:etmaen/core/ui/app_color.dart';
 import 'package:etmaen/core/ui/app_style.dart';
+import 'package:etmaen/home/pages/home/models/content_model.dart';
+import 'package:etmaen/home/pages/home/models/content_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../core/logic/app_routes.dart';
 
 class CinemaShortFilm extends StatelessWidget {
   final String? filter;
-  const CinemaShortFilm({super.key, this.filter});
+  // When used inside CinemaVideoView for "similar videos", we may exclude one item
+  final int? excludeId;
+  const CinemaShortFilm({super.key, this.filter, this.excludeId});
+
+  int? _filterConditionId() {
+    if (filter == null || filter == 'عرض الكل') return null;
+    if (filter == 'الاكتئاب') return 1;
+    if (filter == 'الاجهاد والقلق') return 2;
+    if (filter == 'الاحتراق النفسي') return 3;
+    if (filter == 'التفكير الزائد') return 4;
+    return null;
+  }
 
   @override
   Widget build(BuildContext context) {
-    int count = 10;
-    if (filter != null && filter != 'عرض الكل') {
-      if (filter == 'الاجهاد والقلق') count = 5;
-      else if (filter == 'التفكير الزائد') count = 3;
-      else count = 0;
+    final condId = _filterConditionId();
+    List<ContentItem> items;
+    if (condId != null) {
+      items = ContentRepository.getByConditionAndType(condId, 'بودكاست');
+    } else {
+      items = ContentRepository.getAll().where((e) => e.isPodcast).toList();
     }
+    if (excludeId != null) {
+      items = items.where((e) => e.id != excludeId).toList();
+    }
+    items = items.take(10).toList();
 
-    if (count == 0) {
+    if (items.isEmpty) {
       return SizedBox(
         height: 172.h,
         child: Center(
@@ -32,21 +50,81 @@ class CinemaShortFilm extends StatelessWidget {
     return SizedBox(
       height: 172.h,
       child: ListView.builder(
-        itemCount: count,
+        itemCount: items.length,
         scrollDirection: Axis.horizontal,
         physics: const BouncingScrollPhysics(),
-        itemBuilder: (context, index) => GestureDetector(
-          onTap: () => Navigator.pushNamed(context, AppRoutes.cinemaVideo),
-          child: Container(
-            margin: EdgeInsets.symmetric(horizontal: 12.r),
-            width: 124.w,
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(12.r),
+        itemBuilder: (context, index) {
+          final item = items[index];
+          final img = ContentRepository.getDoctorImage(item.id);
+          return GestureDetector(
+            onTap: () => Navigator.pushNamed(
+              context,
+              AppRoutes.cinemaVideo,
+              arguments: item,
             ),
-            child: const AppImage(image: 'short_film.png'),
-          ),
-        ),
+            child: Container(
+              margin: EdgeInsets.symmetric(horizontal: 8.r),
+              width: 120.w,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(12.r),
+                color: AppColors.card,
+              ),
+              clipBehavior: Clip.antiAlias,
+              child: Stack(
+                fit: StackFit.expand,
+                children: [
+                  Image.asset(
+                    img,
+                    fit: BoxFit.cover,
+                    errorBuilder: (c, e, s) =>
+                        Container(color: AppColors.avatarColor),
+                  ),
+                  Positioned.fill(
+                    child: DecoratedBox(
+                      decoration: BoxDecoration(
+                        gradient: LinearGradient(
+                          colors: [
+                            Colors.transparent,
+                            Colors.black.withAlpha(190),
+                          ],
+                          begin: Alignment.topCenter,
+                          end: Alignment.bottomCenter,
+                        ),
+                      ),
+                    ),
+                  ),
+                  Center(
+                    child: Container(
+                      padding: EdgeInsets.all(7.r),
+                      decoration: BoxDecoration(
+                        color: Colors.black54,
+                        shape: BoxShape.circle,
+                        border: Border.all(color: Colors.white30),
+                      ),
+                      child: Icon(Icons.play_arrow_rounded,
+                          color: Colors.white, size: 20.r),
+                    ),
+                  ),
+                  Positioned(
+                    bottom: 8.h,
+                    left: 4.w,
+                    right: 4.w,
+                    child: Text(
+                      item.title,
+                      style: AppStyle.regular12.copyWith(color: Colors.white),
+                      maxLines: 2,
+                      overflow: TextOverflow.ellipsis,
+                      textAlign: TextAlign.right,
+                      textDirection: TextDirection.rtl,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          );
+        },
       ),
     );
   }
 }
+

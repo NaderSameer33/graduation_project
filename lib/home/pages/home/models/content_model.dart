@@ -1,10 +1,13 @@
 class ContentItem {
   final int id;
-  final String type; // فيديو / بودكاست
+  final String type; // فيديو / بودكاست / مقالة
   final int conditionId; // 1 to 4
   final String title;
   final String link;
   final String description;
+  final int? doctorId; // links article to a specific doctor
+  final String? articleBody; // full article text for مقالة type
+  final String? doctorName; // doctor who wrote or is associated with article
 
   ContentItem({
     required this.id,
@@ -13,6 +16,9 @@ class ContentItem {
     required this.title,
     required this.link,
     required this.description,
+    this.doctorId,
+    this.articleBody,
+    this.doctorName,
   });
 
   factory ContentItem.fromJson(Map<String, dynamic> json) {
@@ -23,6 +29,9 @@ class ContentItem {
       title: json['title'] as String,
       link: json['link'] as String,
       description: json['description'] as String,
+      doctorId: json['doctor_id'] as int?,
+      articleBody: json['article_body'] as String?,
+      doctorName: json['doctor_name'] as String?,
     );
   }
 
@@ -58,4 +67,7 @@ class ContentItem {
   
   // Check if type is podcast
   bool get isPodcast => type == 'بودكاست';
+
+  // Check if type is article
+  bool get isArticle => type == 'مقالة';
 }

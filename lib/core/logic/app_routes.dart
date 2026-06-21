@@ -1,5 +1,6 @@
 import 'package:etmaen/cinema/cinema_etmaen.dart';
 import 'package:etmaen/cinema/cinema_video_view.dart';
+import 'package:etmaen/home/pages/home/models/content_model.dart';
 
 import '../../home/pages/chat_bot/chat_bot_page.dart';
 import '../../home/pages/profile/profile_track_mode_view.dart';
@@ -139,7 +140,9 @@ abstract class AppRoutes {
       case cinema:
         return _customRoute(const CinemaEtmaen(), settings: routeSettings);
       case cinemaVideo:
-        return _customRoute(const CinemaVideoView(), settings: routeSettings);
+        final cinemaArgs = routeSettings.arguments;
+        final contentItem = cinemaArgs is ContentItem ? cinemaArgs : null;
+        return _customRoute(CinemaVideoView(item: contentItem), settings: routeSettings);
       case audioPlayer:
         final args = routeSettings.arguments as Map<String, dynamic>?;
         return _customRoute(
