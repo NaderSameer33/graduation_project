@@ -218,6 +218,7 @@ class _ProfilePageState extends State<ProfilePage> {
       child: Padding(
         padding: EdgeInsets.symmetric(horizontal: 4.w),
         child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Text(
               _getArabicDayLetter(day),
@@ -230,13 +231,15 @@ class _ProfilePageState extends State<ProfilePage> {
             AnimatedContainer(
               duration: const Duration(milliseconds: 300),
               alignment: Alignment.center,
-              height: 48.h,
-              width: 42.w,
+              height: 46.h,
+              // No fixed width — fills the Expanded slot in the Row
+              // to prevent right-side overflow on any screen size
+              width: double.infinity,
               decoration: BoxDecoration(
                 color: hasMood
                     ? _parseColor(mood['color']).withOpacity(0.15)
                     : AppColors.blackColor,
-                borderRadius: BorderRadius.circular(12.r),
+                borderRadius: BorderRadius.circular(10.r),
                 border: Border.all(
                   color: hasMood
                       ? _parseColor(mood['color'])
@@ -249,7 +252,7 @@ class _ProfilePageState extends State<ProfilePage> {
               child: Text(
                 hasMood ? mood['emoji']! : '＋',
                 style: TextStyle(
-                  fontSize: hasMood ? 20.sp : 14.sp,
+                  fontSize: hasMood ? 18.sp : 12.sp,
                   color: hasMood ? null : Colors.white30,
                 ),
               ),
@@ -301,13 +304,17 @@ class _ProfilePageState extends State<ProfilePage> {
                   color: AppColors.inputColor,
                   borderRadius: BorderRadius.circular(12.r),
                 ),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: _pastDays.map((day) {
-                    final key = _formatDateKey(day);
-                    final mood = _moodsMap[key];
-                    return _buildMoodItem(day, mood);
-                  }).toList(),
+                child: Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 8.w),
+                  child: Row(
+                    children: _pastDays.map((day) {
+                      final key = _formatDateKey(day);
+                      final mood = _moodsMap[key];
+                      // Expanded: each of the 7 days takes equal width —
+                      // prevents right-side overflow on any screen size
+                      return Expanded(child: _buildMoodItem(day, mood));
+                    }).toList(),
+                  ),
                 ),
               ),
               SizedBox(height: 100.h),
