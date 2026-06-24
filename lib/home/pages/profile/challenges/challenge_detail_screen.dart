@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import '../../../../core/logic/user_prefs.dart';
 import '../../../../core/ui/app_color.dart';
-import '../../../../core/ui/app_style.dart';
+import '../../../../notifaction/challenge_notification_service.dart';
+import '../../../../notifaction/challenge_workmanager_service.dart';
 
 // ─────────────────────────────────────────────
 //  Challenge Detail Screen
@@ -46,10 +48,20 @@ class _ChallengeDetailScreenState extends State<ChallengeDetailScreen> {
     _isCompleted = widget.isCompleted;
   }
 
-  void _startChallenge() {
-    // Simulate starting/completing challenge
+  void _startChallenge() async {
+    // 1. Persist that the user completed a challenge today
+    await UserPrefs.saveChallengeDoneToday();
+
+    // 2. Cancel scheduled local notification (foreground / background)
+    await ChallengeNotificationService.cancelAll();
+
+    // 3. Cancel WorkManager periodic task (dead-app state)
+    await ChallengeWorkmanagerService.cancelTask();
+
+    // 4. Update UI
     setState(() => _isCompleted = true);
 
+    if (!mounted) return;
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
         content: const Text(
@@ -114,7 +126,7 @@ class _ChallengeDetailScreenState extends State<ChallengeDetailScreen> {
                   margin: const EdgeInsets.symmetric(horizontal: 16),
                   height: 200,
                   decoration: BoxDecoration(
-                    color: widget.iconColor.withOpacity(0.12),
+                    color: widget.iconColor.withValues(alpha: 0.12),
                     borderRadius: BorderRadius.circular(20),
                   ),
                   child: Center(

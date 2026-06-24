@@ -135,6 +135,7 @@ class UserPrefs {
   static const String _keyPoints         = 'user_points';
   static const String _keyCompletedTasks = 'user_completed_tasks';
   static const String _keyMoodsMap       = 'user_moods_map';
+  static const String _keyChallengeDone  = 'challenge_last_done';
 
   // Points
   static Future<void> savePoints(int points) async {
@@ -187,5 +188,34 @@ class UserPrefs {
     } catch (_) {
       return {};
     }
+  }
+
+  // ────────────────────────────────────────────
+  //  Challenge completion tracking
+  // ────────────────────────────────────────────
+
+  /// Returns today's key as yyyy-MM-dd
+  static String _todayKey() {
+    final now = DateTime.now();
+    return '${now.year}-${now.month.toString().padLeft(2, '0')}-${now.day.toString().padLeft(2, '0')}';
+  }
+
+  /// Marks today's challenge as completed.
+  static Future<void> saveChallengeDoneToday() async {
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setString(_keyChallengeDone, _todayKey());
+  }
+
+  /// Returns true if the user already completed the challenge today.
+  static Future<bool> isChallengeDoneToday() async {
+    final prefs = await SharedPreferences.getInstance();
+    final stored = prefs.getString(_keyChallengeDone);
+    return stored == _todayKey();
+  }
+
+  /// Clears the daily challenge flag (e.g. for testing / new day).
+  static Future<void> clearChallengeDone() async {
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.remove(_keyChallengeDone);
   }
 }
