@@ -1,11 +1,8 @@
 import 'package:flutter/material.dart';
 import '../../../core/ui/app_color.dart';
 import '../../views/home_view.dart';
-
 // ─────────────────────────────────────────────
 //  Test Result Screen
-//  Shows the outcome of a psychological test.
-//  Matches design: "result.png"
 // ─────────────────────────────────────────────
 
 class TestResultScreen extends StatelessWidget {
@@ -41,8 +38,7 @@ class TestResultScreen extends StatelessWidget {
     {
       'num': '3',
       'title': 'تحدث مع شخص تثق به',
-      'body':
-          'مشاركة مشاعرك مع شخص قريب منك يخفف العبء النفسي بشكل ملحوظ.',
+      'body': 'مشاركة مشاعرك مع شخص قريب منك يخفف العبء النفسي بشكل ملحوظ.',
     },
   ];
 
@@ -192,8 +188,7 @@ class TestResultScreen extends StatelessWidget {
                 GestureDetector(
                   onTap: () => Navigator.pushAndRemoveUntil(
                     context,
-                    MaterialPageRoute(
-                        builder: (_) => const HomeView()),
+                    MaterialPageRoute(builder: (_) => const HomeView()),
                     (r) => false,
                   ),
                   child: Center(

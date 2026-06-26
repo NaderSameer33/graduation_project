@@ -1,10 +1,7 @@
 import 'dart:typed_data';
-
 import 'package:etmaen/home/pages/profile/settings/widgets/setting_remove_account.dart';
-
 import '../../../../core/logic/helper_method.dart';
 import '../../../../core/ui/app_back.dart';
-
 import '../../../../core/ui/app_style.dart';
 import 'widgets/setting_group.dart';
 import 'widgets/setting_header.dart';
@@ -64,7 +61,6 @@ class _SettingsScreenState extends State<SettingsScreen> {
                   Text('اعداداتك', style: AppStyle.bold16),
                 ],
               ),
-
               SizedBox(height: 16.h),
               SettingHeader(
                 loadProfile: _loadProfile,
@@ -72,9 +68,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 ispro: _isPro,
                 avatarBytes: _avatarBytes,
               ),
-
               SizedBox(height: 16.h),
-
               SettingGroup(
                 items: [
                   SettingsItem(
@@ -85,7 +79,6 @@ class _SettingsScreenState extends State<SettingsScreen> {
                   SettingsItem(
                     iconName: 'pro.svg',
                     label: 'ترقية الحساب الى برو',
-
                     onTap: () => Navigator.push(
                       context,
                       CupertinoPageRoute(
@@ -117,9 +110,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                   ),
                 ],
               ),
-
               const SizedBox(height: 12),
-
               SettingGroup(
                 items: [
                   SettingsItem(
@@ -145,10 +136,8 @@ class _SettingsScreenState extends State<SettingsScreen> {
                   ),
                 ],
               ),
-
               const SizedBox(height: 24),
-              SettingRemoveAccount() , 
-
+              SettingRemoveAccount(),
               SizedBox(
                 height: 50.h,
               ),

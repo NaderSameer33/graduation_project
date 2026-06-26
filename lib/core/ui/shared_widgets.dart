@@ -2,14 +2,7 @@ import 'package:flutter/material.dart';
 import 'app_color.dart';
 import 'app_style.dart';
 
-// ─────────────────────────────────────────────
-//  ETMAEN – Shared Widgets
-// ─────────────────────────────────────────────
-
-// ── Primary CTA Button ───────────────────────
-/// Full-width gradient pill button used for main actions.
-/// Example: "تسجيل الدخول", "انشاء حساب", "ابدأ الان"
-class PrimaryButton extends StatelessWidget {
+class PrimaryButton extends StatefulWidget {
   const PrimaryButton({
     super.key,
     required this.label,
@@ -20,26 +13,92 @@ class PrimaryButton extends StatelessWidget {
   final VoidCallback? onTap;
 
   @override
+  State<PrimaryButton> createState() => _PrimaryButtonState();
+}
+
+class _PrimaryButtonState extends State<PrimaryButton>
+    with SingleTickerProviderStateMixin {
+  late AnimationController _controller;
+  late Animation<double> _scaleAnim;
+  bool _pressing = false;
+
+  @override
+  void initState() {
+    super.initState();
+    _controller = AnimationController(
+      vsync: this,
+      duration: const Duration(milliseconds: 120),
+    );
+    _scaleAnim = Tween<double>(begin: 1.0, end: 0.93).animate(
+      CurvedAnimation(parent: _controller, curve: Curves.easeInOut),
+    );
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
+
+  void _onTapDown(TapDownDetails _) {
+    setState(() => _pressing = true);
+    _controller.forward();
+  }
+
+  void _onTapUp(TapUpDetails _) {
+    _controller.reverse().then((_) {
+      if (mounted) setState(() => _pressing = false);
+    });
+    widget.onTap?.call();
+  }
+
+  void _onTapCancel() {
+    _controller.reverse().then((_) {
+      if (mounted) setState(() => _pressing = false);
+    });
+  }
+
+  @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: onTap,
-      child: Container(
-        width: 343,
-        height: 56,
-        padding: const EdgeInsets.all(10),
-        decoration: AppDecorations.primaryButton,
-        child: Center(
-          child: Text(label, style: AppTextStyles.body16Bold),
-        ),
-      ),
+    return AnimatedBuilder(
+      animation: _controller,
+      builder: (context, child) {
+        return Transform.scale(
+          scale: _scaleAnim.value,
+          child: GestureDetector(
+            onTapDown: _onTapDown,
+            onTapUp: _onTapUp,
+            onTapCancel: _onTapCancel,
+            child: AnimatedContainer(
+              duration: const Duration(milliseconds: 120),
+              width: 343,
+              height: 56,
+              padding: const EdgeInsets.all(10),
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(32),
+                gradient: AppGradients.primary,
+                boxShadow: [
+                  BoxShadow(
+                    color: AppColors.primiryColor
+                        .withValues(alpha: _pressing ? 0.6 : 0.25),
+                    blurRadius: _pressing ? 20 : 8,
+                    spreadRadius: _pressing ? 2 : 0,
+                    offset: Offset(0, _pressing ? 2 : 4),
+                  ),
+                ],
+              ),
+              child: Center(
+                child: Text(widget.label, style: AppTextStyles.body16Bold),
+              ),
+            ),
+          ),
+        );
+      },
     );
   }
 }
 
-// ── Outlined Secondary Button ─────────────────
-/// Border-only pill button used for secondary actions.
-/// Example: "عضو جديد"
-class OutlinedAppButton extends StatelessWidget {
+class OutlinedAppButton extends StatefulWidget {
   const OutlinedAppButton({
     super.key,
     required this.label,
@@ -50,18 +109,101 @@ class OutlinedAppButton extends StatelessWidget {
   final VoidCallback? onTap;
 
   @override
+  State<OutlinedAppButton> createState() => _OutlinedAppButtonState();
+}
+
+class _OutlinedAppButtonState extends State<OutlinedAppButton>
+    with SingleTickerProviderStateMixin {
+  late AnimationController _controller;
+  late Animation<double> _scaleAnim;
+  bool _pressing = false;
+
+  @override
+  void initState() {
+    super.initState();
+    _controller = AnimationController(
+      vsync: this,
+      duration: const Duration(milliseconds: 120),
+    );
+    _scaleAnim = Tween<double>(begin: 1.0, end: 0.93).animate(
+      CurvedAnimation(parent: _controller, curve: Curves.easeInOut),
+    );
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
+
+  void _onTapDown(TapDownDetails _) {
+    setState(() => _pressing = true);
+    _controller.forward();
+  }
+
+  void _onTapUp(TapUpDetails _) {
+    _controller.reverse().then((_) {
+      if (mounted) setState(() => _pressing = false);
+    });
+    widget.onTap?.call();
+  }
+
+  void _onTapCancel() {
+    _controller.reverse().then((_) {
+      if (mounted) setState(() => _pressing = false);
+    });
+  }
+
+  @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: onTap,
-      child: Container(
-        width: 343,
-        height: 56,
-        padding: const EdgeInsets.all(10),
-        decoration: AppDecorations.outlinedButton,
-        child: Center(
-          child: Text(label, style: AppTextStyles.body16Bold),
-        ),
-      ),
+    return AnimatedBuilder(
+      animation: _controller,
+      builder: (context, child) {
+        return Transform.scale(
+          scale: _scaleAnim.value,
+          child: GestureDetector(
+            onTapDown: _onTapDown,
+            onTapUp: _onTapUp,
+            onTapCancel: _onTapCancel,
+            child: AnimatedContainer(
+              duration: const Duration(milliseconds: 120),
+              width: 343,
+              height: 56,
+              padding: const EdgeInsets.all(10),
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(32),
+                border: Border.all(
+                  color: _pressing
+                      ? AppColors.primiryColor
+                      : AppColors.stroke,
+                  width: _pressing ? 2 : 1,
+                ),
+                color: _pressing
+                    ? AppColors.primiryColor.withValues(alpha: 0.1)
+                    : Colors.transparent,
+                boxShadow: _pressing
+                    ? [
+                        BoxShadow(
+                          color: AppColors.primiryColor.withValues(alpha: 0.3),
+                          blurRadius: 16,
+                          spreadRadius: 1,
+                        ),
+                      ]
+                    : [],
+              ),
+              child: Center(
+                child: AnimatedDefaultTextStyle(
+                  duration: const Duration(milliseconds: 120),
+                  style: AppTextStyles.body16Bold.copyWith(
+                    color: _pressing ? AppColors.primiryColor : Colors.white,
+                  ),
+                  child: Text(widget.label),
+                ),
+              ),
+            ),
+          ),
+        );
+      },
     );
   }
 }
@@ -145,8 +287,6 @@ class OtpBox extends StatelessWidget {
   }
 }
 
-// ── Row of 4 OTP Boxes ────────────────────────
-/// Renders 4 equally spaced OTP input boxes.
 class OtpRow extends StatelessWidget {
   const OtpRow({super.key, this.digits = const ['', '', '', '']});
 
@@ -166,24 +306,76 @@ class OtpRow extends StatelessWidget {
 
 // ── Back Button ───────────────────────────────
 /// Small circular gradient back button shown on sub-screens.
-class AppBackButton extends StatelessWidget {
+class AppBackButton extends StatefulWidget {
   const AppBackButton({super.key, this.onTap});
 
   final VoidCallback? onTap;
 
   @override
+  State<AppBackButton> createState() => _AppBackButtonState();
+}
+
+class _AppBackButtonState extends State<AppBackButton>
+    with SingleTickerProviderStateMixin {
+  late AnimationController _controller;
+
+  @override
+  void initState() {
+    super.initState();
+    _controller = AnimationController(
+      vsync: this,
+      duration: const Duration(milliseconds: 200),
+    );
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: onTap ?? () => Navigator.of(context).maybePop(),
-      child: Container(
-        width: 36,
-        height: 36,
-        clipBehavior: Clip.antiAlias,
-        decoration: AppDecorations.backButton,
-        child: const Center(
-          // Replace with actual back-arrow icon
-          child: Icon(Icons.chevron_right, color: Colors.white, size: 20),
-        ),
+      onTapDown: (_) => _controller.forward(),
+      onTapUp: (_) {
+        _controller.reverse();
+        (widget.onTap ?? () => Navigator.of(context).maybePop())();
+      },
+      onTapCancel: () => _controller.reverse(),
+      child: AnimatedBuilder(
+        animation: _controller,
+        builder: (context, child) {
+          return Transform.scale(
+            scale: 1.0 - _controller.value * 0.15,
+            child: Container(
+              width: 36,
+              height: 36,
+              clipBehavior: Clip.antiAlias,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(18),
+                gradient: AppGradients.backButton,
+                boxShadow: _controller.value > 0
+                    ? [
+                        BoxShadow(
+                          color: AppColors.primiryColor
+                              .withValues(alpha: _controller.value * 0.4),
+                          blurRadius: 10 * _controller.value,
+                          spreadRadius: 1,
+                        ),
+                      ]
+                    : [],
+              ),
+              child: Center(
+                child: Transform.translate(
+                  offset: Offset(-3.0 * _controller.value, 0),
+                  child: const Icon(
+                      Icons.chevron_right, color: Colors.white, size: 20),
+                ),
+              ),
+            ),
+          );
+        },
       ),
     );
   }
@@ -245,9 +437,6 @@ class QuizProgressBar extends StatelessWidget {
   }
 }
 
-// ── Etmaen Brand Logo Row ─────────────────────
-/// "اطمئن" brand name displayed in the accent colour.
-/// Used on loading/analysis screens.
 class EtmaenBrandLabel extends StatelessWidget {
   const EtmaenBrandLabel({super.key});
 
@@ -257,8 +446,6 @@ class EtmaenBrandLabel extends StatelessWidget {
   }
 }
 
-// ── "اطمئن يقدم" Heading ──────────────────────
-/// Shared heading used on onboarding slides 2–6.
 class EtmaenYuqaddimHeading extends StatelessWidget {
   const EtmaenYuqaddimHeading({super.key});
 

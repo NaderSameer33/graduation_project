@@ -4,6 +4,7 @@ import 'package:etmaen/core/ui/app_color.dart';
 import 'package:etmaen/core/ui/app_style.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'models/content_model.dart';
 import 'models/content_repository.dart';
 
@@ -162,10 +163,7 @@ class _CategoryDetailViewState extends State<CategoryDetailView> {
             if (currentTab == 0) { // Videos
               Navigator.pushNamed(context, AppRoutes.videoList, arguments: item.title);
             } else if (currentTab == 1) { // Podcasts
-              Navigator.pushNamed(context, AppRoutes.audioPlayer, arguments: {
-                'title': item.title,
-                'subtitle': item.description,
-              });
+              Navigator.pushNamed(context, AppRoutes.cinemaVideo, arguments: item);
             } else if (currentTab == 2) { // Articles
               Navigator.pushNamed(context, AppRoutes.articleDetail, arguments: item);
             }
@@ -189,11 +187,20 @@ class _CategoryDetailViewState extends State<CategoryDetailView> {
                       ),
                       child: ClipRRect(
                         borderRadius: BorderRadius.horizontal(left: Radius.circular(12.r)),
-                        child: Image.asset(
-                          doctorImage,
-                          fit: BoxFit.cover,
-                          errorBuilder: (c, e, s) => const SizedBox(),
-                        ),
+                        child: item.imageUrl != null && item.imageUrl!.isNotEmpty
+                            ? CachedNetworkImage(
+                                imageUrl: item.imageUrl!,
+                                fit: BoxFit.cover,
+                                errorWidget: (context, url, error) => Image.asset(
+                                  doctorImage,
+                                  fit: BoxFit.cover,
+                                ),
+                              )
+                            : Image.asset(
+                                doctorImage,
+                                fit: BoxFit.cover,
+                                errorBuilder: (c, e, s) => const SizedBox(),
+                              ),
                       ),
                     ),
                     SizedBox(width: 16.w),

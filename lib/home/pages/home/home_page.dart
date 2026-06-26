@@ -3,6 +3,7 @@ import 'package:etmaen/core/logic/app_routes.dart';
 import '../../../core/ui/app_color.dart';
 import '../../../core/ui/app_style.dart';
 import 'widgets/cinema_etmean_list_view.dart';
+import 'widgets/podcast_list_view.dart';
 import 'widgets/home_feel_item.dart';
 import 'widgets/home_header.dart';
 import 'widgets/therapeutic_content_header.dart';
@@ -76,17 +77,27 @@ class HomePage extends StatelessWidget {
                   onTap: () {
                     Navigator.pushNamed(context, AppRoutes.exercise);
                   },
-                  title: 'تمارين بناء المهارات النفسية',
+                  title: 'جلسات استرخاء 💆🏻',
                 ),
               ),
-
               SliverToBoxAdapter(
                 child: TherapeuticTraningGridView(),
               ),
               SliverToBoxAdapter(
                 child: TherapeuticContentHeader(
+                  onTap: () => Navigator.pushNamed(context, AppRoutes.learning),
+                  title: 'بودكاست مقترح لك',
+                ),
+              ),
+              SliverToBoxAdapter(
+                child: PodcastListView(),
+              ),
+              SliverToBoxAdapter(
+                child: SizedBox(height: 20.h),
+              ),
+              SliverToBoxAdapter(
+                child: TherapeuticContentHeader(
                   onTap: () => Navigator.pushNamed(context, AppRoutes.cinema),
-
                   title: 'ٍسينما اطمئن',
                 ),
               ),

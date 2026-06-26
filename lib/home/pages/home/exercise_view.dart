@@ -4,6 +4,7 @@ import 'package:etmaen/core/ui/app_color.dart';
 import 'package:etmaen/core/ui/app_style.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'models/audio_relaxing_model.dart';
 
 class ExerciseView extends StatefulWidget {
   const ExerciseView({super.key});
@@ -16,18 +17,19 @@ class _ExerciseViewState extends State<ExerciseView> {
   int currentIndex = 0;
   final List<String> categories = [
     'عرض الكل',
-    'الاكتئاب',
-    'الاجهاد والقلق',
-    'التفكير الزائد',
+    'أصوات الطبيعة',
+    'النوم المريح',
+    'الاسترخاء',
+    'التأمل واليقظة',
   ];
 
-  final List<Map<String, String>> exercises = [
-    {'title': 'دقيقة الانقاذ الصباحية', 'duration': '20 دقيقة'},
-    {'title': 'تحدي ال 15 دقيقة', 'duration': '15 دقيقة'},
-    {'title': 'كسر العزلة برسالة', 'duration': '20 دقيقة'},
-    {'title': 'اثبات القيمة الذاتية', 'duration': '20 دقيقة'},
-    {'title': 'دقيقة الانقاذ الصباحية', 'duration': '20 دقيقة'},
-  ];
+  late final List<AudioRelaxing> exercises;
+
+  @override
+  void initState() {
+    super.initState();
+    exercises = AudioRelaxing.getAll();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -44,7 +46,7 @@ class _ExerciseViewState extends State<ExerciseView> {
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
                   Text(
-                    'تمارين بناء المهارات النفسية',
+                    'جلسات استرخاء',
                     style: AppStyle.bold24.copyWith(
                       color: Colors.white,
                       fontSize: 16.sp,
@@ -106,14 +108,22 @@ class _ExerciseViewState extends State<ExerciseView> {
                 final filteredExercises = activeCategory == 'عرض الكل'
                     ? exercises
                     : exercises.where((ex) {
-                        // Mocking filtering logic: if it's not "عرض الكل", just show items containing the category name or a subset
-                        if (activeCategory == 'الاكتئاب' &&
-                            ex['title']!.contains('دقيقة')) return true;
-                        if (activeCategory == 'الاجهاد والقلق' &&
-                            ex['title']!.contains('تحدي')) return true;
-                        if (activeCategory == 'التفكير الزائد' &&
-                            ex['title']!.contains('قيمة')) return true;
-                        return ex['title'] == activeCategory;
+                        String engCategory = '';
+                        switch (activeCategory) {
+                          case 'أصوات الطبيعة':
+                            engCategory = 'nature';
+                            break;
+                          case 'النوم المريح':
+                            engCategory = 'sleep';
+                            break;
+                          case 'الاسترخاء':
+                            engCategory = 'relaxation';
+                            break;
+                          case 'التأمل واليقظة':
+                            engCategory = 'meditation';
+                            break;
+                        }
+                        return ex.category == engCategory;
                       }).toList();
 
                 if (filteredExercises.isEmpty) {
@@ -136,8 +146,9 @@ class _ExerciseViewState extends State<ExerciseView> {
                       onTap: () {
                         Navigator.pushNamed(context, AppRoutes.audioPlayer,
                             arguments: {
-                              'title': ex['title'],
-                              'subtitle': 'تمرين صوتي'
+                              'title': ex.titleAr,
+                              'subtitle': 'جلسة استرخاء',
+                              'fileName': ex.fileName,
                             });
                       },
                       child: Container(
@@ -158,12 +169,7 @@ class _ExerciseViewState extends State<ExerciseView> {
                                     mainAxisAlignment: MainAxisAlignment.end,
                                     children: [
                                       Text(
-                                        '${ex['duration']}',
-                                        style: AppStyle.regular12.copyWith(
-                                            color: AppColors.greyColor),
-                                      ),
-                                      Text(
-                                        ' • تمرين صوتي',
+                                        'جلسة استرخاء',
                                         style: AppStyle.regular12.copyWith(
                                             color: AppColors.greyColor),
                                       ),
@@ -171,7 +177,7 @@ class _ExerciseViewState extends State<ExerciseView> {
                                   ),
                                   SizedBox(height: 8.h),
                                   Text(
-                                    ex['title']!,
+                                    ex.titleAr,
                                     style: AppStyle.bold16
                                         .copyWith(color: Colors.white),
                                     textAlign: TextAlign.right,

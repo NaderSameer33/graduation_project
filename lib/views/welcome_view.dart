@@ -65,7 +65,7 @@ class WelcomeView extends StatelessWidget {
               ),
               AppButton(
                 onTap: () {
-                  Navigator.pushNamed(context, AppRoutes.onBorading);
+                  Navigator.pushReplacementNamed(context, AppRoutes.onBorading);
                 },
                 title: 'ابدأ الان',
               ),

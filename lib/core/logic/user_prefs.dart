@@ -2,24 +2,18 @@ import 'dart:convert';
 import 'dart:typed_data';
 import 'package:shared_preferences/shared_preferences.dart';
 
-// ─────────────────────────────────────────────
-//  UserPrefs – SharedPreferences wrapper
-//  Persists user profile data locally.
-//  Designed to be token-ready for future API integration.
-// ─────────────────────────────────────────────
-
 class UserPrefs {
   UserPrefs._();
 
   // ── Keys ────────────────────────────────────
-  static const String _keyName        = 'user_name';
-  static const String _keyEmail       = 'user_email';
-  static const String _keyAvatarB64   = 'user_avatar_b64';
-  static const String _keyToken       = 'user_token';
-  static const String _keyUserId      = 'user_id';
+  static const String _keyName = 'user_name';
+  static const String _keyEmail = 'user_email';
+  static const String _keyAvatarB64 = 'user_avatar_b64';
+  static const String _keyToken = 'user_token';
+  static const String _keyUserId = 'user_id';
 
   // ── Defaults ────────────────────────────────
-  static const String defaultName  = 'محمد الامام';
+  static const String defaultName = 'محمد الامام';
   static const String defaultEmail = 'habibaemam@gmail.com';
 
   // ────────────────────────────────────────────
@@ -126,16 +120,16 @@ class UserPrefs {
       } catch (_) {}
     }
     return {
-      'name':        prefs.getString(_keyName)  ?? defaultName,
-      'email':       prefs.getString(_keyEmail) ?? defaultEmail,
+      'name': prefs.getString(_keyName) ?? defaultName,
+      'email': prefs.getString(_keyEmail) ?? defaultEmail,
       'avatarBytes': avatarBytes,
     };
   }
 
-  static const String _keyPoints         = 'user_points';
+  static const String _keyPoints = 'user_points';
   static const String _keyCompletedTasks = 'user_completed_tasks';
-  static const String _keyMoodsMap       = 'user_moods_map';
-  static const String _keyChallengeDone  = 'challenge_last_done';
+  static const String _keyMoodsMap = 'user_moods_map';
+  static const String _keyChallengeDone = 'challenge_last_done';
 
   // Points
   static Future<void> savePoints(int points) async {
@@ -160,9 +154,11 @@ class UserPrefs {
   }
 
   // Mood Tracker map (date key: yyyy-MM-dd -> JSON string representation of Mood)
-  static Future<void> saveMoodForDay(DateTime day, String emoji, String title, String colorHex) async {
+  static Future<void> saveMoodForDay(
+      DateTime day, String emoji, String title, String colorHex) async {
     final prefs = await SharedPreferences.getInstance();
-    final key = "${day.year}-${day.month.toString().padLeft(2, '0')}-${day.day.toString().padLeft(2, '0')}";
+    final key =
+        "${day.year}-${day.month.toString().padLeft(2, '0')}-${day.day.toString().padLeft(2, '0')}";
     final moods = await getMoodsMap();
     moods[key] = {
       'emoji': emoji,
@@ -181,7 +177,8 @@ class UserPrefs {
       final result = <String, Map<String, String>>{};
       decoded.forEach((key, value) {
         if (value is Map) {
-          result[key] = value.map((k, v) => MapEntry(k.toString(), v.toString()));
+          result[key] =
+              value.map((k, v) => MapEntry(k.toString(), v.toString()));
         }
       });
       return result;

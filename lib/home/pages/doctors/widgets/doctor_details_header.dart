@@ -1,20 +1,17 @@
 import '../../../../core/ui/app_color.dart';
 import '../../../../core/ui/app_image.dart';
-import '../models/doctor_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-class DoctorDetailsHeader extends StatefulWidget {
-  const DoctorDetailsHeader({super.key, required this.doctor});
-
-  final DoctorModel doctor;
-
-  @override
-  State<DoctorDetailsHeader> createState() => _DoctorDetailsHeaderState();
-}
-
-class _DoctorDetailsHeaderState extends State<DoctorDetailsHeader> {
-  bool _isFavorite = false;
+class DoctorDetailsHeader extends StatelessWidget {
+  const DoctorDetailsHeader(
+      {super.key,
+      this.imageUrl,
+      this.isFavorite = false,
+      this.onFavoriteToggle});
+  final String? imageUrl;
+  final bool isFavorite;
+  final VoidCallback? onFavoriteToggle;
 
   @override
   Widget build(BuildContext context) {
@@ -27,7 +24,7 @@ class _DoctorDetailsHeaderState extends State<DoctorDetailsHeader> {
           ),
           child: AppImage(
             width: double.infinity,
-            image: widget.doctor.image,
+            image: imageUrl ?? 'doctor_nader.png',
             height: 271.h,
             fit: BoxFit.cover,
           ),
@@ -56,7 +53,7 @@ class _DoctorDetailsHeaderState extends State<DoctorDetailsHeader> {
           top: 20.h,
           left: 20.w,
           child: GestureDetector(
-            onTap: () => setState(() => _isFavorite = !_isFavorite),
+            onTap: onFavoriteToggle,
             child: Container(
               width: 36,
               height: 36,
@@ -65,10 +62,10 @@ class _DoctorDetailsHeaderState extends State<DoctorDetailsHeader> {
                 shape: BoxShape.circle,
               ),
               child: Icon(
-                _isFavorite
+                isFavorite
                     ? Icons.favorite_rounded
                     : Icons.favorite_border_rounded,
-                color: _isFavorite ? Colors.red : Colors.white,
+                color: isFavorite ? Colors.red : Colors.white,
                 size: 18,
               ),
             ),

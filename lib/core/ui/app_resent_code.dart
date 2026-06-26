@@ -5,7 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class AppResentCode extends StatefulWidget {
-  const AppResentCode({super.key});
+  final Future<void> Function()? onResend;
+  const AppResentCode({super.key, this.onResend});
 
   @override
   State<AppResentCode> createState() => _AppResentCodeState();
@@ -45,9 +46,15 @@ class _AppResentCodeState extends State<AppResentCode> {
           )
         else
           TextButton(
-            onPressed: () {
-              isResend = true;
-              setState(() {});
+            onPressed: () async {
+              if (widget.onResend != null) {
+                await widget.onResend!();
+              }
+              if (mounted) {
+                setState(() {
+                  isResend = true;
+                });
+              }
             },
             child: Text(
               'أعد الارسال',

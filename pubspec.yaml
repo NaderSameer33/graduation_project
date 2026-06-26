@@ -69,6 +69,8 @@ flutter:
     - assets/icons/
     - assets/lotties/
     - assets/animations/
+    - assets/sounds/
+    - broadcast.json
 
   fonts:
     - family: Cairo

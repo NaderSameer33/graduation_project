@@ -3,12 +3,6 @@ import '../../../core/ui/app_color.dart';
 import '../../../core/ui/app_style.dart';
 import 'test_result_screen.dart';
 
-// ─────────────────────────────────────────────
-//  Tests Screen
-//  Psychological self-assessment tests list.
-//  Matches design: "tests.png"
-// ─────────────────────────────────────────────
-
 class _TestModel {
   const _TestModel({
     required this.id,
@@ -140,7 +134,6 @@ class TestsScreen extends StatelessWidget {
               ),
 
               const SizedBox(height: 12),
-
               // ── Tests list ───────────────────────
               Expanded(
                 child: ListView.separated(
@@ -176,7 +169,8 @@ class TestsScreen extends StatelessWidget {
     if (test.id == 'depression') {
       return [
         {
-          'q': 'خلال آخر أسبوعين، إلى أي مدى شعرت بالحزن أو الفراغ أو فقدان الأمل؟',
+          'q':
+              'خلال آخر أسبوعين، إلى أي مدى شعرت بالحزن أو الفراغ أو فقدان الأمل؟',
           'opts': ['أبداً', 'أحياناً', 'كثيراً', 'طوال الوقت'],
         },
         {
@@ -229,8 +223,8 @@ class _TestCard extends StatelessWidget {
                     test.iconColor.withOpacity(0.1),
                   ],
                 ),
-                borderRadius: const BorderRadius.vertical(
-                    top: Radius.circular(16)),
+                borderRadius:
+                    const BorderRadius.vertical(top: Radius.circular(16)),
               ),
               child: Center(
                 child: Icon(
@@ -478,18 +472,15 @@ class _QuizFlowState extends State<_QuizFlow> {
                 // Options
                 Expanded(
                   child: ListView(
-                    children: (q['opts'] as List<String>)
-                        .asMap()
-                        .entries
-                        .map((e) {
+                    children:
+                        (q['opts'] as List<String>).asMap().entries.map((e) {
                       final idx = e.key;
                       final opt = e.value;
                       final selected = _selectedOption == idx;
                       return Padding(
                         padding: const EdgeInsets.only(bottom: 12),
                         child: GestureDetector(
-                          onTap: () =>
-                              setState(() => _selectedOption = idx),
+                          onTap: () => setState(() => _selectedOption = idx),
                           child: Container(
                             width: double.infinity,
                             padding: const EdgeInsets.symmetric(
@@ -542,8 +533,8 @@ class _QuizFlowState extends State<_QuizFlow> {
                               decoration: BoxDecoration(
                                 color: AppColors.card,
                                 borderRadius: BorderRadius.circular(30),
-                                border: Border.all(
-                                    color: const Color(0xFF2A2A2A)),
+                                border:
+                                    Border.all(color: const Color(0xFF2A2A2A)),
                               ),
                               child: const Center(
                                 child: Text(

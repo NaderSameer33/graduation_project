@@ -1,5 +1,6 @@
 import 'package:etmaen/core/logic/api/api_service.dart';
 import 'content_model.dart';
+import 'broadcast_model.dart';
 
 class ContentRepository {
   static Future<List<ContentItem>> fetchArticlesFromApi(int conditionId) async {
@@ -33,18 +34,21 @@ class ContentRepository {
 
   static final List<ContentItem> _items = _rawItems.map((e) => ContentItem.fromJson(e)).toList();
 
-  static List<ContentItem> getAll() => _items;
+  static List<ContentItem> getAll() {
+    final broadcastItems = BroadcastRepository.getAll().map((e) => e.toContentItem()).toList();
+    return [..._items, ...broadcastItems];
+  }
 
   static List<ContentItem> getByCondition(int conditionId) {
-    return _items.where((e) => e.conditionId == conditionId).toList();
+    return getAll().where((e) => e.conditionId == conditionId).toList();
   }
 
   static List<ContentItem> getByType(String type) {
-    return _items.where((e) => e.type == type).toList();
+    return getAll().where((e) => e.type == type).toList();
   }
 
   static List<ContentItem> getByConditionAndType(int conditionId, String type) {
-    return _items.where((e) => e.conditionId == conditionId && e.type == type).toList();
+    return getAll().where((e) => e.conditionId == conditionId && e.type == type).toList();
   }
 
   static String getDoctorImage(int index) {
@@ -83,14 +87,6 @@ class ContentRepository {
     "title": "العلاج المعرفي السلوكي - الاكتئاب ج1",
     "link": "https://www.youtube.com/watch?v=jhpdMQ607TM",
     "description": "شرح مفصل من د. نادر عطاالله لتطبيق CBT في علاج الاكتئاب مع أمثلة عملية"
-  },
-  {
-    "id": 5,
-    "type": "بودكاست",
-    "condition_id": 1,
-    "title": "عن الاكتئاب والتعافي وإصلاح العلاقة مع النفس",
-    "link": "https://www.youtube.com/watch?v=bOr-QcW3VfQ",
-    "description": "نقاش عميق عن رحلة التعافي من الاكتئاب باستخدام العلاج المعرفي السلوكي"
   },
   {
     "id": 6,
@@ -157,14 +153,6 @@ class ContentRepository {
     "description": "تمارين تنفس عميق واسترخاء فعالة لتهدئة القلق فورًا"
   },
   {
-    "id": 14,
-    "type": "بودكاست",
-    "condition_id": 2,
-    "title": "كيف تتخلص من القلق والتفكير الزائد",
-    "link": "https://www.youtube.com/watch?v=ESM0ZvYjWtU",
-    "description": "حلقة عملية تساعد على السيطرة على نوبات القلق باستخدام أدوات CBT"
-  },
-  {
     "id": 15,
     "type": "فيديو",
     "condition_id": 2,
@@ -197,14 +185,6 @@ class ContentRepository {
     "description": "خطوات عملية للخروج من الاحتراق النفسي واستعادة الطاقة"
   },
   {
-    "id": 19,
-    "type": "بودكاست",
-    "condition_id": 3,
-    "title": "الفرق بين الاحتراق النفسي والاكتئاب",
-    "link": "https://www.youtube.com/watch?v=L7GkcYScluk",
-    "description": "نقاش يوضح الفرق بين الاحتراق النفسي والاكتئاب وكيفية التعامل مع كل منهما"
-  },
-  {
     "id": 20,
     "type": "فيديو",
     "condition_id": 3,
@@ -227,14 +207,6 @@ class ContentRepository {
     "title": "تمارين وخطوات تطبيقية للعلاج من التفكير الزائد والتوتر",
     "link": "https://www.youtube.com/watch?v=DLWlyvm6PIA",
     "description": "حلول عملية وتمارين CBT للتخلص من التفكير المفرط"
-  },
-  {
-    "id": 23,
-    "type": "بودكاست",
-    "condition_id": 4,
-    "title": "كيف تتخلص من التفكير الزائد والقلق",
-    "link": "https://www.youtube.com/watch?v=YoZ2s8jMeYA",
-    "description": "حلقة عملية عن كسر دائرة التفكير الزائد والاجترار"
   },
   {
     "id": 24,
@@ -515,14 +487,6 @@ class ContentRepository {
     "title": "الاحتراق النفسي: الأعراض والعلاج",
     "link": "https://www.youtube.com/watch?v=ZPvayFD_bbw",
     "description": "حلقة شاملة عن أعراض وعلاج الاحتراق النفسي"
-  },
-  {
-    "id": 59,
-    "type": "بودكاست",
-    "condition_id": 4,
-    "title": "Ep 6 : Overthinking التفكير الزائد",
-    "link": "https://www.youtube.com/watch?v=N6FUUESGWZQ",
-    "description": "حلقة بودكاست عن التفكير الزائد وتأثيره"
   },
   {
     "id": 60,

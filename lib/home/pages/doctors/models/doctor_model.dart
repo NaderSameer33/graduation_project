@@ -15,6 +15,8 @@ class DoctorModel {
     this.location = '',
     this.workingHours = '',
     this.fees = '',
+    this.bio,
+    this.workSchedule,
   });
 
   final String id;
@@ -32,6 +34,8 @@ class DoctorModel {
   final String location;
   final String workingHours;
   final String fees;
+  final String? bio;
+  final String? workSchedule;
 
   /// Available doctor images in assets/images/doctors/
   static const List<String> _doctorImages = [
@@ -73,6 +77,11 @@ class DoctorModel {
     // Determine ID to ensure unique indexing
     final intId = json['id'] as int? ?? 1;
 
+    String? imgUrl = json['imageUrl'] ?? json['image'] ?? json['photoUrl'] ?? json['photo'];
+    if (imgUrl != null && imgUrl.isNotEmpty && !imgUrl.startsWith('http')) {
+      imgUrl = 'http://mental-health3.runasp.net$imgUrl';
+    }
+    
     return DoctorModel(
       id: (json['id'] ?? json['doctorId'] ?? '').toString(),
       name: json['name'] ?? json['fullName'] ?? json['firstName'] ?? '',
@@ -85,9 +94,12 @@ class DoctorModel {
       reviewCount: (json['reviewCount'] ?? (10 + (intId % 25))).toInt(),
       sessionDuration: (json['sessionDuration'] ?? 45).toInt(),
       description: json['description'] ?? 'أخصائي واستشاري متميز في تقديم الرعاية والدعم النفسي الشامل بأحدث المنهجيات والبرامج العلاجية.',
-      location: json['location'] ?? 'المنصورة',
+      location: json['location'] ?? json['address'] ?? 'المنصورة',
       workingHours: json['working_hours'] ?? json['workingHours'] ?? 'حسب المواعيد المتاحة',
       fees: json['fees'] ?? '${parsedPrice > 0 ? parsedPrice : 400} جنيه',
+      imageUrl: imgUrl,
+      bio: json['bio'] ?? json['description'],
+      workSchedule: json['workSchedule'],
     );
   }
 }

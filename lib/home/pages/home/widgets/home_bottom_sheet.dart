@@ -96,43 +96,38 @@ class _HomeMenuSheetState extends State<_HomeMenuSheet>
       _MenuItem(
         icon: Icons.school_outlined,
         label: 'محتوى علاجي',
-        onTap: () => _close(),
+        onTap: () => _closeAndNavigate(AppRoutes.learning),
       ),
       _MenuItem(
         icon: Icons.ondemand_video,
         label: 'سينما اطمئن',
-        onTap: () {
-          _close();
-          Navigator.pushNamed(context, AppRoutes.cinema);
-        },
+        onTap: () => _closeAndNavigate(AppRoutes.cinema),
       ),
       _MenuItem(
         icon: Icons.nightlight_round,
-        label: 'تمارين نفسية',
-        onTap: () => _close(),
+        label: 'جلسات استرخاء',
+        onTap: () => _closeAndNavigate(AppRoutes.exercise),
       ),
       _MenuItem(
         icon: Icons.info_outline,
         label: 'اختبارات نفسية',
-        onTap: () {
-          _close();
-          Navigator.pushNamed(context, AppRoutes.tests);
-        },
+        onTap: () => _closeAndNavigate(AppRoutes.tests),
       ),
       _MenuItem(
         icon: Icons.hourglass_empty,
         label: 'تحديات نفسية',
-        onTap: () {
-          _close();
-          Navigator.pushNamed(context, AppRoutes.challenges);
-        },
-      ),
-      _MenuItem(
-        icon: Icons.menu_book,
-        label: 'ركن القراءة',
-        onTap: () => _close(),
+        onTap: () => _closeAndNavigate(AppRoutes.challenges),
       ),
     ];
+  }
+
+  void _closeAndNavigate(String routeName) async {
+    await _controller.reverse();
+    if (mounted) {
+      widget.onClose();
+      Navigator.of(context).pop();
+      Navigator.of(context).pushNamed(routeName);
+    }
   }
 
   void _close() async {

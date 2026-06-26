@@ -6,12 +6,6 @@ import 'package:timezone/timezone.dart' as tz;
 
 import '../core/logic/user_prefs.dart';
 
-// ─────────────────────────────────────────────
-//  ChallengeNotificationService
-//  Handles all local notification logic for
-//  daily challenge reminders.
-// ─────────────────────────────────────────────
-
 class ChallengeNotificationService {
   ChallengeNotificationService._();
 
@@ -34,7 +28,8 @@ class ChallengeNotificationService {
     // Initialise timezone database
     tz.initializeTimeZones();
     try {
-      final String localTimezone = (await FlutterTimezone.getLocalTimezone()).identifier;
+      final String localTimezone =
+          (await FlutterTimezone.getLocalTimezone()).identifier;
       tz.setLocalLocation(tz.getLocation(localTimezone));
     } catch (_) {
       tz.setLocalLocation(tz.getLocation('Africa/Cairo'));
@@ -75,9 +70,8 @@ class ChallengeNotificationService {
   //  Permission request
   // ─────────────────────────────────────────
   static Future<void> _requestPermission() async {
-    final androidImpl =
-        _plugin.resolvePlatformSpecificImplementation<
-            AndroidFlutterLocalNotificationsPlugin>();
+    final androidImpl = _plugin.resolvePlatformSpecificImplementation<
+        AndroidFlutterLocalNotificationsPlugin>();
     if (androidImpl != null) {
       await androidImpl.requestNotificationsPermission();
     }
@@ -104,9 +98,8 @@ class ChallengeNotificationService {
       playSound: true,
       enableVibration: true,
     );
-    final androidImpl =
-        _plugin.resolvePlatformSpecificImplementation<
-            AndroidFlutterLocalNotificationsPlugin>();
+    final androidImpl = _plugin.resolvePlatformSpecificImplementation<
+        AndroidFlutterLocalNotificationsPlugin>();
     await androidImpl?.createNotificationChannel(channel);
   }
 

@@ -4,6 +4,7 @@ import '../widgets/empty_Favourite.dart';
 import '../widgets/favourite_card.dart';
 import '../widgets/favourite_header.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/cupertino.dart';
 
 import '../doctor_detail_screen.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -100,9 +101,10 @@ class _FavoritesScreenState extends State<FavoritesScreen> {
                                 onRemoveFavorite: () => _removeFavorite(doctor.id),
                                 onTap: () => Navigator.push(
                                   context,
-                                  MaterialPageRoute(
-                                    builder: (context) =>
-                                        DoctorDetailScreen(doctor: doctor),
+                                  CupertinoPageRoute(
+                                    builder: (_) => DoctorDetailScreen(
+                                      doctor: doctor,
+                                    ),
                                   ),
                                 ),
                               );
