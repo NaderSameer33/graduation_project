@@ -4,8 +4,10 @@ import 'models/doctor_model.dart';
 import 'widgets/doctor_banner.dart';
 import 'widgets/doctor_grid_view.dart';
 import 'widgets/doctor_header.dart';
+import '../home/widgets/podcast_list_view.dart';
 import 'package:flutter/material.dart';
 import '../../../core/ui/app_color.dart';
+import '../../../core/ui/app_style.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class DoctorsPage extends StatefulWidget {
@@ -129,6 +131,23 @@ class _DoctorsPagestate extends State<DoctorsPage> {
                         children: [
                           DoctorBanner(),
 
+                          SizedBox(height: 20.h),
+                          
+                          Padding(
+                            padding: EdgeInsets.symmetric(horizontal: 8.r),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Text(
+                                  'بودكاست مقترح',
+                                  style: AppStyle.bold16,
+                                ),
+                              ],
+                            ),
+                          ),
+                          SizedBox(height: 10.h),
+                          PodcastListView(),
+                          
                           SizedBox(height: 20.h),
 
                           if (_filtered.isEmpty)

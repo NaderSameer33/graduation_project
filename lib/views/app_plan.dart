@@ -126,7 +126,8 @@ class AppPlanView extends StatelessWidget {
               ),
 
               AppButton(
-                onTap: () => Navigator.pushNamed(context, AppRoutes.home),
+                onTap: () => Navigator.pushNamedAndRemoveUntil(
+                    context, AppRoutes.home, (route) => false),
                 title: 'ابدأ رحلتك الآن',
               ),
             ],

@@ -61,11 +61,8 @@ class _TherapeuticContentListViewState extends State<TherapeuticContentListView>
             } else if (item.isPodcast) {
               Navigator.pushNamed(
                 context,
-                '/audioPlayer',
-                arguments: {
-                  'title': item.title,
-                  'subtitle': item.description,
-                },
+                '/cinemaVideo',
+                arguments: item,
               );
             } else {
               Navigator.pushNamed(

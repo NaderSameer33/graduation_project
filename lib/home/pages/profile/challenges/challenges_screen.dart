@@ -4,12 +4,6 @@ import '../../../../core/ui/app_color.dart';
 import '../../../../core/ui/app_style.dart';
 import 'challenge_detail_screen.dart';
 
-// ─────────────────────────────────────────────
-//  Challenges Screen
-//  List of mental health challenges.
-//  Matches design: "challenges.png"
-// ─────────────────────────────────────────────
-
 // ── Challenge data model ──────────────────────
 class ChallengeModel {
   const ChallengeModel({
@@ -106,9 +100,8 @@ class _ChallengesScreenState extends State<ChallengesScreen> {
     final res = await ApiService.authenticatedGet('challenges');
     if (res.success && res.asList.isNotEmpty) {
       setState(() {
-        _challenges = res.asList
-            .map((e) => ChallengeModel.fromJson(e))
-            .toList();
+        _challenges =
+            res.asList.map((e) => ChallengeModel.fromJson(e)).toList();
         _isLoading = false;
       });
     } else {

@@ -26,7 +26,8 @@ class _LoginViewState extends State<LoginView> {
 
     if (email.isEmpty || password.isEmpty) {
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('الرجاء إدخال البريد الإلكتروني وكلمة المرور')),
+        const SnackBar(
+            content: Text('الرجاء إدخال البريد الإلكتروني وكلمة المرور')),
       );
       return;
     }

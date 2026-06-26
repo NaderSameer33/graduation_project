@@ -30,7 +30,6 @@ class AppImage extends StatelessWidget {
     if (image.isEmpty) {
       return const SizedBox.shrink();
     }
-
     if (image.toLowerCase().endsWith('svg')) {
       child = SvgPicture.asset(
         'assets/icons/$image',
@@ -73,7 +72,6 @@ class AppImage extends StatelessWidget {
       child = Image.asset(
         'assets/images/$image',
         fit: myFit,
-
         color: color,
         height: height,
         width: width,

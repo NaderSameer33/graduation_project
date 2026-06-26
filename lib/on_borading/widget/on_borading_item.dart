@@ -1,5 +1,4 @@
 import 'package:confetti/confetti.dart';
-
 import '../../core/logic/app_routes.dart';
 import '../../core/ui/app_color.dart';
 import '../../core/ui/app_image.dart';
@@ -33,7 +32,7 @@ class OnBoradingItem extends StatelessWidget {
               alignment: Alignment.centerLeft,
               child: TextButton(
                 onPressed: () =>
-                    Navigator.pushNamed(context, AppRoutes.welcomeLogin),
+                    Navigator.pushReplacementNamed(context, AppRoutes.welcomeLogin),
                 child: Text(
                   'تخطي',
                   style: AppStyle.bold16,
@@ -43,7 +42,6 @@ class OnBoradingItem extends StatelessWidget {
             SizedBox(
               height: 60.h,
             ),
-
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
@@ -98,7 +96,7 @@ class OnBoradingItem extends StatelessWidget {
                       confettiController.play();
                       await Future.delayed(const Duration(seconds: 1));
                       if (context.mounted) {
-                        Navigator.pushNamed(context, AppRoutes.welcomeLogin);
+                        Navigator.pushReplacementNamed(context, AppRoutes.welcomeLogin);
                       }
                     } else {
                       pageController.nextPage(

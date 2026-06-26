@@ -40,11 +40,12 @@ class _OtpViewState extends State<OtpView> {
 
     setState(() => _isLoading = false);
 
-    if (res.success) {
+    if (res.success || res.statusCode == 200) {
       if (mounted) {
         Navigator.pushNamed(
           context,
           isFromForgetPassword ? AppRoutes.newPassword : AppRoutes.login,
+          arguments: email, // Pass email to newPassword view
         );
       }
     } else {
@@ -59,10 +60,15 @@ class _OtpViewState extends State<OtpView> {
   @override
   Widget build(BuildContext context) {
     final args = ModalRoute.of(context)?.settings.arguments;
-    // The argument can be an email string or a boolean depending on the route.
-    // If it's a string, we treat it as an email. If it's false, it's normal register flow.
-    final bool isFromForgetPassword = args == true;
-    final String email = (args is String) ? args : 'example@gmail.com';
+    bool isFromForgetPassword = false;
+    String email = 'example@gmail.com';
+
+    if (args is Map) {
+      email = args['email'] ?? '';
+      isFromForgetPassword = args['isFromForgetPassword'] ?? false;
+    } else if (args is String) {
+      email = args;
+    }
 
     return Scaffold(
       body: SafeArea(
@@ -120,7 +126,11 @@ class _OtpViewState extends State<OtpView> {
               SizedBox(
                 height: 10.h,
               ),
-              const AppResentCode(),
+              AppResentCode(
+                onResend: () async {
+                  await ApiService.post('forgot_password', {'email': email});
+                },
+              ),
             ],
           ),
         ),

@@ -38,9 +38,11 @@ class _DoctorDetailScreenState extends State<DoctorDetailScreen> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-              DoctorDetailsHeader(doctor: doc),
+              DoctorDetailsHeader(
+                imageUrl: doc.imageUrl ?? doc.image,
+                isFavorite: doc.isFavorite,
+              ),
               SizedBox(height: 10.h),
-
               Padding(
                 padding: EdgeInsets.symmetric(horizontal: 16.r),
                 child: Column(
@@ -56,7 +58,6 @@ class _DoctorDetailScreenState extends State<DoctorDetailScreen> {
                       style: AppStyle.regular12,
                     ),
                     SizedBox(height: 12.h),
-
                     Wrap(
                       spacing: 16,
                       runSpacing: 8,
@@ -76,9 +77,7 @@ class _DoctorDetailScreenState extends State<DoctorDetailScreen> {
                         ),
                       ],
                     ),
-
                     SizedBox(height: 16.h),
-
                     Text(
                       doc.description,
                       textAlign: TextAlign.right,
@@ -87,9 +86,7 @@ class _DoctorDetailScreenState extends State<DoctorDetailScreen> {
                         height: 1.5,
                       ),
                     ),
-
                     const CustomDivider(),
-
                     const _SectionTitle('الموقع'),
                     SizedBox(height: 6.h),
                     Text(
@@ -104,23 +101,18 @@ class _DoctorDetailScreenState extends State<DoctorDetailScreen> {
                       borderRadius: BorderRadius.circular(12.r),
                       child: AppImage(image: 'map.png'),
                     ),
-
                     const CustomDivider(),
-
                     const _SectionTitle('مواعيد العمل'),
                     SizedBox(height: 6.h),
                     Text(
                       doc.workingHours,
                       style: AppStyle.regular12,
                     ),
-
                     const CustomDivider(),
-
-                    ReviewHeader(doctor: doc),
+                    ReviewHeader(reviewCount: doc.reviewCount),
                     SizedBox(height: 12.h),
                     const ReviewDoctorItem(),
                     const CustomDivider(),
-
                     Text(
                       'هل قمت بزيارة هذا الدكتور ؟',
                       textAlign: TextAlign.center,
@@ -139,7 +131,6 @@ class _DoctorDetailScreenState extends State<DoctorDetailScreen> {
                       ),
                     ),
                     SizedBox(height: 20.h),
-
                     AppButton(
                       onTap: () => Navigator.push(
                         context,
@@ -149,7 +140,6 @@ class _DoctorDetailScreenState extends State<DoctorDetailScreen> {
                       ),
                       title: 'احجز جلسة – ${doc.fees}',
                     ),
-
                     SizedBox(height: 32.h),
                   ],
                 ),

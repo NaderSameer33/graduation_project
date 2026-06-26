@@ -4,13 +4,6 @@ import '../../../../core/ui/app_color.dart';
 import '../../../../notifaction/challenge_notification_service.dart';
 import '../../../../notifaction/challenge_workmanager_service.dart';
 
-// ─────────────────────────────────────────────
-//  Challenge Detail Screen
-//  Shows full description + steps for a challenge.
-//  When isCompleted=false → "ابدأ التحدي"  (challenges-1.png)
-//  When isCompleted=true  → "اتممت التحدي" (challenges-2.png)
-// ─────────────────────────────────────────────
-
 class ChallengeDetailScreen extends StatefulWidget {
   const ChallengeDetailScreen({
     super.key,
@@ -34,8 +27,7 @@ class ChallengeDetailScreen extends StatefulWidget {
   final bool isCompleted;
 
   @override
-  State<ChallengeDetailScreen> createState() =>
-      _ChallengeDetailScreenState();
+  State<ChallengeDetailScreen> createState() => _ChallengeDetailScreenState();
 }
 
 class _ChallengeDetailScreenState extends State<ChallengeDetailScreen> {
@@ -71,8 +63,7 @@ class _ChallengeDetailScreenState extends State<ChallengeDetailScreen> {
         ),
         backgroundColor: AppColors.primaryBot,
         behavior: SnackBarBehavior.floating,
-        shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(12)),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
       ),
     );
   }
@@ -194,8 +185,7 @@ class _ChallengeDetailScreenState extends State<ChallengeDetailScreen> {
                           !_showFullSteps &&
                           widget.stepsDetail.length > 150)
                         GestureDetector(
-                          onTap: () =>
-                              setState(() => _showFullSteps = true),
+                          onTap: () => setState(() => _showFullSteps = true),
                           child: const Text(
                             '...قراءة المزيد',
                             style: TextStyle(

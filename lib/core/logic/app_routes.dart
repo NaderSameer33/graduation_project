@@ -1,7 +1,6 @@
 import 'package:etmaen/cinema/cinema_etmaen.dart';
 import 'package:etmaen/cinema/cinema_video_view.dart';
 import 'package:etmaen/home/pages/home/models/content_model.dart';
-
 import '../../home/pages/chat_bot/chat_bot_page.dart';
 import '../../home/pages/profile/profile_track_mode_view.dart';
 import '../../ai/ai_analysis_view.dart';
@@ -68,21 +67,26 @@ abstract class AppRoutes {
     return PageRouteBuilder(
       settings: settings,
       pageBuilder: (context, animation, secondaryAnimation) => page,
-      transitionDuration: const Duration(milliseconds: 300),
-      reverseTransitionDuration: const Duration(milliseconds: 300),
+      transitionDuration: const Duration(milliseconds: 600),
+      reverseTransitionDuration: const Duration(milliseconds: 500),
       transitionsBuilder: (context, animation, secondaryAnimation, child) {
-        const begin = Offset(0.0, 0.05);
-        const end = Offset.zero;
-        const curve = Curves.easeInOut;
+        const curve = Curves.easeOutExpo;
 
-        var slideTween = Tween(begin: begin, end: end).chain(CurveTween(curve: curve));
-        var fadeTween = Tween(begin: 0.0, end: 1.0).chain(CurveTween(curve: curve));
+        var slideTween = Tween(begin: const Offset(0.0, 0.1), end: Offset.zero)
+            .chain(CurveTween(curve: curve));
+        var fadeTween =
+            Tween(begin: 0.0, end: 1.0).chain(CurveTween(curve: curve));
+        var scaleTween =
+            Tween(begin: 0.96, end: 1.0).chain(CurveTween(curve: curve));
 
         return FadeTransition(
           opacity: animation.drive(fadeTween),
           child: SlideTransition(
             position: animation.drive(slideTween),
-            child: child,
+            child: ScaleTransition(
+              scale: animation.drive(scaleTween),
+              child: child,
+            ),
           ),
         );
       },
@@ -106,19 +110,23 @@ abstract class AppRoutes {
       case otp:
         return _customRoute(const OtpView(), settings: routeSettings);
       case forgetPassword:
-        return _customRoute(const ForgetPasswrordView(), settings: routeSettings);
+        return _customRoute(const ForgetPasswrordView(),
+            settings: routeSettings);
       case newPassword:
         return _customRoute(const NewPasswordView(), settings: routeSettings);
       case aiQuiz:
         return _customRoute(const AiQuizView(), settings: routeSettings);
       case aiQuizOnBorading:
-        return _customRoute(const QuizOnboradingView(), settings: routeSettings);
+        return _customRoute(const QuizOnboradingView(),
+            settings: routeSettings);
       case aiAnalysis:
         final args = routeSettings.arguments as Map<String, dynamic>?;
-        return _customRoute(AiAnalysisView(planData: args), settings: routeSettings);
+        return _customRoute(AiAnalysisView(planData: args),
+            settings: routeSettings);
       case appPlan:
         final args = routeSettings.arguments as Map<String, dynamic>?;
-        return _customRoute(AppPlanView(planData: args), settings: routeSettings);
+        return _customRoute(AppPlanView(planData: args),
+            settings: routeSettings);
       case home:
         return _customRoute(const HomeView(), settings: routeSettings);
       case notifaction:
@@ -136,19 +144,22 @@ abstract class AppRoutes {
       case favorites:
         return _customRoute(const FavoritesScreen(), settings: routeSettings);
       case trackMode:
-        return _customRoute(const ProfileTrackModeView(), settings: routeSettings);
+        return _customRoute(const ProfileTrackModeView(),
+            settings: routeSettings);
       case cinema:
         return _customRoute(const CinemaEtmaen(), settings: routeSettings);
       case cinemaVideo:
         final cinemaArgs = routeSettings.arguments;
         final contentItem = cinemaArgs is ContentItem ? cinemaArgs : null;
-        return _customRoute(CinemaVideoView(item: contentItem), settings: routeSettings);
+        return _customRoute(CinemaVideoView(item: contentItem),
+            settings: routeSettings);
       case audioPlayer:
         final args = routeSettings.arguments as Map<String, dynamic>?;
         return _customRoute(
           AudioPlayerView(
             title: args?['title'] ?? 'اساسيات العلاج',
             subtitle: args?['subtitle'] ?? 'مستوى 1',
+            fileName: args?['fileName'],
           ),
           settings: routeSettings,
         );
@@ -156,12 +167,14 @@ abstract class AppRoutes {
         return _customRoute(const LearningView(), settings: routeSettings);
       case categoryDetail:
         final title = routeSettings.arguments as String? ?? 'الاكتئاب';
-        return _customRoute(CategoryDetailView(categoryTitle: title), settings: routeSettings);
+        return _customRoute(CategoryDetailView(categoryTitle: title),
+            settings: routeSettings);
       case exercise:
         return _customRoute(const ExerciseView(), settings: routeSettings);
       case videoList:
         final title = routeSettings.arguments as String? ?? '';
-        return _customRoute(VideoListView(categoryTitle: title), settings: routeSettings);
+        return _customRoute(VideoListView(categoryTitle: title),
+            settings: routeSettings);
       case articleDetail:
         final args = routeSettings.arguments;
         if (args is ContentItem) {
@@ -179,7 +192,8 @@ abstract class AppRoutes {
           );
         } else {
           final title = args as String? ?? '';
-          return _customRoute(ArticleDetailView(categoryTitle: title), settings: routeSettings);
+          return _customRoute(ArticleDetailView(categoryTitle: title),
+              settings: routeSettings);
         }
       default:
         return _customRoute(const Scaffold(), settings: routeSettings);

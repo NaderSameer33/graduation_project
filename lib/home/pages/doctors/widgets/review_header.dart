@@ -1,14 +1,14 @@
 import '../../../../core/ui/app_color.dart';
-import '../models/doctor_model.dart';
+
 import 'package:flutter/material.dart';
 
 class ReviewHeader extends StatelessWidget {
   const ReviewHeader({
     super.key,
-    required this.doctor,
+    required this.reviewCount,
   });
 
-  final DoctorModel doctor;
+  final int reviewCount;
 
   @override
   Widget build(BuildContext context) {
@@ -26,7 +26,7 @@ class ReviewHeader extends StatelessWidget {
         ),
         const SizedBox(width: 8),
         Text(
-          '(${doctor.reviewCount} مراجعة)',
+          '($reviewCount مراجعة)',
           style: const TextStyle(
             color: AppColors.textSecondary,
             fontSize: 12,

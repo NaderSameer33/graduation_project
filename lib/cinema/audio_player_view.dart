@@ -7,11 +7,13 @@ import '../core/ui/app_style.dart';
 class AudioPlayerView extends StatefulWidget {
   final String title;
   final String subtitle;
+  final String? fileName;
   
   const AudioPlayerView({
     super.key,
     required this.title,
     required this.subtitle,
+    this.fileName,
   });
 
   @override
@@ -32,9 +34,12 @@ class _AudioPlayerViewState extends State<AudioPlayerView> {
 
   Future<void> _initAudio() async {
     try {
-      // Load a sample relaxing audio url for functionality
-      await _player.setUrl('https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3');
-      _player.play(); // Auto-play the audio
+      if (widget.fileName != null && widget.fileName!.isNotEmpty) {
+        await _player.setAsset('assets/sounds/${widget.fileName}');
+      } else {
+        await _player.setUrl('https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3');
+      }
+      _player.play();
       
       _player.positionStream.listen((pos) {
         if (mounted) setState(() => _position = pos);

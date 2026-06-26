@@ -8,6 +8,7 @@ class ContentItem {
   final int? doctorId; // links article to a specific doctor
   final String? articleBody; // full article text for مقالة type
   final String? doctorName; // doctor who wrote or is associated with article
+  final String? imageUrl; // For preview images (like podcast thumbnails)
 
   ContentItem({
     required this.id,
@@ -19,6 +20,7 @@ class ContentItem {
     this.doctorId,
     this.articleBody,
     this.doctorName,
+    this.imageUrl,
   });
 
   factory ContentItem.fromJson(Map<String, dynamic> json) {
@@ -32,6 +34,7 @@ class ContentItem {
       doctorId: json['doctor_id'] as int?,
       articleBody: json['article_body'] as String?,
       doctorName: json['doctor_name'] as String?,
+      imageUrl: json['image_url'] as String?,
     );
   }
 
@@ -54,6 +57,7 @@ class ContentItem {
       doctorId: docId,
       articleBody: bodyContent,
       doctorName: docName ?? json['doctorName'] ?? json['DoctorName'] ?? '',
+      imageUrl: json['imageUrl'] ?? json['ImageUrl'] ?? json['image_url'],
     );
   }
 
@@ -65,6 +69,7 @@ class ContentItem {
       'title': title,
       'link': link,
       'description': description,
+      'image_url': imageUrl,
     };
   }
 

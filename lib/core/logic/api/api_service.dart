@@ -131,7 +131,7 @@ class ApiService {
 
   static Future<ApiResponse> post(
     String endpointKey,
-    Map<String, dynamic> body, {
+    dynamic body, {
     Map<String, String>? extraHeaders,
     String? id,
   }) async {
@@ -161,7 +161,7 @@ class ApiService {
 
   static Future<ApiResponse> authenticatedPost(
     String endpointKey,
-    Map<String, dynamic> body, {
+    dynamic body, {
     String? id,
   }) async {
     final token = await UserPrefs.getToken();

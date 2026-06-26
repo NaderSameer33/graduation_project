@@ -64,8 +64,6 @@ class _ChatBotViewState extends State<_ChatBotView> {
               // ── Header ──────────────────────────────────────────────────
               const ChatBotHeader(),
               SizedBox(height: 16.h),
-
-              // ── Messages list ────────────────────────────────────────────
               Expanded(
                 child: BlocConsumer<ChatBotCubit, ChatBotState>(
                   listener: (context, state) {
@@ -118,9 +116,6 @@ class _ChatBotViewState extends State<_ChatBotView> {
   }
 }
 
-// ─────────────────────────────────────────────────────────────────────────────
-// Individual message bubble wrapper
-// ─────────────────────────────────────────────────────────────────────────────
 class _MessageBubble extends StatelessWidget {
   const _MessageBubble({required this.message});
 

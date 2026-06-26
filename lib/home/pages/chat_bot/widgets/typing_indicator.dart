@@ -2,7 +2,6 @@ import '../../../../core/ui/app_color.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-/// Animated three-dot typing indicator shown while waiting for bot response
 class TypingIndicator extends StatefulWidget {
   const TypingIndicator({super.key});
 

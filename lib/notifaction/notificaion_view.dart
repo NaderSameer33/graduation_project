@@ -1,4 +1,3 @@
-
 import '../core/logic/api/api_service.dart';
 import 'widgets/notifaction_header.dart';
 import 'widgets/notifaction_list_view_item.dart';
@@ -33,11 +32,13 @@ class _NotificaionViewState extends State<NotificaionView> {
     } else {
       // Fallback to sample
       setState(() {
-        _notifications = List.generate(5, (i) => {
-          'title': 'تمرين تنفس جديد',
-          'body': 'ابدأ معنا الأن ',
-          'time': 'منذ دقيقة',
-        });
+        _notifications = List.generate(
+            5,
+            (i) => {
+                  'title': 'تمرين تنفس جديد',
+                  'body': 'ابدأ معنا الأن ',
+                  'time': 'منذ دقيقة',
+                });
         _isLoading = false;
       });
     }
@@ -74,8 +75,11 @@ class _NotificaionViewState extends State<NotificaionView> {
                             direction: DismissDirection.startToEnd,
                             key: UniqueKey(),
                             child: NotificationListViewItem(
-                              title: notif['title'] as String? ?? 'تمرين تنفس جديد',
-                              body: notif['body'] as String? ?? notif['message'] as String? ?? 'ابدأ معنا الأن ',
+                              title: notif['title'] as String? ??
+                                  'تمرين تنفس جديد',
+                              body: notif['body'] as String? ??
+                                  notif['message'] as String? ??
+                                  'ابدأ معنا الأن ',
                               time: notif['time'] as String? ?? 'منذ دقيقة',
                             ),
                           );

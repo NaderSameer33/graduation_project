@@ -15,7 +15,7 @@ class ProfileHeader extends StatefulWidget {
 }
 
 class _ProfileHeaderState extends State<ProfileHeader> {
-  String _userName = 'نادر سمير';
+  String _userName = ' نور الدين';
   Uint8List? _avatarBytes;
 
   @override

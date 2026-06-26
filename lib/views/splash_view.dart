@@ -43,7 +43,7 @@ class _SplashViewState extends State<SplashView>
 
     await Future.delayed(const Duration(seconds: 2), () {
       if (!mounted) return;
-      Navigator.pushNamed(context, AppRoutes.welcome);
+      Navigator.pushReplacementNamed(context, AppRoutes.welcome);
     });
   }
 

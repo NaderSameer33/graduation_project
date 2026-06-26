@@ -11,7 +11,6 @@ abstract class ChatBotState extends Equatable {
     this.activeSessionId,
   });
 
-  /// Helper getter to retrieve the current active session
   ChatSession? get activeSession {
     if (activeSessionId == null || sessions.isEmpty) return null;
     try {
@@ -21,7 +20,6 @@ abstract class ChatBotState extends Equatable {
     }
   }
 
-  /// Helper getter to retrieve current messages list
   List<ChatMessage> get messages => activeSession?.messages ?? const [];
 
   @override
@@ -33,11 +31,13 @@ class ChatBotInitial extends ChatBotState {
 }
 
 class ChatBotLoading extends ChatBotState {
-  const ChatBotLoading({required super.sessions, required super.activeSessionId});
+  const ChatBotLoading(
+      {required super.sessions, required super.activeSessionId});
 }
 
 class ChatBotLoaded extends ChatBotState {
-  const ChatBotLoaded({required super.sessions, required super.activeSessionId});
+  const ChatBotLoaded(
+      {required super.sessions, required super.activeSessionId});
 }
 
 class ChatBotError extends ChatBotState {

@@ -4,14 +4,6 @@ import 'package:workmanager/workmanager.dart';
 
 import 'challenge_notification_service.dart';
 
-// ─────────────────────────────────────────────
-//  ChallengeWorkmanagerService
-//  Registers a periodic background task that
-//  fires even when the app is fully dead.
-//  Works on Android only (iOS uses
-//  flutter_local_notifications scheduled notifs).
-// ─────────────────────────────────────────────
-
 const String _kTaskName = 'challengeReminderTask';
 const String _kTaskUniqueName = 'etmaen_challenge_daily_check';
 
@@ -68,9 +60,8 @@ class ChallengeWorkmanagerService {
       _kTaskName,
       // 15 min is Android's minimum allowed periodic interval.
       // Use Duration(hours: 24) for production behaviour.
-      frequency: kDebugMode
-          ? const Duration(minutes: 15)
-          : const Duration(hours: 24),
+      frequency:
+          kDebugMode ? const Duration(minutes: 15) : const Duration(hours: 24),
       initialDelay: const Duration(minutes: 1),
       constraints: Constraints(
         networkType: NetworkType.notRequired,

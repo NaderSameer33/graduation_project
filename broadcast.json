@@ -1,0 +1,242 @@
+[
+    {
+        "id": 1,
+        "title": "DEPRESSION // الاكتئاب - أعراضه وعلاجه",
+        "description": "شرح شامل لأعراض الاكتئاب الخفيف والمتوسط وطرق العلاج من قناة Dr SMART team.",
+        "condition_id": 1,
+        "img": "https://img.youtube.com/vi/igIdKdjU5WE/hqdefault.jpg",
+        "url": "https://www.youtube.com/watch?v=igIdKdjU5WE"
+    },
+    {
+        "id": 2,
+        "title": "المشاعر السلبية: كيف يؤدي القلق إلى الاكتئاب | بودكاست أروقة",
+        "description": "نقاش مع د. عاصم العقيل حول علاقة القلق بالاكتئاب وكيفية التعامل.",
+        "condition_id": 1,
+        "img": "https://img.youtube.com/vi/WceamUIBVK8/hqdefault.jpg",
+        "url": "https://www.youtube.com/watch?v=WceamUIBVK8"
+    },
+    {
+        "id": 3,
+        "title": "عن الاكتئاب و التعافي و اصلاح العلاقة مع النفس | د.محمد ابراهيم",
+        "description": "بودكاست عقلية عن الاكتئاب والتعافي النفسي.",
+        "condition_id": 1,
+        "img": "https://img.youtube.com/vi/bOr-QcW3VfQ/hqdefault.jpg",
+        "url": "https://www.youtube.com/watch?v=bOr-QcW3VfQ"
+    },
+    {
+        "id": 4,
+        "title": "هل يكفي الإيمان؟ أم نحتاج للعلاج النفسي؟ | بودكاست Sat7",
+        "description": "مناقشة الصحة النفسية والاكتئاب مع الجانب الروحي.",
+        "condition_id": 1,
+        "img": "https://img.youtube.com/vi/9agRqDr4J4A/hqdefault.jpg",
+        "url": "https://www.youtube.com/watch?v=9agRqDr4J4A"
+    },
+    {
+        "id": 5,
+        "title": "اضطراب التوتر والقلق // العلامات والأعراض والعلاج",
+        "description": "شرح علمي لأعراض القلق وطرق العلاج من Dr SMART team.",
+        "condition_id": 2,
+        "img": "https://img.youtube.com/vi/0mawZ0r-kmM/hqdefault.jpg",
+        "url": "https://www.youtube.com/watch?v=0mawZ0r-kmM"
+    },
+    {
+        "id": 6,
+        "title": "هل تعاني من القلق | بودكاست فنجان",
+        "description": "حلقة شاملة عن القلق وأسبابه وتأثيره من إذاعة ثمانية.",
+        "condition_id": 2,
+        "img": "https://img.youtube.com/vi/gtUoblGRmmc/hqdefault.jpg",
+        "url": "https://www.youtube.com/watch?v=gtUoblGRmmc"
+    },
+    {
+        "id": 7,
+        "title": "تغلب على القلق النفسي بـ 10 وسائل عملية",
+        "description": "نصائح عملية للتعامل مع القلق والتوتر.",
+        "condition_id": 2,
+        "img": "https://img.youtube.com/vi/w87lxM_PuJU/hqdefault.jpg",
+        "url": "https://www.youtube.com/watch?v=w87lxM_PuJU"
+    },
+    {
+        "id": 8,
+        "title": "كيف تتخلص من القلق وتستمتع بالحياة؟",
+        "description": "مناقشة تحول القلق إلى حاجز وكيفية التغلب عليه.",
+        "condition_id": 2,
+        "img": "https://img.youtube.com/vi/IbV_TucY3Go/hqdefault.jpg",
+        "url": "https://www.youtube.com/watch?v=IbV_TucY3Go"
+    },
+    {
+        "id": 9,
+        "title": "كيف تتخلص من التوتر والقلق ! د. طارق العصيمي",
+        "description": "علم النفس الإيجابي وإدارة التوتر.",
+        "condition_id": 2,
+        "img": "https://img.youtube.com/vi/qrU7qJZkOMc/hqdefault.jpg",
+        "url": "https://www.youtube.com/watch?v=qrU7qJZkOMc"
+    },
+    {
+        "id": 10,
+        "title": "الاحتراق النفسي (Burnout): الأسباب والعلاج | بودكاست SAT-7",
+        "description": "حلقة متخصصة عن أسباب الاحتراق النفسي وعلاجه.",
+        "condition_id": 3,
+        "img": "https://img.youtube.com/vi/pRmyyPXUS9o/hqdefault.jpg",
+        "url": "https://www.youtube.com/watch?v=pRmyyPXUS9o"
+    },
+    {
+        "id": 11,
+        "title": "كيف نحمي أنفسنا من الاحتراق النفسي؟ | بودكاست مشاعر",
+        "description": "نقاش حول الاحتراق النفسي وسلوكيات الحفاظ على الصحة النفسية.",
+        "condition_id": 3,
+        "img": "https://img.youtube.com/vi/kCZ4fS4mEBM/hqdefault.jpg",
+        "url": "https://www.youtube.com/watch?v=kCZ4fS4mEBM"
+    },
+    {
+        "id": 12,
+        "title": "القاتل الصامت ، حلقة الاحتراق النفسي",
+        "description": "شرح مراحل الاحتراق النفسي وكيفية الحماية.",
+        "condition_id": 3,
+        "img": "https://img.youtube.com/vi/ZPvayFD_bbw/hqdefault.jpg",
+        "url": "https://www.youtube.com/watch?v=ZPvayFD_bbw"
+    },
+    {
+        "id": 13,
+        "title": "ليه دايما تعبان ؟ ٥ مراحل لهذا الاحتراق النفسي",
+        "description": "تحليل مراحل Burnout وأعراضه.",
+        "condition_id": 3,
+        "img": "https://img.youtube.com/vi/RiUxxIvDctk/hqdefault.jpg",
+        "url": "https://www.youtube.com/watch?v=RiUxxIvDctk"
+    },
+    {
+        "id": 14,
+        "title": "كيف تتخلص من التفكير الزائد والقلق ؟ | بودكاست طمئن",
+        "description": "علامات التفكير الزائد وحلول عملية.",
+        "condition_id": 4,
+        "img": "https://img.youtube.com/vi/YoZ2s8jMeYA/hqdefault.jpg",
+        "url": "https://www.youtube.com/watch?v=YoZ2s8jMeYA"
+    },
+    {
+        "id": 15,
+        "title": "كيف نتعامل مع الأفكار السلبية؟ بودكاست مشاعر",
+        "description": "التفكير الحدي، التضخيم، والتعامل مع الأفكار السلبية.",
+        "condition_id": 4,
+        "img": "https://img.youtube.com/vi/gO5fFQxSiRY/hqdefault.jpg",
+        "url": "https://www.youtube.com/watch?v=gO5fFQxSiRY"
+    },
+    {
+        "id": 16,
+        "title": "علاج التفكير المفرط overthinking",
+        "description": "حلول عملية للتفكير الزائد من حتة حكمة.",
+        "condition_id": 4,
+        "img": "https://img.youtube.com/vi/l-A7YtGq3Ak/hqdefault.jpg",
+        "url": "https://www.youtube.com/watch?v=l-A7YtGq3Ak"
+    },
+    {
+        "id": 17,
+        "title": "خطوات عملية لتهذيب التفكير الزائد والقلق والوساوس",
+        "description": "بناء الهدوء خطوة بخطوة.",
+        "condition_id": 4,
+        "img": "https://img.youtube.com/vi/GRCkJf0Y0Ww/hqdefault.jpg",
+        "url": "https://www.youtube.com/watch?v=GRCkJf0Y0Ww"
+    },
+    {
+        "id": 18,
+        "title": "إن كنت في حالة قلق وتوتر نفسي.. اسمع هذه الدقائق",
+        "description": "نصائح سريعة للطمأنينة والتخلص من التوتر.",
+        "condition_id": 2,
+        "img": "https://img.youtube.com/vi/V62LZkj9yCc/hqdefault.jpg",
+        "url": "https://www.youtube.com/watch?v=V62LZkj9yCc"
+    },
+    {
+        "id": 19,
+        "title": "كيف اتخلص من التفكير السلبي الزائد والقلق والخوف",
+        "description": "دليل شامل للتخلص من Overthinking.",
+        "condition_id": 4,
+        "img": "https://img.youtube.com/vi/fVsOLRFfVn8/hqdefault.jpg",
+        "url": "https://www.youtube.com/watch?v=fVsOLRFfVn8"
+    },
+    {
+        "id": 20,
+        "title": "الوسواس القهري والقلق | العلاج النفسي",
+        "description": "مناقشة الوسواس والقلق مع متخصص.",
+        "condition_id": 2,
+        "img": "https://img.youtube.com/vi/IXIs4_7uSZA/hqdefault.jpg",
+        "url": "https://www.youtube.com/watch?v=IXIs4_7uSZA"
+    },
+    {
+        "id": 21,
+        "title": "شبكات | وداعا للقلق والتوتر.. ما قصة حقيبة القلق؟",
+        "description": "حلقة عن إدارة القلق من الجزيرة.",
+        "condition_id": 2,
+        "img": "https://img.youtube.com/vi/8EicAvJq3LI/hqdefault.jpg",
+        "url": "https://www.youtube.com/watch?v=8EicAvJq3LI"
+    },
+    {
+        "id": 22,
+        "title": "ما يحدث لجسمك عند المشي يوميا؟ (يشمل علاج القلق والاكتئاب)",
+        "description": "فوائد المشي للصحة النفسية.",
+        "condition_id": 1,
+        "img": "https://img.youtube.com/vi/R_xVdtvM6g0/hqdefault.jpg",
+        "url": "https://www.youtube.com/watch?v=R_xVdtvM6g0"
+    },
+    {
+        "id": 23,
+        "title": "تعرفوا على متلازمة الاحتراق النفسي وكيفية معالجته",
+        "description": "شرح Burnout وطرق العلاج.",
+        "condition_id": 3,
+        "img": "https://img.youtube.com/vi/rztqtzD4uyo/hqdefault.jpg",
+        "url": "https://www.youtube.com/watch?v=rztqtzD4uyo"
+    },
+    {
+        "id": 24,
+        "title": "هل التفكير الزائد مرض نفسي ؟...وكيف يمكن التحكم به",
+        "description": "نقاش مع متخصصة عن Overthinking.",
+        "condition_id": 4,
+        "img": "https://img.youtube.com/vi/7FhY9LmXjsE/hqdefault.jpg",
+        "url": "https://www.youtube.com/watch?v=7FhY9LmXjsE"
+    },
+    {
+        "id": 25,
+        "title": "تتبع النفس بيساعدك تتجنب الوقوع في الاكتئاب",
+        "description": "نصائح وقائية من الاكتئاب.",
+        "condition_id": 1,
+        "img": "https://img.youtube.com/vi/CxoH9x2MUnQ/hqdefault.jpg",
+        "url": "https://www.youtube.com/watch?v=CxoH9x2MUnQ"
+    },
+    {
+        "id": 26,
+        "title": "ازاي اعالج حالة الاحتراق النفسي",
+        "description": "حلول عملية لـ Burnout.",
+        "condition_id": 3,
+        "img": "https://img.youtube.com/vi/ihVBm8njXJk/hqdefault.jpg",
+        "url": "https://www.youtube.com/watch?v=ihVBm8njXJk"
+    },
+    {
+        "id": 27,
+        "title": "كيف نحمي أنفسنا من الاحتراق النفسي",
+        "description": "مزيد من النصائح حول الوقاية.",
+        "condition_id": 3,
+        "img": "https://img.youtube.com/vi/kCZ4fS4mEBM/hqdefault.jpg",
+        "url": "https://www.youtube.com/watch?v=kCZ4fS4mEBM"
+    },
+    {
+        "id": 28,
+        "title": "ليه دماغك مش بتسكت ؟ التفكير الزائد",
+        "description": "حلول لـ Overthinking.",
+        "condition_id": 4,
+        "img": "https://img.youtube.com/vi/yzQhFUboFUM/hqdefault.jpg",
+        "url": "https://www.youtube.com/watch?v=yzQhFUboFUM"
+    },
+    {
+        "id": 29,
+        "title": "الصحة النفسية والروحية: الاكتئاب والقلق",
+        "description": "من SAT-7، دمج الجانب النفسي والروحي.",
+        "condition_id": 1,
+        "img": "https://img.youtube.com/vi/9agRqDr4J4A/hqdefault.jpg",
+        "url": "https://www.youtube.com/watch?v=9agRqDr4J4A"
+    },
+    {
+        "id": 30,
+        "title": "خطوات لعلاج الارق والتوتر المرتبط بالاكتئاب",
+        "description": "ارتباط النوم بالصحة النفسية.",
+        "condition_id": 1,
+        "img": "https://img.youtube.com/vi/c5VrR792tAQ/hqdefault.jpg",
+        "url": "https://www.youtube.com/watch?v=c5VrR792tAQ"
+    }
+]
